@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
+const serviceRoutes = require("./BBVAS/UnsubscribeAdvancedReports/routes/serviceRoutes")
 // const accountRoutes = require('./routes/account.routes');
 
 // Middleware
@@ -9,6 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/tmf-api/promotionManagement/v4/promotion', promotionRoutes);
+app.use('/tmf-api/ServiceActivationAndConfiguration/v4', serviceRoutes);
 // app.use('/api/Account', accountRoutes);
 
 // Health check
