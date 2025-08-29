@@ -1,19 +1,27 @@
 const express = require('express');
+const connectDB = require('./config/db');
+const promotionRoutes = require('./BBVAS/FreeData/routes/promotionRoutes.js');
+
 const app = express();
-const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
-// const accountRoutes = require('./routes/account.routes');
 
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// DB Connection
+connectDB();
+
 // Routes
 app.use('/tmf-api/promotionManagement/v4/promotion', promotionRoutes);
-// app.use('/api/Account', accountRoutes);
 
 // Health check
 app.get('/', (req, res) => {
-  res.send('Omini API Server is running ✅');
+  res.send('🚀 Omni API Server is running ✅');
+});
+
+// Handle 404
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
 });
 
 module.exports = app;
