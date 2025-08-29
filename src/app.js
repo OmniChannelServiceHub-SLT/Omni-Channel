@@ -1,19 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
-const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
-// const accountRoutes = require('./routes/account.routes');
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use(express.json()); // Replaces body-parser.json()
 
 // Routes
-app.use('/tmf-api/promotionManagement/v4/promotion', promotionRoutes);
-// app.use('/api/Account', accountRoutes);
+app.use('/tmf-api/productOrdering/v4', require('./BBVAS/DataGiftEnroll/routes/dataGiftEnroll.routes'));
 
-// Health check
-app.get('/', (req, res) => {
-  res.send('Omini API Server is running ✅');
-});
-
-module.exports = app;
+module.exports = app; // Export the Express app
