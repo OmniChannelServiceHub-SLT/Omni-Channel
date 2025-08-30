@@ -10,7 +10,6 @@ connectDB();
 
 const app = express();
 
-const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const serviceRoutes = require("./BBVAS/UnsubscribeAdvancedReports/routes/serviceRoutes")
 const vasRoutes = require('./BBVAS/AddVASDataBundlePrepaidInit/routes/vasDataBundle.routes.js');
 // const accountRoutes = require('./routes/account.routes');
@@ -21,7 +20,6 @@ app.use(express.json());
 
 // Routes
 app.use("/", vasRoutes);
-app.use('/tmf-api/promotionManagement/v4/promotion', promotionRoutes);
 app.use('/tmf-api/ServiceActivationAndConfiguration/v4', serviceRoutes);
 // app.use('/api/Account', accountRoutes);
 
