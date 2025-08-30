@@ -1,1 +1,0 @@
-// request - https://omnitest.slt.com.lk/api/AccountOMNI/GetAccountDetailRequest?username=0715364923
