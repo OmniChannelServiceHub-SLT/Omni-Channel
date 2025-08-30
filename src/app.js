@@ -5,9 +5,6 @@ const connectDB = require("./config/db");
 
 dotenv.config();
 
-// Connect DB
-connectDB();
-
 const app = express();
 
 const serviceRoutes = require("./BBVAS/UnsubscribeAdvancedReports/routes/serviceRoutes")
