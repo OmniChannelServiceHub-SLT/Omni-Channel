@@ -1,12 +1,37 @@
 const mongoose = require("mongoose");
 
+const usageCharacteristicSchema = new mongoose.Schema({
+  name: String,
+  value: mongoose.Schema.Types.Mixed,
+  valueType: String,
+});
+
+const relatedPartySchema = new mongoose.Schema({
+  id: String,
+  href: String,
+  role: String,
+  name: String,
+  "@referredType": String,
+});
+
 const usageSchema = new mongoose.Schema({
+  _id: { type: String, required: true }, // string id
   usageDate: { type: Date, default: Date.now },
-  description: String,
-  usageType: String,
+  description: { type: String, required: true },
+  usageType: { type: String, required: true },
   status: { type: String, default: "received" },
-  volume: Number,
-  unit: String,
+  usageCharacteristic: [usageCharacteristicSchema],
+  relatedParty: [relatedPartySchema],
+  usageSpecification: {
+    id: { type: String, default: "spec-001" },
+    href: {
+      type: String,
+      default:
+        "http://localhost:5000/tmf-api/usageManagement/v4/usageSpecification/spec-001",
+    },
+    name: { type: String, default: "UsageSummarySpec" },
+    "@referredType": { type: String, default: "UsageSpecification" },
+  },
 });
 
 usageSchema.methods.toTMF635 = function () {
@@ -17,16 +42,19 @@ usageSchema.methods.toTMF635 = function () {
     description: this.description,
     usageType: this.usageType,
     status: this.status,
-    usageCharacteristic: [
-      { name: "volume", value: this.volume, valueType: "number" },
-      { name: "unit", value: this.unit, valueType: "string" },
-    ],
-    usageSpecification: {
-      id: "spec-001",
-      href: "http://localhost:5000/tmf-api/usageManagement/v4/usageSpecification/spec-001",
-      name: "UsageSummarySpec",
-      "@referredType": "UsageSpecification",
-    },
+    usageCharacteristic: this.usageCharacteristic?.map((uc) => ({
+      name: uc.name,
+      value: uc.value,
+      valueType: uc.valueType,
+    })),
+    relatedParty: this.relatedParty?.map((rp) => ({
+      id: rp.id,
+      href: rp.href,
+      role: rp.role,
+      name: rp.name,
+      "@referredType": rp["@referredType"],
+    })),
+    usageSpecification: this.usageSpecification,
   };
 };
 

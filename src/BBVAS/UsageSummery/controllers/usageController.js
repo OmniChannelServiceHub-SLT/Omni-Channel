@@ -1,12 +1,16 @@
 const Usage = require("../models/usageModel");
+const { nanoid } = require("nanoid");
 
-exports.retrieveUsage = async (req, res) => {
+exports.getUsageSummary = async (req, res) => {
   try {
-    const usage = await Usage.findById(req.params.id);
-    if (!usage) return res.status(404).json({ message: "Usage not found" });
+    const { id } = req.query;
+    if (!id) return res.status(400).json({ error: "id is required" });
 
-    res.status(200).json(usage.toTMF635());
+    const usage = await Usage.findById(id);
+    if (!usage) return res.status(404).json({ error: "Usage not found", id });
+
+    return res.status(200).json(usage.toTMF635());
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
