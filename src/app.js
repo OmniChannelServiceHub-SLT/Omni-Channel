@@ -21,11 +21,7 @@ app.use(express.json());
 // Routes
 app.use("/", vasRoutes);
 app.use('/tmf-api/ServiceActivationAndConfiguration/v4', serviceRoutes);
+app.use('/tmf-api/productOrdering/v4', require('./BBVAS/DataGiftEnroll/routes/dataGiftEnroll.routes'));
 // app.use('/api/Account', accountRoutes);
 
-// Health check
-app.get('/', (req, res) => {
-  res.send('Omini API Server is running ✅');
-});
-
-module.exports = app;
+module.exports = app; // Export the Express app
