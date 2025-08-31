@@ -1,19 +1,17 @@
 const express = require('express');
 const app = express();
-const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
-// const accountRoutes = require('./routes/account.routes');
 
-// Middleware
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-// Routes
-app.use('/tmf-api/promotionManagement/v4/promotion', promotionRoutes);
-// app.use('/api/Account', accountRoutes);
+// Import routes
+const advancedReportingPackageRoutes = require('./BBVAS/GetAdvancedReportingPackage/routes/advancedReportingPackage.routes');
 
-// Health check
+// TMF-aligned base path
+app.use('/tmf-api/reportManagement/v5', advancedReportingPackageRoutes);
+
+// Health check endpoint
 app.get('/', (req, res) => {
-  res.send('Omini API Server is running ✅');
+  res.send('✅ Omni-Channel Report Management API is running');
 });
 
 module.exports = app;
