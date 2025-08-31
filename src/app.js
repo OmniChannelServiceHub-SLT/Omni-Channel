@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const usageRoutes = require("./src/BBVAS/UsageSummery/routes/usageRoutes");
+const usageRoutes = require("./BBVAS/UsageSummery/routes/usageRoutes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
