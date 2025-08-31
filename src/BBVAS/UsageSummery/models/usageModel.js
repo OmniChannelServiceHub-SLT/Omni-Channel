@@ -27,7 +27,7 @@ const usageSchema = new mongoose.Schema({
     href: {
       type: String,
       default:
-        "http://localhost:5000/tmf-api/usageManagement/v4/usageSpecification/spec-001",
+        "http://localhost:3000/tmf-api/usageManagement/v4/usageSpecification/spec-001",
     },
     name: { type: String, default: "UsageSummarySpec" },
     "@referredType": { type: String, default: "UsageSpecification" },
@@ -37,7 +37,7 @@ const usageSchema = new mongoose.Schema({
 usageSchema.methods.toTMF635 = function () {
   return {
     id: this._id,
-    href: `http://localhost:5000/tmf-api/usageManagement/v4/usage/${this._id}`,
+    href: `http://localhost:3000/tmf-api/usageManagement/v4/usage/${this._id}`,
     usageDate: this.usageDate,
     description: this.description,
     usageType: this.usageType,
