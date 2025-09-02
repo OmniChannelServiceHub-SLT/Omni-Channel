@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const usageController = require("../controllers/usageController");
 
-router.get(
-  "/BBVAS/PreviousMonthsDailyUsage",
-  usageController.getPreviousMonthsDailyUsage
-);
+router.get("/usage", usageController.getPreviousMonthsDailyUsage);
 
 module.exports = router;
