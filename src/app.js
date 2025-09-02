@@ -9,6 +9,7 @@ const serviceRoutes = require("./BBVAS/UnsubscribeAdvancedReports/routes/service
 const vasRoutes = require('./BBVAS/AddVASDataBundlePrepaidInit/routes/vasDataBundle.routes.js');
 const promotionRoutes = require('./BBVAS/FreeData/routes/promotionRoutes.js');
 const contactRoutes = require("./BBVAS/PUTUpdateContact/routes/contact.routes");
+const reportTimePeriodRoutes = require('./BBVAS/GetReportTimePeriod/routes/reportTimePeriod.routes');
 // const accountRoutes = require('./routes/account.routes');
 
 // Middleware
@@ -27,8 +28,10 @@ app.use('/tmf-api/productOrdering/v4', require('./BBVAS/DataGiftEnroll/routes/da
 app.use('/tmf-api/promotionManagement/v4/promotion', promotionRoutes);
 app.use('/tmf-api/usageManagement/v4', usageRoutes);
 app.use("/tmf-api", contactRoutes);
+app.use('/tmf-api/reportManagement/v5', reportTimePeriodRoutes);
 // app.use('/api/Account', accountRoutes);
 
 module.exports = app; // Export the Express app
+
 
 
