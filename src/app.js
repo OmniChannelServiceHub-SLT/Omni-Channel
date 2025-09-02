@@ -8,6 +8,7 @@ const usageRoutes = require('./BBVAS/WeeksUsage/routes/usageRoutes');
 const serviceRoutes = require("./BBVAS/UnsubscribeAdvancedReports/routes/serviceRoutes");
 const vasRoutes = require('./BBVAS/AddVASDataBundlePrepaidInit/routes/vasDataBundle.routes.js');
 const promotionRoutes = require('./BBVAS/FreeData/routes/promotionRoutes.js');
+const contactRoutes = require("./BBVAS/PUTUpdateContact/routes/contact.routes");
 // const accountRoutes = require('./routes/account.routes');
 
 // Middleware
@@ -25,7 +26,9 @@ app.use('/tmf-api/ServiceActivationAndConfiguration/v4', serviceRoutes);
 app.use('/tmf-api/productOrdering/v4', require('./BBVAS/DataGiftEnroll/routes/dataGiftEnroll.routes'));
 app.use('/tmf-api/promotionManagement/v4/promotion', promotionRoutes);
 app.use('/tmf-api/usageManagement/v4', usageRoutes);
+app.use("/tmf-api", contactRoutes);
 // app.use('/api/Account', accountRoutes);
 
 module.exports = app; // Export the Express app
+
 
