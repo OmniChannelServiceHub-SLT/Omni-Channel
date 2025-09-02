@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
-app.use("/tmf-api/usageManagement/v4", usageRoutes);
+app.use("/tmf-api/usageManagement/v4/PreviousMonth", usageRoutes);
 // app.use('/api/Account', accountRoutes);
 
 app.get("/", (req, res) => {
