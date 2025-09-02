@@ -1,33 +1,69 @@
 const mongoose = require("mongoose");
 
-const usageSchema = new mongoose.Schema({
-  usageDate: { type: Date, default: Date.now },
-  description: String,
-  usageType: String,
-  status: { type: String, default: "received" },
-  volume: Number,
-  unit: String,
+const usageCharacteristicSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  value: { type: mongoose.Schema.Types.Mixed, required: true },
+  valueType: { type: String },
 });
 
-usageSchema.methods.toTMF635 = function () {
-  return {
-    id: this._id,
-    href: `http://localhost:5000/tmf-api/usageManagement/v4/usage/${this._id}`,
-    usageDate: this.usageDate,
-    description: this.description,
-    usageType: this.usageType,
-    status: this.status,
-    usageCharacteristic: [
-      { name: "volume", value: this.volume, valueType: "number" },
-      { name: "unit", value: this.unit, valueType: "string" },
-    ],
-    usageSpecification: {
-      id: "spec-001",
-      href: "http://localhost:5000/tmf-api/usageManagement/v4/usageSpecification/spec-001",
-      name: "UsageSummarySpec",
-      "@referredType": "UsageSpecification",
+const relatedPartySchema = new mongoose.Schema({
+  id: { type: String, required: true },
+  href: { type: String },
+  role: { type: String, required: true },
+  name: { type: String },
+  "@referredType": { type: String },
+});
+
+const usageSpecificationSchema = new mongoose.Schema({
+  id: { type: String },
+  href: { type: String },
+  name: { type: String },
+  version: { type: String },
+});
+
+const usageSchema = new mongoose.Schema(
+  {
+    id: { type: String, required: true },
+    href: {
+      type: String,
+      default: function () {
+        return `http://localhost:5000/tmf-api/usageManagement/v4/usage/${this.id}`;
+      },
     },
-  };
-};
+    description: { type: String },
+    status: {
+      type: String,
+      enum: ["received", "processed", "rejected", "pending"],
+      default: "received",
+    },
+    usageDate: { type: Date, required: true },
+    usageType: { type: String },
+    usageCharacteristic: [usageCharacteristicSchema],
+    usageSpecification: usageSpecificationSchema,
+    relatedParty: [relatedPartySchema],
+    isBilled: { type: Boolean, default: false },
+    ratingAmount: { type: Number, default: 0 },
+    ratedProductRef: {
+      id: { type: String },
+      href: { type: String },
+      name: { type: String },
+    },
+    relatedUsage: [
+      {
+        id: { type: String },
+        href: { type: String },
+      },
+    ],
+    "@type": { type: String, default: "Usage" },
+    "@baseType": { type: String, default: "Entity" },
+    "@schemaLocation": {
+      type: String,
+      default: function () {
+        return `http://localhost:5000/tmf-api/usageManagement/v4/usage/${this.id}`;
+      },
+    },
+  },
+  { timestamps: true }
+);
 
 module.exports = mongoose.model("Usage", usageSchema);
