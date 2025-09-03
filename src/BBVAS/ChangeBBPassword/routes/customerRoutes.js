@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { changePassword } = require("../controllers/customerController");
-const validatePasswordChange = require("../middleware/authMiddleware");
+const { requestPasswordChange, changePassword } = require("../controllers/customerController");
+const { protect } = require("../middleware/authMiddleware");
 
-// PUT /change-password
-router.put("/change-password", validatePasswordChange, changePassword);
+// Step 1: Request password change (verify customer + issue JWT)
+router.post("/tmf-api/customerManagement/v5/customer/requestPasswordChange", requestPasswordChange);
 
-// Test route to confirm router is loaded
-router.put("/test", (req, res) => {
-  res.send("Customer route PUT works ✅");
-});
+// Step 2: Change password (JWT required, TMF-629 aligned)
+router.put("/tmf-api/customerManagement/v5/customer/:id/changePassword", protect, changePassword);
 
 module.exports = router;

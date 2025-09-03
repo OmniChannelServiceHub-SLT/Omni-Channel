@@ -1,54 +1,87 @@
-// src/BBVAS/ChangeBBPassword/controllers/customerController.js
-const { MongoClient } = require("mongodb");
+const Customer = require("../models/Customer");
 const bcrypt = require("bcryptjs");
-const path = require("path");
+const jwt = require("jsonwebtoken");
 
-require("dotenv").config({ path: path.resolve(__dirname, "../../.env") });
+// Generate JWT token
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "15m", // short expiry for password change
+  });
+};
 
-const uri = process.env.MONGO_URI;
-const dbName = process.env.MONGO_DB || "customerDB";
+// Step 1: Request password change (verify + issue JWT)
+exports.requestPasswordChange = async (req, res) => {
+  const { subscriberID, currentPassword } = req.body;
 
-if (!uri) {
-  throw new Error("MONGO_URI not set in .env");
-}
-
-exports.changePassword = async (req, res) => {
-  const { email, oldPassword, newPassword } = req.body;
+  if (!subscriberID || !currentPassword) {
+    return res
+      .status(400)
+      .json({ message: "subscriberID and currentPassword are required" });
+  }
 
   try {
-    const client = new MongoClient(uri, {
-      ssl: true,
-      tlsAllowInvalidCertificates: true,
-    });
-
-    await client.connect();
-    const db = client.db(dbName);
-    const customers = db.collection("customers");
-
-    const customer = await customers.findOne({ email });
+    const customer = await Customer.findOne({ subscriberID });
     if (!customer) {
-      await client.close();
       return res.status(404).json({ message: "Customer not found" });
     }
 
-    if (oldPassword) {
-      const isMatch = await bcrypt.compare(oldPassword, customer.password);
-      if (!isMatch) {
-        await client.close();
-        return res.status(401).json({ message: "Old password is incorrect" });
-      }
+    const isMatch = await customer.matchPassword(currentPassword);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS) || 10;
-    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+    // Generate a short-lived JWT
+    const token = generateToken(customer._id);
 
-    await customers.updateOne({ email }, { $set: { password: hashedPassword } });
-
-    await client.close();
-    res.json({ message: "Password updated successfully" });
-
+    res.status(200).json({
+      id: customer._id,
+      subscriberID: customer.subscriberID,
+      token,
+      status: "verification_success",
+      message:
+        "Verification successful. Use this token to call changePassword endpoint.",
+    });
   } catch (error) {
-    console.error("Error changing password:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+// Step 2: Change password (JWT required, TMF-629 aligned)
+exports.changePassword = async (req, res) => {
+  const { id } = req.params; // MongoDB _id
+  const { newPassword } = req.body;
+
+  if (!newPassword) {
+    return res.status(400).json({ message: "newPassword is required" });
+  }
+
+  try {
+    const customer = await Customer.findById(id);
+
+    if (!customer) {
+      return res.status(404).json({ message: "Customer not found" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    customer.password = await bcrypt.hash(newPassword, salt);
+
+    await customer.save();
+
+    res.status(200).json({
+      id: customer._id,
+      href: `${req.protocol}://${req.get(
+        "host"
+      )}/tmf-api/customerManagement/v5/customer/${customer._id}`,
+      status: "updated",
+      message: "Password updated successfully",
+      relatedParty: {
+        id: customer.subscriberID,
+        role: "subscriber",
+        name: customer.username,
+        "@referredType": "Individual",
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 };

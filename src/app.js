@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/tmf-api/promotionManagement/v4/promotion', promotionRoutes);
 app.use('/tmf-api/usageManagement/v4/usage', enhancedCurrentDailyUsageRoutes);
-app.use("/tmf-api/customerManagement/v5/customer", customerRoutes);
+app.use("/tmf-api/customerManagement/v5", customerRoutes);
 app.use("/tmf-api/productOrdering/v4/productOrder", productOrderRoutes);
 // app.use('/api/Account', accountRoutes);
 
