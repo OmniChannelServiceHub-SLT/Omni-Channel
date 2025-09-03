@@ -1,12 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const { requestPasswordChange, changeBBPassword } = require("../controllers/customerController");
-const auth = require("../middleware/authMiddleware");
+const { changePassword } = require("../controllers/customerController");
+const validatePasswordChange = require("../middleware/authMiddleware");
 
-// Step 1: Verify customer → return short-lived JWT
-router.post("/requestPasswordChange", requestPasswordChange);
+// PUT /change-password
+router.put("/change-password", validatePasswordChange, changePassword);
 
-// Step 2: Change password (requires Bearer token in header + query params)
-router.put("/customer/:id/changeBBPassword", auth, changeBBPassword);
+// Test route to confirm router is loaded
+router.put("/test", (req, res) => {
+  res.send("Customer route PUT works ✅");
+});
 
 module.exports = router;

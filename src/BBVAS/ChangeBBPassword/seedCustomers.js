@@ -1,37 +1,70 @@
-// seedCustomers.js
-const { MongoClient } = require("mongodb");
+// 1️⃣ Load environment variables from project root
+const path = require("path");
 
+// Adjust the path exactly to your project root .env
+const dotenvPath = path.join(__dirname, "..", "..", "..", ".env");
+console.log("Looking for .env at:", dotenvPath);
+
+require("dotenv").config({ path: dotenvPath });
+
+// 2️⃣ Confirm environment variables
+console.log("Loaded MONGO_URI:", process.env.MONGO_URI);
+console.log("Loaded MONGO_DB:", process.env.MONGO_DB);
+
+const { MongoClient } = require("mongodb");
+const bcrypt = require("bcryptjs");
+
+// 3️⃣ Seed function
 async function seed() {
-  const uri = "mongodb+srv://geethaanjaleeci:1234@cluster0.svprmrj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"; // your DB URI
-  const client = new MongoClient(uri);
+  const uri = process.env.MONGO_URI;
+  const dbName = process.env.MONGO_DB || "customerDB";
+  const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS) || 10;
+
+  if (!uri) {
+    throw new Error("❌ MONGO_URI is undefined. Check your .env file!");
+  }
+
+  const client = new MongoClient(uri, {
+    ssl: true,
+    tlsAllowInvalidCertificates: true,
+  });
 
   try {
     await client.connect();
-    const db = client.db("customerDB"); // replace with your DB name
+    console.log("✅ Connected to MongoDB");
+
+    const db = client.db(dbName);
     const customers = db.collection("customers");
 
-    // Clean existing data
-    await customers.deleteMany({});
-
-    // Insert one seed customer
-    const result = await customers.insertOne({
-      "@type": "Customer",
-      id: "CEN2431747",  
-      name: "Mary Doe",
-      engagedParty: {
-        "@type": "PartyRef",
-        id: "502",
-        href: "https://host:port/tmf-api/partyManagement/v5/organization/502",
-        name: "Another Travellers",
-        "@referredType": "Organization"
+    // Example seed data
+    const seedData = [
+      {
+        name: "John Doe",
+        email: "john@example.com",
+        password: await bcrypt.hash("password123", saltRounds),
       },
-      password: "oldPassword123"
-    });
+      {
+        name: "Jane Smith",
+        email: "jane@example.com",
+        password: await bcrypt.hash("mypassword", saltRounds),
+      },
+    ];
 
-    console.log("Seeded customer:", result.insertedId);
+    // Clear existing data
+    await customers.deleteMany({});
+    console.log("🧹 Cleared existing customers");
+
+    // Insert seed data
+    const result = await customers.insertMany(seedData);
+    console.log(`✅ Inserted ${result.insertedCount} customers`);
+
+  } catch (error) {
+    console.error("❌ MongoDB error:", error);
   } finally {
     await client.close();
+    console.log("🔒 Connection closed");
   }
 }
 
+// 4️⃣ Run seed
 seed();
