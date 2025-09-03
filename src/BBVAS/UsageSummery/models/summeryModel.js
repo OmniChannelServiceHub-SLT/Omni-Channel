@@ -58,4 +58,4 @@ usageSchema.methods.toTMF635 = function () {
   };
 };
 
-module.exports = mongoose.model("Usage", usageSchema);
+module.exports = mongoose.model("Summery", usageSchema);
