@@ -5,12 +5,10 @@ const connectDB = require("./config/db");
 const app = express();
 
 // Import Routes
-const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
+// const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const enhancedCurrentDailyUsageRoutes = require('./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes');
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
 const productOrderRoutes = require("./BBVAS/VASBundleUnsubscription/routes/productOrderRoutes");
-
-
 const usageRoutes = require("./BBVAS/WeeksUsage/routes/usageRoutes");
 const serviceRoutes = require("./BBVAS/UnsubscribeAdvancedReports/routes/serviceRoutes");
 const summeryRoutes = require("./BBVAS/UsageSummery/routes/usageRoutes.js");
@@ -19,6 +17,7 @@ const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes
 const contactRoutes = require("./BBVAS/PUTUpdateContact/routes/contact.routes");
 const reportTimePeriodRoutes = require("./BBVAS/GetReportTimePeriod/routes/reportTimePeriod.routes");
 const advancedReportingPackageRoutes = require("./BBVAS/GetAdvancedReportingPackage/routes/advancedReportingPackage.routes");
+const DataBundlePostpaidRoutes = require("./BBVAS/AddVASDataBundlePostPaidV2/routes/addVASDataBundlePostPaidRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
 
 // Middleware
@@ -42,12 +41,13 @@ app.use(
   "/tmf-api/productOrdering/v4",
   require("./BBVAS/DataGiftEnroll/routes/dataGiftEnroll.routes")
 );
-app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
+// app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
 app.use("/tmf-api/usageManagement/v4", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
+app.use('/tmf-api/productOrderingManagement/v4', DataBundlePostpaidRoutes);
 // app.use('/api/Account', accountRoutes);
 
 module.exports = app; // Export the Express app
