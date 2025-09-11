@@ -1,11 +1,13 @@
-const Customer = require("../models/Customer");
-const Service = require("../models/Service");
-const PartyRole = require("../models/PartyRole");
-
 exports.validateDataGiftSub = async (req, res) => {
   try {
-    const { subscriberId } = req.params;
-    const { giftId, sponsorId } = req.query;
+    // Support both route params and query params
+    const subscriberId = req.params.subscriberId || req.query.subscriberId;
+    const giftId = req.params.giftId || req.query.giftId;
+    const sponsorId = req.params.sponsorId || req.query.sponsorId;
+
+    if (!subscriberId || !giftId || !sponsorId) {
+      return res.status(400).json({ message: "Missing subscriberId, giftId, or sponsorId" });
+    }
 
     // Step 1: Validate customer
     const customer = await Customer.findOne({ id: subscriberId });

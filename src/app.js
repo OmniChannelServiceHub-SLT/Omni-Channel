@@ -6,7 +6,7 @@ const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const enhancedCurrentDailyUsageRoutes = require('./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes');
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
 const productOrderRoutes = require("./BBVAS/VASBundleUnsubscription/routes/productOrderRoutes");
-const dataGiftRoutes = require("./BBVAS/ValidateGataGiftSub/routes/dataGiftRoutes");
+const dataGiftRoutes = require("./BBVAS/ValidateDataGiftSub/routes/dataGiftRoutes");
 
 // const accountRoutes = require('./routes/account.routes');
 
