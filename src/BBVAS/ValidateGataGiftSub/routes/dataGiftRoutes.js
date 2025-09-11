@@ -4,7 +4,7 @@ const dataGiftController = require("../controllers/dataGiftController");
 
 // GET ValidateDataGiftSub
 router.get(
-  "/tmf-api/dataGift/v1/validateDataGiftSub/:subscriberId",
+  "/tmf-api/dataGift/v1/validateDataGiftSub/:subscriberId/:giftId/:sponsorId",
   dataGiftController.validateDataGiftSub
 );
 
