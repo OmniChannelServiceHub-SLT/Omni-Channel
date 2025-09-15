@@ -19,6 +19,7 @@ const reportTimePeriodRoutes = require("./BBVAS/GetReportTimePeriod/routes/repor
 const advancedReportingPackageRoutes = require("./BBVAS/GetAdvancedReportingPackage/routes/advancedReportingPackage.routes");
 const updateISPContactRoutes = require("./BBVAS/PUTUpdateISPContact/routes/customer.routes.js");
 const dailyUsageRoutes = require('./BBVAS/CurrentMonthsDailyUsage/routes/currentUsageRoutes');
+const dataGiftRoutes = require("./BBVAS/DataGiftEnrollPrepaidInit/routes/dataGiftRoutes");
 
 // Middleware
 app.use(cors());
@@ -49,5 +50,6 @@ app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use("/", updateISPContactRoutes); 
 app.use('/tmf-api/usageManagement/v4/daily', dailyUsageRoutes);
+app.use("/tmf-api/dataGift/v1", dataGiftRoutes);
 
 module.exports = app; // Export the Express app
