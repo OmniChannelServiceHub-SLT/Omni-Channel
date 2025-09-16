@@ -21,6 +21,7 @@ const updateISPContactRoutes = require("./BBVAS/PUTUpdateISPContact/routes/custo
 const dailyUsageRoutes = require('./BBVAS/CurrentMonthsDailyUsage/routes/currentUsageRoutes');
 const dataGiftRoutes = require("./BBVAS/DataGiftEnrollPrepaidInit/routes/dataGiftRoutes");
 const addVASRoutes = require('./BBVAS/AddVASDataBundlePrepaidConfirm/routes/vasRoutes');
+const purchasedHistoryRoutes = require('./BBVAS/PurchasedHistory/routes/purchasedHistoryRoutes');
 
 // Middleware
 app.use(cors());
@@ -53,5 +54,6 @@ app.use("/", updateISPContactRoutes);
 app.use('/tmf-api/usageManagement/v4/daily', dailyUsageRoutes);
 app.use("/tmf-api/dataGift/v1", dataGiftRoutes);
 app.use('/api/BBVAS', addVASRoutes);
+app.use('/tmf-api/usage/v4', purchasedHistoryRoutes);
 
 module.exports = app; // Export the Express app
