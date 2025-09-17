@@ -5,7 +5,7 @@ const connectDB = require("./config/db");
 const app = express();
 
 // Import Routes
-const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
+// const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const enhancedCurrentDailyUsageRoutes = require('./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes');
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
 const productOrderRoutes = require("./BBVAS/VASBundleUnsubscription/routes/productOrderRoutes");
@@ -42,7 +42,7 @@ app.use(
   "/tmf-api/productOrdering/v4",
   require("./BBVAS/DataGiftEnroll/routes/dataGiftEnroll.routes")
 );
-app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
+// app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
 app.use("/tmf-api/usageManagement/v4", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
