@@ -1,13 +1,7 @@
-require('dotenv').config();
 const app = require('./src/app');
-const connectDB = require('./src/config/db');
 
-const PORT = process.env.PORT || 3000;
-
-connectDB(); // <-- connect to MongoDB
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`http://localhost:${PORT}`);
+  console.log(`🚀 TMF Service Request API running at http://localhost:${PORT}`);
 });
-

@@ -1,27 +1,20 @@
 const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
 const connectDB = require('./config/db');
-const promotionRoutes = require('./BBVAS/FreeData/routes/promotionRoutes.js');
+const serviceRequestRoutes = require('./Fault/CreateServiceRequest/routes/serviceRequest.routes');
 
+dotenv.config();
 const app = express();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// DB Connection
-connectDB();
 
 // Routes
-app.use('/tmf-api/promotionManagement/v4/promotion', promotionRoutes);
+app.use('/', serviceRequestRoutes);
 
-// Health check
-app.get('/', (req, res) => {
-  res.send('🚀 Omni API Server is running ✅');
-});
-
-// Handle 404
-app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-});
+// Connect to DB
+connectDB();
 
 module.exports = app;
