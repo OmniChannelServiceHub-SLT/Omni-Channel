@@ -20,7 +20,7 @@ const advancedReportingPackageRoutes = require("./BBVAS/GetAdvancedReportingPack
 const salesLeadRoutes = require('./Sales/SalesLeadCreationRequest/routes/salesLeadRoutes.js');
 const DataBundlePostpaidRoutes = require("./BBVAS/AddVASDataBundlePostPaidV2/routes/productOrderRoute.js");
 // const accountRoutes = require('./routes/account.routes');
-const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
+// const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const poqRoutes = require('./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes');
 
 // Middleware
