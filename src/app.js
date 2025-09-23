@@ -9,10 +9,7 @@ const app = express();
 const enhancedCurrentDailyUsageRoutes = require('./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes');
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
 const productOrderRoutes = require("./BBVAS/VASBundleUnsubscription/routes/productOrderRoutes");
-
 const dataGiftRoutes = require("./BBVAS/ValidateDataGiftSub/routes/dataGiftRoutes");
-
- main
 const usageRoutes = require("./BBVAS/WeeksUsage/routes/usageRoutes");
 const serviceRoutes = require("./BBVAS/UnsubscribeAdvancedReports/routes/serviceRoutes");
 const summeryRoutes = require("./BBVAS/UsageSummery/routes/usageRoutes.js");
