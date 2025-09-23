@@ -1,3 +1,7 @@
+const Customer = require("../models/Customer");   
+const Service = require("../models/Service");     
+const PartyRole = require("../models/PartyRole");
+
 exports.validateDataGiftSub = async (req, res) => {
   try {
     // Support both route params and query params
@@ -5,12 +9,20 @@ exports.validateDataGiftSub = async (req, res) => {
     const giftId = req.params.giftId || req.query.giftId;
     const sponsorId = req.params.sponsorId || req.query.sponsorId;
 
+    console.log(req.params);
+
     if (!subscriberId || !giftId || !sponsorId) {
       return res.status(400).json({ message: "Missing subscriberId, giftId, or sponsorId" });
     }
 
+    console.log("flag");
     // Step 1: Validate customer
-    const customer = await Customer.findOne({ id: subscriberId });
+    const customer = await Customer.findOne({ id: subscriberId }).lean();
+    console.log("customer"+customer);
+    console.log(customer.status);
+    console.log(customer.status !== "Approved");
+    console.log(customer.status != "Approved");
+  
     if (!customer || customer.status !== "Approved") {
       return res.status(404).json({ message: "Invalid or inactive subscriber" });
     }
