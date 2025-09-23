@@ -1,0 +1,258 @@
+{
+	"info": {
+		"_postman_id": "validate-data-transfer-sub-collection",
+		"name": "ValidateDataTransferSub - TMF640 Service Activation API",
+		"description": "Postman collection for ValidateDataTransferSub endpoints following TMF640 v4.0.0 Service Activation & Configuration API standards",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "validate-data-transfer-sub"
+	},
+	"item": [
+		{
+			"name": "Validate Data Transfer",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/ValidateDataTransferSub?subscriberId={{subscriberId}}&receiver={{receiver}}&fields={{fields}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"ValidateDataTransferSub"
+					],
+					"query": [
+						{
+							"key": "subscriberId",
+							"value": "{{subscriberId}}",
+							"description": "Subscriber ID (required)"
+						},
+						{
+							"key": "receiver",
+							"value": "{{receiver}}",
+							"description": "Receiver ID (required)"
+						},
+						{
+							"key": "fields",
+							"value": "{{fields}}",
+							"description": "Comma-separated list of fields to return"
+						}
+					]
+				},
+				"description": "Validate data transfer between subscriber and receiver\n\nTMF640 Compliance:\n- Maps subscriberId and receiver to serviceCharacteristic\n- Maps to relatedParty with roles 'Subscriber' and 'Receiver'\n- Returns Service resource with state 'feasibilityChecked'\n\nQuery Parameters:\n- subscriberId: Subscriber ID (required)\n- receiver: Receiver ID (required)\n- fields: Comma-separated list of fields to return\n\nExample:\nGET /ValidateDataTransferSub?subscriberId=cen2431747&receiver=94382222802\n\nResponse:\n{\n  \"id\": \"validate-001\",\n  \"href\": \"/ValidateDataTransferSub/validate-001\",\n  \"name\": \"DataTransferValidation\",\n  \"state\": \"feasibilityChecked\",\n  \"serviceCharacteristic\": [\n    {\n      \"name\": \"subscriberId\",\n      \"value\": \"cen2431747\",\n      \"valueType\": \"string\"\n    },\n    {\n      \"name\": \"receiver\",\n      \"value\": \"94382222802\",\n      \"valueType\": \"string\"\n    }\n  ],\n  \"relatedParty\": [\n    {\n      \"id\": \"cen2431747\",\n      \"role\": \"Subscriber\",\n      \"@referredType\": \"PartyRole\"\n    },\n    {\n      \"id\": \"94382222802\",\n      \"role\": \"Receiver\",\n      \"@referredType\": \"PartyRole\"\n    }\n  ]\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Validation Record by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/ValidateDataTransferSub/{{validation_id}}?fields={{fields}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"ValidateDataTransferSub",
+						"{{validation_id}}"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "{{fields}}",
+							"description": "Comma-separated list of fields to return"
+						}
+					]
+				},
+				"description": "Get validation record by ID\n\nPath Parameters:\n- id: Validation record ID\n\nQuery Parameters:\n- fields: Comma-separated list of fields to return\n\nExample:\nGET /ValidateDataTransferSub/validate-001?fields=id,href,state,serviceCharacteristic"
+			},
+			"response": []
+		},
+		{
+			"name": "List Validation Records",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/ValidateDataTransferSub/list?subscriberId={{subscriberId}}&receiver={{receiver}}&state={{state}}&isValid={{isValid}}&fields={{fields}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"ValidateDataTransferSub",
+						"list"
+					],
+					"query": [
+						{
+							"key": "subscriberId",
+							"value": "{{subscriberId}}",
+							"description": "Filter by subscriber ID"
+						},
+						{
+							"key": "receiver",
+							"value": "{{receiver}}",
+							"description": "Filter by receiver ID"
+						},
+						{
+							"key": "state",
+							"value": "{{state}}",
+							"description": "Filter by state"
+						},
+						{
+							"key": "isValid",
+							"value": "{{isValid}}",
+							"description": "Filter by validation status"
+						},
+						{
+							"key": "fields",
+							"value": "{{fields}}",
+							"description": "Comma-separated list of fields to return"
+						}
+					]
+				},
+				"description": "List validation records with filtering\n\nQuery Parameters:\n- subscriberId: Filter by subscriber ID\n- receiver: Filter by receiver ID\n- state: Filter by state\n- isValid: Filter by validation status\n- fields: Comma-separated list of fields to return\n\nExample:\nGET /ValidateDataTransferSub/list?subscriberId=cen2431747&state=feasibilityChecked"
+			},
+			"response": []
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/ValidateDataTransferSub/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"ValidateDataTransferSub",
+						"health"
+					]
+				},
+				"description": "Health check endpoint for data transfer validation service"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://omnitest.slt.com.lk",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "JTYh5mYpHfFI8-Ajy85YGxcfMbqwB824Tfetrm0yBT3MDa4AX7B8vH1HDzk9YPMDTFsE8FK8ENRPcZdoN1EeIV3r3HL_-p2fbApKyq6GIhoqWskZk3Z71q32LbJbt1u_2_soR-NUBRYmKkuR9LSrlup5Tr7-KrPaUXPhXsnDl_Lbo4Bp221TCmBmitbjsXdu3FT6OEEbxvcIWwTYUqE4jBZIuRy1mUd2OsSoZDxXtXayjW3aNguoihzwIV2WBrBZkekhdMh7zsNHlLmqTXLin3yp2CMRbxeYxupgP113o10MeHWi",
+			"type": "string"
+		},
+		{
+			"key": "subscriberId",
+			"value": "cen2431747",
+			"type": "string"
+		},
+		{
+			"key": "receiver",
+			"value": "94382222802",
+			"type": "string"
+		},
+		{
+			"key": "validation_id",
+			"value": "validate-001",
+			"type": "string"
+		},
+		{
+			"key": "fields",
+			"value": "id,href,state,serviceCharacteristic",
+			"type": "string"
+		},
+		{
+			"key": "state",
+			"value": "feasibilityChecked",
+			"type": "string"
+		},
+		{
+			"key": "isValid",
+			"value": "true",
+			"type": "string"
+		}
+	]
+}

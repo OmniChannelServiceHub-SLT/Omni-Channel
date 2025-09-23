@@ -1,0 +1,311 @@
+{
+	"info": {
+		"_postman_id": "enhanced-previous-daily-usage-collection",
+		"name": "EnhancedPreviousDailyUsage - TMF635 Usage Management API",
+		"description": "Postman collection for EnhancedPreviousDailyUsage endpoints following TMF635 v4.0.0 standards",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "enhanced-previous-daily-usage"
+	},
+	"item": [
+		{
+			"name": "List Enhanced Previous Daily Usage Records",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/tmf-api/usageManagement/v4/enhancedPreviousDailyUsage?fields=id,href,status,usageType,usageDate&relatedParty.id={{subscriberID}}&usageDate={{usageDate}}&monthIndex={{monthIndex}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tmf-api",
+						"usageManagement",
+						"v4",
+						"enhancedPreviousDailyUsage"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "id,href,status,usageType,usageDate",
+							"description": "Comma-separated list of fields to return"
+						},
+						{
+							"key": "relatedParty.id",
+							"value": "{{subscriberID}}",
+							"description": "Filter by subscriber ID"
+						},
+						{
+							"key": "usageDate",
+							"value": "{{usageDate}}",
+							"description": "Filter by usage date (YYYY-MM-DD)"
+						},
+						{
+							"key": "monthIndex",
+							"value": "{{monthIndex}}",
+							"description": "Filter by month index (0-11)"
+						},
+						{
+							"key": "validFor.startDateTime",
+							"value": "{{startDateTime}}",
+							"description": "Filter by start date/time (ISO 8601)"
+						},
+						{
+							"key": "validFor.endDateTime",
+							"value": "{{endDateTime}}",
+							"description": "Filter by end date/time (ISO 8601)"
+						},
+						{
+							"key": "usageType",
+							"value": "{{usageType}}",
+							"description": "Filter by usage type"
+						},
+						{
+							"key": "status",
+							"value": "{{status}}",
+							"description": "Filter by status"
+						}
+					]
+				},
+				"description": "List enhanced previous daily usage records with TMF635 filtering\n\nQuery Parameters:\n- fields: Comma-separated list of fields to return\n- relatedParty.id: Filter by subscriber ID\n- usageDate: Filter by specific date\n- monthIndex: Filter by month index (0-11)\n- validFor.startDateTime: Filter by start date/time\n- validFor.endDateTime: Filter by end date/time\n- usageType: Filter by usage type\n- status: Filter by status\n\nExample:\nGET /tmf-api/usageManagement/v4/enhancedPreviousDailyUsage?fields=id,href,status,usageType,usageDate&relatedParty.id=94112179676&usageDate=2020-11-20&monthIndex=11"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Enhanced Previous Daily Usage by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/tmf-api/usageManagement/v4/enhancedPreviousDailyUsage/{{usage_id}}?fields=id,href,ratedProductUsage,relatedParty",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tmf-api",
+						"usageManagement",
+						"v4",
+						"enhancedPreviousDailyUsage",
+						"{{usage_id}}"
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "id,href,ratedProductUsage,relatedParty",
+							"description": "Comma-separated list of fields to return"
+						}
+					]
+				},
+				"description": "Get enhanced previous daily usage record by ID\n\nPath Parameters:\n- id: Usage record ID\n\nQuery Parameters:\n- fields: Comma-separated list of fields to return\n\nExample:\nGET /tmf-api/usageManagement/v4/enhancedPreviousDailyUsage/5130d5131a23?fields=id,href,ratedProductUsage,relatedParty"
+			},
+			"response": []
+		},
+		{
+			"name": "Legacy Enhanced Previous Daily Usage by Subscriber",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/tmf-api/usageManagement/v4/enhancedPreviousDailyUsage/legacy/subscriber?subscriberID={{subscriberID}}&billDate={{billDate}}&monthIndex={{monthIndex}}&fields={{fields}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tmf-api",
+						"usageManagement",
+						"v4",
+						"enhancedPreviousDailyUsage",
+						"legacy",
+						"subscriber"
+					],
+					"query": [
+						{
+							"key": "subscriberID",
+							"value": "{{subscriberID}}",
+							"description": "Subscriber ID (required)"
+						},
+						{
+							"key": "billDate",
+							"value": "{{billDate}}",
+							"description": "Bill date (maps to usageDate)"
+						},
+						{
+							"key": "monthIndex",
+							"value": "{{monthIndex}}",
+							"description": "Month index"
+						},
+						{
+							"key": "fields",
+							"value": "{{fields}}",
+							"description": "Comma-separated list of fields to return"
+						}
+					]
+				},
+				"description": "Legacy endpoint for backward compatibility\nMaps old API parameters to TMF635 format\n\nQuery Parameters:\n- subscriberID: Subscriber ID (required)\n- billDate: Bill date (maps to usageDate)\n- monthIndex: Month index\n- fields: Comma-separated list of fields to return\n\nExample:\nGET /tmf-api/usageManagement/v4/enhancedPreviousDailyUsage/legacy/subscriber?subscriberID=94112179676&billDate=2020-11-20&monthIndex=11"
+			},
+			"response": []
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/tmf-api/usageManagement/v4/enhancedPreviousDailyUsage/health",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"tmf-api",
+						"usageManagement",
+						"v4",
+						"enhancedPreviousDailyUsage",
+						"health"
+					]
+				},
+				"description": "Health check endpoint for enhanced previous daily usage service"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://omnitest.slt.com.lk",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "JTYh5mYpHfFI8-Ajy85YGxcfMbqwB824Tfetrm0yBT3MDa4AX7B8vH1HDzk9YPMDTFsE8FK8ENRPcZdoN1EeIV3r3HL_-p2fbApKyq6GIhoqWskZk3Z71q32LbJbt1u_2_soR-NUBRYmKkuR9LSrlup5Tr7-KrPaUXPhXsnDl_Lbo4Bp221TCmBmitbjsXdu3FT6OEEbxvcIWwTYUqE4jBZIuRy1mUd2OsSoZDxXtXayjW3aNguoihzwIV2WBrBZkekhdMh7zsNHlLmqTXLin3yp2CMRbxeYxupgP113o10MeHWi",
+			"type": "string"
+		},
+		{
+			"key": "subscriberID",
+			"value": "94112179676",
+			"type": "string"
+		},
+		{
+			"key": "usageDate",
+			"value": "2020-11-20",
+			"type": "string"
+		},
+		{
+			"key": "monthIndex",
+			"value": "11",
+			"type": "string"
+		},
+		{
+			"key": "usage_id",
+			"value": "5130d5131a23",
+			"type": "string"
+		},
+		{
+			"key": "billDate",
+			"value": "2020-11-20",
+			"type": "string"
+		},
+		{
+			"key": "fields",
+			"value": "id,href,status,usageType,usageDate",
+			"type": "string"
+		},
+		{
+			"key": "startDateTime",
+			"value": "2020-11-20T00:00:00Z",
+			"type": "string"
+		},
+		{
+			"key": "endDateTime",
+			"value": "2020-11-20T23:59:59Z",
+			"type": "string"
+		},
+		{
+			"key": "usageType",
+			"value": "voice",
+			"type": "string"
+		},
+		{
+			"key": "status",
+			"value": "active",
+			"type": "string"
+		}
+	]
+}
