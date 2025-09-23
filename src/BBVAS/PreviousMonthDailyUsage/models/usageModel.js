@@ -27,11 +27,14 @@ const usageSpecificationSchema = new mongoose.Schema({
 
 const usageSchema = new mongoose.Schema(
   {
-    id: { type: String, required: true },
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: () => new mongoose.Types.ObjectId(),
+    },
     href: {
       type: String,
       default: function () {
-        return `http://localhost:5000/tmf-api/usageManagement/v4/usage/${this.id}`;
+        return `http://localhost:5000/tmf-api/usageManagement/v4/PreviousMonth/usage/${this.id}`;
       },
     },
     description: { type: String },
@@ -63,37 +66,11 @@ const usageSchema = new mongoose.Schema(
     "@schemaLocation": {
       type: String,
       default: function () {
-        return `http://localhost:5000/tmf-api/usageManagement/v4/usage/${this.id}`;
+        return `http://localhost:5000/tmf-api/usageManagement/v4/PreviousMonth/usage/${this.id}`;
       },
     },
   },
   { timestamps: true }
 );
-
-usageSchema.methods.toTMF635 = function () {
-  return {
-    id: this.id,
-    href: this.href,
-    description: this.description,
-    status: this.status,
-    usageDate: this.usageDate,
-    usageType: this.usageType,
-    usageCharacteristic: this.usageCharacteristic,
-    usageSpecification: this.usageSpecification || {
-      id: "spec-001",
-      href: "http://localhost:5000/tmf-api/usageManagement/v4/usageSpecification/spec-001",
-      name: "UsageSummarySpec",
-      version: "v1.0",
-    },
-    relatedParty: this.relatedParty,
-    isBilled: this.isBilled,
-    ratingAmount: this.ratingAmount,
-    ratedProductRef: this.ratedProductRef,
-    relatedUsage: this.relatedUsage,
-    "@type": this["@type"],
-    "@baseType": this["@baseType"],
-    "@schemaLocation": this["@schemaLocation"],
-  };
-};
 
 module.exports = mongoose.model("Usage", usageSchema);
