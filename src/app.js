@@ -19,6 +19,7 @@ const reportTimePeriodRoutes = require("./BBVAS/GetReportTimePeriod/routes/repor
 const advancedReportingPackageRoutes = require("./BBVAS/GetAdvancedReportingPackage/routes/advancedReportingPackage.routes");
 const salesLeadRoutes = require('./Sales/SalesLeadCreationRequest/routes/salesLeadRoutes.js');
 const DataBundlePostpaidRoutes = require("./BBVAS/AddVASDataBundlePostPaidV2/routes/productOrderRoute.js");
+const AddVASDataBundlePostPaid = require("./routes/ServiceOrderRoute.js");
 // const accountRoutes = require('./routes/account.routes');
 
 // Middleware
@@ -30,6 +31,13 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("🚀 Omni API Server is running ✅");
 });
+
+// Mock auth middleware for TMF ServiceOrder
+function authMiddleware(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  if (authHeader && authHeader === "Bearer mock-fake-token-12345") next();
+  else res.status(401).json({ message: "Unauthorized" });
+}
 
 // Routes
 app.use('/tmf-api/promotionManagement/v4/promotion', promotionRoutesFreeData);
@@ -51,5 +59,8 @@ app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use('/tmf-api/sales/v4/', salesLeadRoutes);
 app.use('/tmf-api/productOrderingManagement/v4', DataBundlePostpaidRoutes);
 // app.use('/api/Account', accountRoutes);
+app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid);
+
+
 
 module.exports = app; // Export the Express app
