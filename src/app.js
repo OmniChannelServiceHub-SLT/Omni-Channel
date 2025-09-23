@@ -22,6 +22,8 @@ const salesLeadRoutes = require('./Sales/SalesLeadCreationRequest/routes/salesLe
 const DataBundlePostpaidRoutes = require("./BBVAS/AddVASDataBundlePostPaidV2/routes/productOrderRoute.js");
 const serviceRequestRoutes = require('./Fault/CreateServiceRequest/routes/serviceRequest.routes');
 // const accountRoutes = require('./routes/account.routes');
+// const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
+const poqRoutes = require('./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes');
 
 // Middleware
 app.use(cors());
@@ -53,6 +55,7 @@ app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use('/tmf-api/sales/v4/', salesLeadRoutes);
 app.use('/tmf-api/productOrderingManagement/v4', DataBundlePostpaidRoutes);
+app.use('/tmf-api/productOfferingQualification/v5', poqRoutes);
 app.use('/', serviceRequestRoutes);
 // app.use('/api/Account', accountRoutes);
 
