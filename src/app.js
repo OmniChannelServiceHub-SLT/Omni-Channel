@@ -21,6 +21,7 @@ const DataBundlePostpaidRoutes = require("./BBVAS/AddVASDataBundlePostPaidV2/rou
 const serviceRequestRoutes = require("./Fault/CreateServiceRequest/routes/serviceRequest.routes");
 const DataTransferAmountRoutes = require('./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js');
 const PreviousMonthUsageRoutes = require('./BBVAS/PreviousMonthDailyUsage/routes/usageRoutes.js');
+const RedeemVoucherRoutes = require('./BBVAS/RedeemVoucher/routes/voucherRoutes.js')
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
 // const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
@@ -60,6 +61,7 @@ app.use("/tmf-api/sales/v4/", salesLeadRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", DataBundlePostpaidRoutes);
 app.use("/tmf-api/productOfferingQualification/v5", poqRoutes);
 app.use("/tmf-api/troubleTicket/v5/troubleTicket", troubleTicketRoutes);
+app.use("/tmf-api/usageManagement/v4/Vouchers", RedeemVoucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoutes);
 app.use("/", serviceRequestRoutes);
 // app.use('/api/Account', accountRoutes);
