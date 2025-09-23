@@ -21,6 +21,7 @@ const advancedReportingPackageRoutes = require("./BBVAS/GetAdvancedReportingPack
 const salesLeadRoutes = require('./Sales/SalesLeadCreationRequest/routes/salesLeadRoutes.js');
 const DataBundlePostpaidRoutes = require("./BBVAS/AddVASDataBundlePostPaidV2/routes/productOrderRoute.js");
 // const accountRoutes = require('./routes/account.routes');
+const productOfferingQualificationRoutes = require("./routes/ProductOfferingQualification");
 
 // Middleware
 app.use(cors());
@@ -73,5 +74,20 @@ app.use('/tmf-api/sales/v4/', salesLeadRoutes);
 app.use('/tmf-api/productOrderingManagement/v4', DataBundlePostpaidRoutes);
 // app.use('/api/Account', accountRoutes);
 
+
+
+
+// Mock auth middleware for TMF ServiceOrder
+function authMiddleware(req, res, next) {
+  const authHeader = req.headers["authorization"];
+  if (authHeader && authHeader === "Bearer mock-fake-token-12345") next();
+  else res.status(401).json({ message: "Unauthorized" });
+}
+
+app.use(
+  '/tmf-api/productOfferingQualification/v1/productOfferingQualification',
+  authMiddleware,
+  productOfferingQualificationRoutes
+);
 
 module.exports = app; // Export the Express app
