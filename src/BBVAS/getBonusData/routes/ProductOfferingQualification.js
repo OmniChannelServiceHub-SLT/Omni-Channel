@@ -1,5 +1,5 @@
-import express from "express";
-import { createProductOfferingQualification } from "../services/ProductOfferingQualificationService.js";
+const express = require("express");
+const { createProductOfferingQualification } = require("../services/ProductOfferingQualificationService");
 
 const router = express.Router();
 
@@ -22,4 +22,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;

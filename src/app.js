@@ -19,7 +19,7 @@ const reportTimePeriodRoutes = require("./BBVAS/GetReportTimePeriod/routes/repor
 const advancedReportingPackageRoutes = require("./BBVAS/GetAdvancedReportingPackage/routes/advancedReportingPackage.routes");
 const salesLeadRoutes = require("./Sales/SalesLeadCreationRequest/routes/salesLeadRoutes.js");
 const DataBundlePostpaidRoutes = require("./BBVAS/AddVASDataBundlePostPaidV2/routes/productOrderRoute.js");
-const AddVASDataBundlePostPaid = require("./routes/ServiceOrderRoute.js");
+// const AddVASDataBundlePostPaid = require("./routes/ServiceOrderRoute.js");
 const serviceRequestRoutes = require("./Fault/CreateServiceRequest/routes/serviceRequest.routes");
 const DataTransferAmountRoutes = require('./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js');
 const PreviousMonthUsageRoutes = require('./BBVAS/PreviousMonthDailyUsage/routes/usageRoutes.js');
@@ -28,10 +28,13 @@ const GiftPackagesRoutes = require('./BBVAS/DatagiftPackages/routes/dataGiftRout
 const AdvancedReportPostpaidRoutes = require('./BBVAS/Advancedreport-Postpaid/routes/advancedReportRoutes.js');
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
-const productOfferingQualificationRoutes = require("./routes/ProductOfferingQualification");
+const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/ProductOfferingQualification.js");
+const serviceOrderRoutes = require("./BBVAS/addVASDataBundlePostPaid/routes/ServiceOrderRoute.js");
+
 // const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
 const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTicketRoutes.js");
+const troubleTicketRouteForCreateServiceRequestSOA = require("./Fault/CreateServiceRequestSOA/routes/TroubleTicketRoute");
 
 // Middleware
 app.use(cors());
@@ -100,11 +103,11 @@ app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackagesRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
 app.use("/", serviceRequestRoutes);
 // app.use('/api/Account', accountRoutes);
-app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid);
+
+app.use("/tmf-api/troubleTicket", troubleTicketRouteForCreateServiceRequestSOA);
 
 
-
-
+app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, serviceOrderRoutes);
 
 
 // Mock auth middleware for TMF ServiceOrder

@@ -1,5 +1,9 @@
-import express from "express";
-import { purchaseExtraGBPrepaidInit, purchaseVASPostpaidInit, upgradeLoyaltyInit } from "../controllers/ServiceOrderController.js";
+const express = require("express");
+const {
+  purchaseExtraGBPrepaidInit,
+  purchaseVASPostpaidInit,
+  upgradeLoyaltyInit
+} = require("../controllers/ServiceOrderController");
 
 const router = express.Router();
 
@@ -28,4 +32,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
