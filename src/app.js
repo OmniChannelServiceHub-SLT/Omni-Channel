@@ -7,7 +7,8 @@ app.use(cors());
 app.use(express.json()); // Replaces body-parser.json()
 
 // Routes
-const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
-app.use('/tmf-api/customerBillManagement/v5', billRoutes);
+const otpAuthRoutes = require('./EBill/OTPeBillAuthRequest/routes/otpAuth.routes');
+app.use('/tmf-api/customerBillManagement/v5', otpAuthRoutes);
+
 
 module.exports = app; // Export the Express app
