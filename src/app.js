@@ -20,7 +20,7 @@ const advancedReportingPackageRoutes = require("./BBVAS/GetAdvancedReportingPack
 const updateISPContactRoutes = require("./BBVAS/PUTUpdateISPContact/routes/customer.routes.js");
 const dailyUsageRoutes = require('./BBVAS/CurrentMonthsDailyUsage/routes/currentUsageRoutes');
 const dataGiftRoutes = require("./BBVAS/DataGiftEnrollPrepaidInit/routes/dataGiftRoutes");
-const addVASRoutes = require('./BBVAS/AddVASDataBundlePrepaidConfirm/routes/vasRoutes');
+const vasConfirmRoutes = require("./BBVAS/AddVASDataBundlePrepaidConfirm/routes/vasRoutes.js");
 const purchasedHistoryRoutes = require('./BBVAS/PurchasedHistory/routes/purchasedHistoryRoutes');
 const dataGiftPackagesRoutes = require('./BBVAS/GetDataGiftPackagesMobile/routes/dataGiftRoutes');
 
@@ -54,7 +54,7 @@ app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use("/", updateISPContactRoutes); 
 app.use('/tmf-api/usageManagement/v4/daily', dailyUsageRoutes);
 app.use("/tmf-api/dataGift/v1", dataGiftRoutes);
-app.use('/api/BBVAS', addVASRoutes);
+app.use("/tmf-api/productOrdering/v4", vasConfirmRoutes);
 app.use('/tmf-api/usage/v4', purchasedHistoryRoutes);
 app.use('/tmf-api/serviceActivation/v4.0.0', dataGiftPackagesRoutes);
 
