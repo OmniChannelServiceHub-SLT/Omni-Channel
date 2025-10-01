@@ -1,24 +1,13 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
-const morgan = require('morgan');
-const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
-
 const app = express();
 
-app.use(morgan('dev'));
+// Middleware
 app.use(cors());
-app.use(bodyParser.json({ limit: '5mb' }));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json()); // Replaces body-parser.json()
 
-// Base API route (matches the URL you posted)
-const basePath = '/tmf-api/customerBillManagement/v5';
-app.use(basePath, billRoutes);
+// Routes
+const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
+app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 
-// simple health endpoint
-app.get('/health', (req, res) => res.json({ status: 'ok' }));
-
-// 404 handler
-app.use((req, res) => res.status(404).json({ error: 'Not found' }));
-
-module.exports = app;
+module.exports = app; // Export the Express app
