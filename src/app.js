@@ -1,27 +1,24 @@
 const express = require('express');
-const connectDB = require('./config/db');
-const promotionRoutes = require('./BBVAS/FreeData/routes/promotionRoutes.js');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const morgan = require('morgan');
+const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
 
 const app = express();
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(morgan('dev'));
+app.use(cors());
+app.use(bodyParser.json({ limit: '5mb' }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// DB Connection
-connectDB();
+// Base API route (matches the URL you posted)
+const basePath = '/tmf-api/customerBillManagement/v5';
+app.use(basePath, billRoutes);
 
-// Routes
-app.use('/tmf-api/promotionManagement/v4/promotion', promotionRoutes);
+// simple health endpoint
+app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
-// Health check
-app.get('/', (req, res) => {
-  res.send('🚀 Omni API Server is running ✅');
-});
-
-// Handle 404
-app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-});
+// 404 handler
+app.use((req, res) => res.status(404).json({ error: 'Not found' }));
 
 module.exports = app;

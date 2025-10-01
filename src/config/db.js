@@ -1,16 +1,19 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const connectDB = async () => {
+  const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/omni_channel_db';
   try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
+    await mongoose.connect(uri, {
+      // options no longer required in latest mongoose but harmless
       useNewUrlParser: true,
-      useUnifiedTopology: true,
+      useUnifiedTopology: true
     });
-
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    console.log('✅ MongoDB connected');
   } catch (err) {
-    console.error('MongoDB connection error:', err.message);
-    process.exit(1); // Exit with failure
+    console.error('❌ MongoDB connection error:', err.message);
+    process.exit(1);
   }
 };
 
