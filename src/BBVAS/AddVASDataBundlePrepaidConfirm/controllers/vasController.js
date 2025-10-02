@@ -1,4 +1,4 @@
-const VasDataBundle = require("../models/vasDataBundle");
+const vasDataBundle = require('../models/vasDataBundle');
 
 exports.addVASDataBundlePrepaidConfirm = async (req, res) => {
   const { subscriberId, packageId, payId, pgResponseCode, date } = req.body;

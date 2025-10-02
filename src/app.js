@@ -9,7 +9,6 @@ const app = express();
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
 const productOrderRoutes = require("./BBVAS/VASBundleUnsubscription/routes/productOrderRoutes");
-const dataGiftRoutes = require("./BBVAS/ValidateDataGiftSub/routes/dataGiftRoutes");
 const usageRoutes = require("./BBVAS/WeeksUsage/routes/usageRoutes");
 const serviceRoutes = require("./BBVAS/UnsubscribeAdvancedReports/routes/serviceRoutes");
 const summeryRoutes = require("./BBVAS/UsageSummery/routes/usageRoutes.js");
@@ -21,11 +20,13 @@ const updateISPContactRoutes = require("./BBVAS/PUTUpdateISPContact/routes/custo
 const dailyUsageRoutes = require('./BBVAS/CurrentMonthsDailyUsage/routes/currentUsageRoutes');
 const dataGiftRoutes = require("./BBVAS/DataGiftEnrollPrepaidInit/routes/dataGiftRoutes");
 const vasConfirmRoutes = require("./BBVAS/AddVASDataBundlePrepaidConfirm/routes/vasRoutes.js");
+const validateDataGiftRoutes = require("./BBVAS/ValidateDataGiftSub/routes/dataGiftRoutes");
+const addVASRoutes = require('./BBVAS/AddVASDataBundlePrepaidConfirm/routes/vasRoutes');
 const purchasedHistoryRoutes = require('./BBVAS/PurchasedHistory/routes/purchasedHistoryRoutes');
 const dataGiftPackagesRoutes = require('./BBVAS/GetDataGiftPackagesMobile/routes/dataGiftRoutes');
 const salesLeadRoutes = require("./Sales/SalesLeadCreationRequest/routes/salesLeadRoutes.js");
 const DataBundlePostpaidRoutes = require("./BBVAS/AddVASDataBundlePostPaidV2/routes/productOrderRoute.js");
-const AddVASDataBundlePostPaid = require("./routes/ServiceOrderRoute.js");
+const AddVASDataBundlePostPaid = require("./BBVAS/addVASDataBundlePostPaid/routes/ServiceOrderRoute.js");
 const serviceRequestRoutes = require("./Fault/CreateServiceRequest/routes/serviceRequest.routes");
 const DataTransferAmountRoutes = require('./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js');
 const PreviousMonthUsageRoutes = require('./BBVAS/PreviousMonthDailyUsage/routes/usageRoutes.js');
@@ -34,11 +35,10 @@ const GiftPackagesRoutes = require('./BBVAS/DatagiftPackages/routes/dataGiftRout
 const AdvancedReportPostpaidRoutes = require('./BBVAS/Advancedreport-Postpaid/routes/advancedReportRoutes.js');
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
-const productOfferingQualificationRoutes = require("./routes/ProductOfferingQualification");
+const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/ProductOfferingQualification.js");
 // const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
 const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTicketRoutes.js");
-
 
 // Middleware
 app.use(cors());
@@ -64,7 +64,7 @@ app.use("/tmf-api/usageManagement/v4/usage", enhancedCurrentDailyUsageRoutes);
 app.use("/tmf-api/customerManagement/v5", customerRoutes);
 app.use("/tmf-api/productOrdering/v4/productOrder", productOrderRoutes);
 
-app.use("/tmf-api/dataGift/v1", dataGiftRoutes);
+app.use("/tmf-api/dataGift/v1", validateDataGiftRoutes);
 
 app.use("/", vasRoutes);
 app.use("/tmf-api/ServiceActivationAndConfiguration/v4", serviceRoutes);
@@ -72,8 +72,6 @@ app.use(
   "/tmf-api/productOrdering/v4",
   require("./BBVAS/DataGiftEnroll/routes/dataGiftEnroll.routes")
 );
-
-// app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
 app.use("/tmf-api/usageManagement/v4", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
@@ -114,24 +112,20 @@ app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackagesRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
 app.use("/", serviceRequestRoutes);
 // app.use('/api/Account', accountRoutes);
-app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid);
 
 
+// app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)
+// // Mock auth middleware for TMF ServiceOrder
+// function authMiddleware(req, res, next) {
+//   const authHeader = req.headers["authorization"];
+//   if (authHeader && authHeader === "Bearer mock-fake-token-12345") next();
+//   else res.status(401).json({ message: "Unauthorized" });
+// }
 
-
-
-
-// Mock auth middleware for TMF ServiceOrder
-function authMiddleware(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  if (authHeader && authHeader === "Bearer mock-fake-token-12345") next();
-  else res.status(401).json({ message: "Unauthorized" });
-}
-
-app.use(
-  '/tmf-api/productOfferingQualification/v1/productOfferingQualification',
-  authMiddleware,
-  productOfferingQualificationRoutes
-);
+// app.use(
+//   '/tmf-api/productOfferingQualification/v1/productOfferingQualification',
+//   authMiddleware,
+//   productOfferingQualificationRoutes
+// );
 
 module.exports = app; // Export the Express app

@@ -21,4 +21,6 @@ dataGiftPackageSchema.methods.toTMF = function () {
   };
 };
 
-module.exports = mongoose.model("DataGiftPackage", dataGiftPackageSchema);
+module.exports =
+  mongoose.models.DataGiftPackage ||
+  mongoose.model("DataGiftPackage", dataGiftPackageSchema);
