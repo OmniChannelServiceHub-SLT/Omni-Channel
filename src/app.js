@@ -39,6 +39,7 @@ const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/
 // const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
 const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTicketRoutes.js");
+const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultRequestRoutes');
 
 // Middleware
 app.use(cors());
@@ -111,6 +112,7 @@ app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRou
 app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackagesRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
 app.use("/", serviceRequestRoutes);
+app.use('/api/v2', faultRequestRoutes);
 // app.use('/api/Account', accountRoutes);
 
 
