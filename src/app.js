@@ -30,7 +30,7 @@ const serviceRequestRoutes = require("./Fault/CreateServiceRequest/routes/servic
 const DataTransferAmountRoutes = require('./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js');
 const PreviousMonthUsageRoutes = require('./BBVAS/PreviousMonthDailyUsage/routes/usageRoutes.js');
 const RedeemVoucherRoutes = require('./BBVAS/RedeemVoucher/routes/voucherRoutes.js');
-const GiftPackagesRoutes = require('./BBVAS/DatagiftPackages/routes/dataGiftRoutes.js');
+const GiftPackageRoutes = require('./BBVAS/DatagiftPackages/routes/dataGiftRoutes.js');
 const AdvancedReportPostpaidRoutes = require('./BBVAS/Advancedreport-Postpaid/routes/advancedReportRoutes.js');
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
@@ -38,6 +38,7 @@ const productOfferingQualificationRoutes = require("./routes/ProductOfferingQual
 // const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
 const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTicketRoutes.js");
+const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
 
 
 // Middleware
@@ -60,6 +61,7 @@ function authMiddleware(req, res, next) {
 
 // Routes
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
+app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 app.use("/tmf-api/usageManagement/v4/usage", enhancedCurrentDailyUsageRoutes);
 app.use("/tmf-api/customerManagement/v5", customerRoutes);
 app.use("/tmf-api/productOrdering/v4/productOrder", productOrderRoutes);
@@ -110,7 +112,7 @@ app.use("/tmf-api/troubleTicket/v5/troubleTicket", troubleTicketRoutes);
 app.use("/tmf-api/usageManagement/v4/Vouchers", RedeemVoucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoutes);
 // app.use("/tmf-api/usageManagement/v4/Vouchers", voucherRoutes);
-app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackagesRoutes);
+app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackageRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
 app.use("/", serviceRequestRoutes);
 // app.use('/api/Account', accountRoutes);
