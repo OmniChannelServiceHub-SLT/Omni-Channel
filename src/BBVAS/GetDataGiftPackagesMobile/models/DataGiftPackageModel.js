@@ -57,4 +57,6 @@ const dataGiftPackageSchema = new mongoose.Schema(
 
 const DataGiftPackage = mongoose.model('DataGiftPackage', dataGiftPackageSchema);
 
-module.exports = DataGiftPackage;
+module.exports =
+  mongoose.models.DataGiftPackage ||
+  mongoose.model("DataGiftPackage", dataGiftPackageSchema);
