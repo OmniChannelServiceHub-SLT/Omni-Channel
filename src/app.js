@@ -1,9 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const connectDB = require("./config/db");
-
-const express = require('express');
-const cors = require('cors');
 const app = express();
 
 // Import Routes
@@ -47,7 +43,6 @@ const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoute
 // Middleware
 app.use(cors());
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
 
@@ -58,9 +53,7 @@ app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 app.use("/tmf-api/usageManagement/v4/usage", enhancedCurrentDailyUsageRoutes);
 app.use("/tmf-api/customerManagement/v5", customerRoutes);
 app.use("/tmf-api/productOrdering/v4/productOrder", productOrderRoutes);
-
 app.use("/tmf-api/dataGift/v1", validateDataGiftRoutes);
-
 app.use("/", vasRoutes);
 app.use("/tmf-api/ServiceActivationAndConfiguration/v4", serviceRoutes);
 app.use(
@@ -124,5 +117,4 @@ app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 
 
 
-module.exports = app; // Export the Express app
 module.exports = app; // Export the Express app
