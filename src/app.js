@@ -38,6 +38,7 @@ const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/
 // const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
 const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTicketRoutes.js");
+const LogAPIFront = require("./BBVAS/LogAPIFront/routes/logAPIFrontRoute.js");
 
 
 // Middleware
@@ -86,8 +87,6 @@ app.use('/tmf-api/serviceActivation/v4.0.0', dataGiftPackagesRoutes);
 app.use('/tmf-api/sales/v4/', salesLeadRoutes);
 app.use('/tmf-api/productOrderingManagement/v4', DataBundlePostpaidRoutes);
 // app.use('/api/Account', accountRoutes);
-
-
 app.use("/", vasRoutes);
 app.use("/tmf-api/ServiceActivationAndConfiguration/v4", serviceRoutes);
 app.use(
@@ -111,6 +110,7 @@ app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRou
 app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackagesRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
 app.use("/", serviceRequestRoutes);
+app.use("/tmf-api/productInventory/v5/product", LogAPIFront);
 // app.use('/api/Account', accountRoutes);
 
 
