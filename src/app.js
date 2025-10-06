@@ -50,17 +50,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
-// Health check
-app.get("/", (req, res) => {
-  res.send("🚀 Omni API Server is running ✅");
-});
 
-// Mock auth middleware for TMF ServiceOrder
-function authMiddleware(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  if (authHeader && authHeader === "Bearer mock-fake-token-12345") next();
-  else res.status(401).json({ message: "Unauthorized" });
-}
 
 // Routes
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
