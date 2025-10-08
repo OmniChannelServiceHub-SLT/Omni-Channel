@@ -113,7 +113,10 @@ app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 //   authMiddleware,
 //   productOfferingQualificationRoutes
 // );
-
+// Health check
+app.get('/', (req, res) => {
+  res.send('Omini API Server is running ✅');
+});
 
 
 module.exports = app; // Export the Express app
