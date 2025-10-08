@@ -16,28 +16,37 @@ const relatedPartySchema = new mongoose.Schema({
 
 const usageSchema = new mongoose.Schema({
   _id: { type: String, required: true }, // string id
-  usageDate: { type: Date, default: Date.now },
+  usageDate: { type: Date, default: Date.now, required: true },
   description: { type: String, required: true },
   usageType: { type: String, required: true },
-  status: { type: String, default: "received" },
+  status: { type: String, default: "received", required: true },
   usageCharacteristic: [usageCharacteristicSchema],
   relatedParty: [relatedPartySchema],
   usageSpecification: {
-    id: { type: String, default: "spec-001" },
+    id: { type: String, default: "spec-001", required: true },
     href: {
       type: String,
-      default:
-        "http://localhost:3000/tmf-api/usageManagement/v4/usageSpecification/spec-001",
+      default: function() {
+        return `http://localhost:3000/tmf-api/usageManagement/v4/usageSpecification/${this.id}`;
+      },
+      required: true
     },
-    name: { type: String, default: "UsageSummarySpec" },
-    "@referredType": { type: String, default: "UsageSpecification" },
+    name: { type: String, default: "UsageSummarySpec", required: true },
+    "@referredType": { type: String, default: "UsageSpecification", required: true },
   },
+  "@type": { type: String, default: "Usage", required: true },
+  "@baseType": { type: String, default: "Entity", required: true },
+  "@schemaLocation": { 
+    type: String,
+    default: "http://localhost:3000/tmf-api/schema/Usage/Usage.schema.json",
+    required: true
+  }
 });
 
-usageSchema.methods.toTMF635 = function () {
+usageSchema.methods.toTMF635 = function (baseUrl = 'http://localhost:3000') {
   return {
     id: this._id,
-    href: `http://localhost:3000/tmf-api/usageManagement/v4/usage/${this._id}`,
+    href: `${baseUrl}/tmf-api/usageManagement/v4/usage/${this._id}`,
     usageDate: this.usageDate,
     description: this.description,
     usageType: this.usageType,
