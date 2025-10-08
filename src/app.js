@@ -1,7 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const connectDB = require("./config/db");
-
 const app = express();
 
 // Import Routes
@@ -39,25 +37,15 @@ const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
 const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTicketRoutes.js");
 const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
+const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
 
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
-// Health check
-app.get("/", (req, res) => {
-  res.send("🚀 Omni API Server is running ✅");
-});
 
-// Mock auth middleware for TMF ServiceOrder
-function authMiddleware(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  if (authHeader && authHeader === "Bearer mock-fake-token-12345") next();
-  else res.status(401).json({ message: "Unauthorized" });
-}
 
 // Routes
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
@@ -65,9 +53,7 @@ app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 app.use("/tmf-api/usageManagement/v4/usage", enhancedCurrentDailyUsageRoutes);
 app.use("/tmf-api/customerManagement/v5", customerRoutes);
 app.use("/tmf-api/productOrdering/v4/productOrder", productOrderRoutes);
-
 app.use("/tmf-api/dataGift/v1", validateDataGiftRoutes);
-
 app.use("/", vasRoutes);
 app.use("/tmf-api/ServiceActivationAndConfiguration/v4", serviceRoutes);
 app.use(
@@ -87,8 +73,6 @@ app.use('/tmf-api/serviceActivation/v4.0.0', dataGiftPackagesRoutes);
 app.use('/tmf-api/sales/v4/', salesLeadRoutes);
 app.use('/tmf-api/productOrderingManagement/v4', DataBundlePostpaidRoutes);
 // app.use('/api/Account', accountRoutes);
-
-
 app.use("/", vasRoutes);
 app.use("/tmf-api/ServiceActivationAndConfiguration/v4", serviceRoutes);
 app.use(
@@ -112,6 +96,7 @@ app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRou
 app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackageRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
 app.use("/", serviceRequestRoutes);
+app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 // app.use('/api/Account', accountRoutes);
 
 
@@ -128,5 +113,7 @@ app.use("/", serviceRequestRoutes);
 //   authMiddleware,
 //   productOfferingQualificationRoutes
 // );
+
+
 
 module.exports = app; // Export the Express app
