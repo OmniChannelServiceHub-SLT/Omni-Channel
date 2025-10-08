@@ -1,61 +1,53 @@
 const mongoose = require("mongoose");
 
 const usageCharacteristicSchema = new mongoose.Schema({
-  name: String,
-  value: mongoose.Schema.Types.Mixed,
-  valueType: String,
+  name: { type: String, required: true },
+  value: { type: String, required: true },
+  valueType: { type: String, required: true },
 });
 
 const relatedPartySchema = new mongoose.Schema({
-  id: String,
-  href: String,
-  role: String,
-  name: String,
-  "@referredType": String,
+  id: { type: String, required: true },
+  href: { type: String, required: true },
+  role: { type: String },
+  name: { type: String },
+  "@referredType": { type: String },
 });
 
 const usageSchema = new mongoose.Schema({
-  _id: { type: String, required: true }, // string id
-  usageDate: { type: Date, default: Date.now },
-  description: { type: String, required: true },
+  usageDate: { type: Date, required: true },
+  description: { type: String },
   usageType: { type: String, required: true },
-  status: { type: String, default: "received" },
+  status: { type: String, required: true },
+  usageSpecification: {
+    id: String,
+    href: String,
+    name: String,
+    "@type": String,
+    "@schemaLocation": String,
+  },
   usageCharacteristic: [usageCharacteristicSchema],
   relatedParty: [relatedPartySchema],
-  usageSpecification: {
-    id: { type: String, default: "spec-001" },
-    href: {
-      type: String,
-      default:
-        "http://localhost:3000/tmf-api/usageManagement/v4/usageSpecification/spec-001",
-    },
-    name: { type: String, default: "UsageSummarySpec" },
-    "@referredType": { type: String, default: "UsageSpecification" },
-  },
 });
 
-usageSchema.methods.toTMF635 = function () {
+// TMF aligned response method
+usageSchema.methods.toTMF635 = function (baseUrl) {
   return {
     id: this._id,
-    href: `http://localhost:3000/tmf-api/usageManagement/v4/usage/${this._id}`,
+    href: `${baseUrl}/tmf-api/usageManagement/v4/usage/${this._id}`,
     usageDate: this.usageDate,
     description: this.description,
     usageType: this.usageType,
     status: this.status,
-    usageCharacteristic: this.usageCharacteristic?.map((uc) => ({
-      name: uc.name,
-      value: uc.value,
-      valueType: uc.valueType,
-    })),
-    relatedParty: this.relatedParty?.map((rp) => ({
-      id: rp.id,
-      href: rp.href,
-      role: rp.role,
-      name: rp.name,
-      "@referredType": rp["@referredType"],
-    })),
     usageSpecification: this.usageSpecification,
+    usageCharacteristic: this.usageCharacteristic,
+    relatedParty: this.relatedParty,
+    "@type": "Usage",
+    "@baseType": "Entity",
+    "@schemaLocation": `${baseUrl}/tmf-api/schema/Usage/Usage.schema.json`,
   };
 };
 
-module.exports = mongoose.model("Summery", usageSchema);
+const Usage = mongoose.model("Usage", usageSchema);
+
+module.exports = Usage;
