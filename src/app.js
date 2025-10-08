@@ -75,7 +75,6 @@ app.use(
   require("./BBVAS/DataGiftEnroll/routes/dataGiftEnroll.routes")
 );
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
-app.use("/tmf-api/usageManagement/v4", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
@@ -99,7 +98,7 @@ app.use(
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
 app.use("/tmf-api/usageManagement/v4/PreviousMonth", PreviousMonthUsageRoutes); 
-app.use("/tmf-api/usageManagement/v4", summeryRoutes);
+app.use("/tmf-api/usageManagement/v5", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);

@@ -15,6 +15,7 @@ const relatedPartySchema = new mongoose.Schema({
 });
 
 const usageSchema = new mongoose.Schema({
+  _id: { type: String, required: true },
   usageDate: { type: Date, required: true },
   description: { type: String },
   usageType: { type: String, required: true },
@@ -48,6 +49,6 @@ usageSchema.methods.toTMF635 = function (baseUrl) {
   };
 };
 
-const Usage = mongoose.model("Usage", usageSchema);
+const Usage = mongoose.model("SummeryUsage", usageSchema);
 
 module.exports = Usage;
