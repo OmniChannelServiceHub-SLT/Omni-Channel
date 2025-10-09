@@ -1,7 +1,6 @@
-// src/BBVAS/getBonusData/models/ProductOfferingQualification.js
+//models/ProductOfferingQualification.js
 // Mongoose schema for Product Offering Qualification
-
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 const RelatedPartySchema = new mongoose.Schema({
   id: { type: String, required: true },
@@ -26,4 +25,4 @@ const ProductOfferingQualificationSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now }
 });
 
-export default mongoose.model('ProductOfferingQualification', ProductOfferingQualificationSchema);
+module.exports = mongoose.model('ProductOfferingQualification', ProductOfferingQualificationSchema);
