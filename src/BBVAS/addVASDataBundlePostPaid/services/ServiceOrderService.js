@@ -1,4 +1,4 @@
-const USE_MOCK = true; // Toggle to false when connecting to real SLT API
+ // Toggle to false when connecting to real SLT API
 
 /**
  * Create a Service Order for VAS data bundle (postpaid)
@@ -29,8 +29,14 @@ const USE_MOCK = true; // Toggle to false when connecting to real SLT API
   //   };
   // };
   
-import { v4 as uuidv4 } from 'uuid';
-export const createVASDataBundleOrder = async (body) => {
+const { v4: uuidv4 } = require('uuid');
+
+const USE_MOCK = true; // Toggle to false when connecting to real SLT API
+
+/**
+ * Create a Service Order for VAS data bundle (postpaid)
+ */
+const createVASDataBundleOrder = async (body) => {
   const subscriber = body.relatedParty?.find(p => p.role === "subscriber");
   const orderItem = body.orderItem?.[0];
 
@@ -57,18 +63,17 @@ export const createVASDataBundleOrder = async (body) => {
   };
 };
 
-
 /**
  * Create a Service Order for Extra GB Prepaid
  */
-export const createExtraGBPrepaidOrder = async (body) => {
+const createExtraGBPrepaidOrder = async (body) => {
   const subscriber = body.relatedParty?.find(p => p.role === 'subscriber');
   const orderItem = body.orderItem?.[0];
 
   if (!subscriber?.id) throw new Error("Missing subscriber ID");
   if (!orderItem?.productOffering?.id) throw new Error("Missing productOffering ID");
 
-  const approved = USE_MOCK ? true : false; // replace with real SLT API call
+  const approved = USE_MOCK ? true : false;
 
   return {
     id: `SO-${Date.now()}`,
@@ -87,20 +92,17 @@ export const createExtraGBPrepaidOrder = async (body) => {
   };
 };
 
-
 /**
  * Create Loyalty Upgrade ServiceOrder
  */
-export const createLoyaltyUpgradeOrder = async (body) => {
+const createLoyaltyUpgradeOrder = async (body) => {
   const subscriber = body.relatedParty?.find(p => p.role === "subscriber");
   const orderItem = body.orderItem?.[0];
 
   if (!subscriber?.id) throw new Error("Missing subscriber ID");
   if (!orderItem?.productOffering?.id) throw new Error("Missing productOffering ID");
 
-  // Mock processing logic
-  const approved = USE_MOCK ? true : false; // replace with actual SLT API call
-
+  const approved = USE_MOCK ? true : false;
 
   return {
     id: `SO-${Date.now()}`,
@@ -118,3 +120,10 @@ export const createLoyaltyUpgradeOrder = async (body) => {
     ]
   };
 };
+
+module.exports = {
+  createVASDataBundleOrder,
+  createExtraGBPrepaidOrder,
+  createLoyaltyUpgradeOrder
+};
+
