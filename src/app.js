@@ -90,7 +90,7 @@ app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use("/tmf-api/sales/v4/", salesLeadRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", DataBundlePostpaidRoutes);
 app.use("/tmf-api/productOfferingQualification/v5", poqRoutes);
-app.use("/tmf-api/troubleTicket/v5/troubleTicket", troubleTicketRoutes);
+app.use("/tmf-api/troubleTicket/v5", troubleTicketRoutes);
 app.use("/tmf-api/usageManagement/v4/Vouchers", RedeemVoucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoutes);
 // app.use("/tmf-api/usageManagement/v4/Vouchers", voucherRoutes);
