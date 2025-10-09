@@ -57,8 +57,11 @@ app.use("/tmf-api/sales/v4/", salesLeadRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", DataBundlePostpaidRoutes);
 app.use("/tmf-api/productOfferingQualification/v5", poqRoutes);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 app.use("/tmf-api/troubleTicket/v5/troubleTicket", troubleTicketRoutes);
 =======
+=======
+>>>>>>> Stashed changes
 app.use("/tmf-api/troubleTicket/v5", troubleTicketRoutes);
 app.use("/tmf-api/usageManagement/v4/Vouchers", RedeemVoucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoutes);
