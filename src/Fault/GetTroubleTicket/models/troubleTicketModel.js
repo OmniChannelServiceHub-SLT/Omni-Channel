@@ -1,115 +1,104 @@
-const mongoose = require("mongoose");
+// const mongoose = require('mongoose');
+// const { Schema } = mongoose;
 
-const AttachmentSchema = new mongoose.Schema(
-  {
-    id: String,
-    description: String,
-    attachmentType: { type: String, required: true },
-    mimeType: { type: String, required: true },
-    name: String,
-    url: String,
-    "@type": { type: String, default: "AttachmentRef", required: true },
-  },
-  { _id: false }
-);
+// // Sub-schemas for TMF621 components 
+// const RelatedPartyRefOrPartyRoleRefSchema = new Schema({
+//   role: { type: String, required: true },
+//   '@type': { type: String, default: 'RelatedPartyRefOrPartyRoleRef' },
+//   partyOrPartyRole: {
+//     id: { type: String, required: true },
+//     href: { type: String },
+//     name: { type: String, required: true },
+//     '@type': { type: String, required: true },
+//     '@referredType': { type: String, required: true },
+//   },
+// });
 
-const ChannelSchema = new mongoose.Schema(
-  {
-    id: String,
-    name: String,
-    "@type": { type: String, default: "ChannelRef", required: true },
-  },
-  { _id: false }
-);
+// const RelatedEntitySchema = new Schema({
+//   role: { type: String, required: true },
+//   '@type': { type: String, default: 'RelatedEntity' },
+//   entity: {
+//     id: { type: String, required: true },
+//     href: { type: String },
+//     name: { type: String, required: true },
+//     '@type': { type: String, required: true },
+//     '@referredType': { type: String, required: true },
+//   },
+// });
 
-const NoteSchema = new mongoose.Schema(
-  {
-    id: String,
-    author: String,
-    date: String,
-    text: String,
-    "@type": { type: String, default: "Note", required: true },
-  },
-  { _id: false }
-);
+// const NoteSchema = new Schema({
+//   author: { type: String },
+//   date: { type: Date, default: Date.now },
+//   text: { type: String, required: true },
+//   '@type': { type: String, default: 'Note' },
+// });
 
-const RelatedEntitySchema = new mongoose.Schema(
-  {
-    role: String,
-    "@type": { type: String, default: "RelatedEntity", required: true },
-    entity: {
-      id: String,
-      href: String,
-      name: String,
-      "@type": { type: String, default: "EntityRef" },
-      "@referredType": String,
-    },
-  },
-  { _id: false }
-);
+// const ChannelSchema = new Schema({
+//   id: { type: String, required: true },
+//   name: { type: String, required: true },
+//   '@type': { type: String, default: 'ChannelRef' },
+// });
 
-const RelatedPartySchema = new mongoose.Schema(
-  {
-    role: String,
-    "@type": {
-      type: String,
-      default: "RelatedPartyRefOrPartyRoleRef",
-      required: true,
-    },
-    partyOrPartyRole: {
-      id: String,
-      href: String,
-      name: String,
-      "@type": {
-        type: String,
-        required: true,
-        default: "PartyOrPartyRoleRef",
-      },
-      "@referredType": String,
-    },
-  },
-  { _id: false }
-);
+// const StatusChangeSchema = new Schema({
+//   statusChangeDate: { type: Date, default: Date.now },
+//   statusChangeReason: { type: String },
+//   status: { type: String, required: true, enum: ['acknowledged', 'rejected', 'pending', 'held', 'inProgress', 'cancelled', 'closed', 'resolved'] },
+//   '@type': { type: String, default: 'StatusChange' },
+// });
 
-const TroubleTicketSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String, required: true },
-  telephone: {
-    type: String,
-    required: true,
-  },
-  creationDate: { type: String, default: () => new Date().toISOString() },
-  expectedResolutionDate: { type: String },
-  requestedResolutionDate: { type: String },
-  resolutionDate: { type: String },
-  priority: { type: String, enum: ["Low", "Medium", "High"] },
-  severity: {
-    type: String,
-    enum: ["Critical", "Major", "Minor"],
-    required: true,
-  },
-  status: {
-    type: String,
-    enum: [
-      "acknowledged",
-      "rejected",
-      "pending",
-      "held",
-      "inProgress",
-      "cancelled",
-      "closed",
-      "resolved",
-    ],
-    default: "acknowledged",
-    required: true,
-  },
-  ticketType: { type: String, required: true },
-  attachment: [AttachmentSchema],
-  channel: ChannelSchema,
-  note: [NoteSchema],
-  relatedEntity: [RelatedEntitySchema],
-  relatedParty: [RelatedPartySchema],
-  "@type": { type: String, default: "TroubleTicket", required: true },
-});
+// // Main Trouble Ticket Schema (Fault Request)
+// const FaultRequestV2Schema = new Schema({ // Schema name updated
+//   // Mandatory Attributes for TMF621 POST
+//   name: { type: String, required: true },
+//   description: { type: String, required: true },
+//   severity: { type: String, enum: ['High', 'Medium', 'Low', 'Major'], required: true }, 
+//   status: { type: String, required: true, enum: ['acknowledged', 'rejected', 'pending', 'held', 'inProgress', 'cancelled', 'closed', 'resolved'] },
+//   ticketType: { type: String, required: true },
+  
+//   // Optional TMF Attributes
+//   expectedResolutionDate: { type: Date }, 
+//   requestedResolutionDate: { type: Date }, 
+//   attachment: [Schema.Types.Mixed], 
+//   channel: { type: ChannelSchema },
+//   note: [NoteSchema],
+//   relatedEntity: [RelatedEntitySchema],
+//   relatedParty: [RelatedPartyRefOrPartyRoleRefSchema],
+//   statusChangeHistory: [StatusChangeSchema],
 
-module.exports = mongoose.model("TroubleTicket", TroubleTicketSchema);
+//   // TMF Standard Attributes (System Managed)
+//   id: { type: String, unique: true }, 
+//   href: { type: String },
+//   creationDate: { type: Date, default: Date.now },
+//   lastUpdate: { type: Date, default: Date.now },
+//   '@type': { type: String, default: 'TroubleTicket' },
+//   '@schemaLocation': { type: String },
+//   '@baseType': { type: String },
+// }, {
+//   timestamps: false 
+// });
+
+// // Pre-save hook to generate 'id' and 'href' as per TMF standard
+// FaultRequestV2Schema.pre('save', function(next) {
+//   if (this.isNew) {
+//     this.id = new mongoose.Types.ObjectId().toString(); 
+//     this.href = `http://localhost:3000/api/v2/troubleTicket/${this.id}`;
+//     this.creationDate = new Date();
+    
+//     if (!this.statusChangeHistory || this.statusChangeHistory.length === 0) {
+//       this.statusChangeHistory.push({
+//         status: this.status,
+//         statusChangeReason: 'Initial creation',
+//         statusChangeDate: new Date(),
+//         '@type': 'StatusChange'
+//       });
+//     }
+//   }
+//   this.lastUpdate = new Date(); 
+//   next();
+// });
+
+// const FaultRequestV2 = mongoose.models.FaultRequestV2
+//   ? mongoose.model('FaultRequestV2') 
+//   : mongoose.model('FaultRequestV2', FaultRequestV2Schema);
+
+// module.exports = FaultRequestV2;
