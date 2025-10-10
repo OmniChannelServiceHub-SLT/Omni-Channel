@@ -1,14 +1,18 @@
-const express = require('express');
-const cors = require('cors');
+// app.js
+const express = require("express");
+const cors = require("cors");
+
 const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // Replaces body-parser.json()
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Routes
-const otpAuthRoutes = require('./EBill/OTPeBillAuthRequest/routes/otpAuth.routes');
-app.use('/tmf-api/customerBillManagement/v5', otpAuthRoutes);
+// Import OTP Auth Routes
+const otpAuthRoutes = require("./EBill/OTPeBillAuthRequest/routes/otpAuth.routes.js");
 
+// TM Forum route pattern
+app.use("/tmf-api/customerBillManagement/v5", otpAuthRoutes);
 
-module.exports = app; // Export the Express app
+module.exports = app;

@@ -1,17 +1,29 @@
 const otpAuthService = require('../services/otpAuth.service');
 
-exports.validateOtp = async (req, res) => {
+exports.OTPeBillAuthRequest = async (req, res) => {
   try {
-    const { econtact, otpCode } = req.query; // from query params
+    // ✅ Read from body instead of query
+    const { econtact, otpCode } = req.body;
+
+    if (!econtact || !otpCode) {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing required fields: econtact or otpCode'
+      });
+    }
+
     const result = await otpAuthService.validateOtp(econtact, otpCode);
 
     if (!result.success) {
       return res.status(401).json(result);
     }
 
-    res.json(result);
-  } catch (err) {
-    console.error('Error in OTP validation:', err.message);
-    res.status(400).json({ error: err.message });
+    res.status(200).json({
+      success: true,
+      message: 'OTPeBillAuthRequest processed successfully',
+      data: result.otpRecord
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
   }
 };

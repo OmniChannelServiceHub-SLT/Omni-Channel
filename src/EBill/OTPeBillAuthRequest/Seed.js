@@ -1,34 +1,48 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const OtpAuth = require('./models/otpAuth.model');
+// src/EBill/OTPeBillAuthRequest/Seed.js
 
-const seedOtp = async () => {
+require("dotenv").config();
+const mongoose = require("mongoose");
+const connectDB = require("../../config/db");
+const OTPAuth = require("./models/otpAuth.model");
+
+// ✅ Sample seed data (enum values must match the model)
+const otpSeedData = [
+  {
+    econtact: "0712345678",
+    otpCode: "123456",
+    status: "Pending",   // ✅ Must match enum ['Pending', 'Verified', 'Expired']
+    createdAt: new Date()
+  },
+  {
+    econtact: "0776543210",
+    otpCode: "987654",
+    status: "Verified",  // ✅ Valid enum value
+    createdAt: new Date()
+  }
+];
+
+const seedDatabase = async () => {
   try {
-    // Connect DB
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log('✅ MongoDB connected for seeding');
+    // ✅ Connect to MongoDB
+    await connectDB();
+    console.log("✅ MongoDB connected successfully");
 
-    // Clear old data
-    await OtpAuth.deleteMany({});
-    console.log('🧹 Old OTP data cleared');
+    // 🧹 Clear existing records (optional but helpful for seeding)
+    await OTPAuth.deleteMany();
+    console.log("🧹 Existing OTP Auth records removed");
 
-    // Insert test OTP
-    const otpData = {
-      econtact: 'kadlaksiha@gmail.com',
-      otpCode: '9264', // same code you tested in Postman
-    };
+    // 🌱 Insert seed data
+    await OTPAuth.insertMany(otpSeedData);
+    console.log("🌱 OTP Auth seed data inserted successfully");
 
-    const newOtp = await OtpAuth.create(otpData);
-    console.log('🌱 Seeded OTP:', newOtp);
-
-    process.exit();
-  } catch (err) {
-    console.error('❌ Seeding failed:', err.message);
-    process.exit(1);
+    // 🔌 Close connection
+    await mongoose.connection.close();
+    console.log("🔌 MongoDB connection closed");
+  } catch (error) {
+    console.error("❌ Error seeding OTP Auth data:", error.message);
+    mongoose.connection.close();
   }
 };
 
-seedOtp();
+// 🚀 Run the seeding script
+seedDatabase();
