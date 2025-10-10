@@ -17,6 +17,7 @@ const advancedReportingPackageRoutes = require("./BBVAS/GetAdvancedReportingPack
 const updateISPContactRoutes = require("./BBVAS/PUTUpdateISPContact/routes/customer.routes.js");
 const dailyUsageRoutes = require('./BBVAS/CurrentMonthsDailyUsage/routes/currentUsageRoutes');
 const dataGiftRoutes = require("./BBVAS/DataGiftEnrollPrepaidInit/routes/dataGiftRoutes");
+const vasConfirmRoutes = require("./BBVAS/AddVASDataBundlePrepaidConfirm/routes/vasRoutes.js");
 const validateDataGiftRoutes = require("./BBVAS/ValidateDataGiftSub/routes/dataGiftRoutes");
 const addVASRoutes = require('./BBVAS/AddVASDataBundlePrepaidConfirm/routes/vasRoutes');
 const purchasedHistoryRoutes = require('./BBVAS/PurchasedHistory/routes/purchasedHistoryRoutes');
@@ -36,9 +37,9 @@ const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/
 // const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
 const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTicketRoutes.js");
+const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultRequestRoutes');
 const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
 const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
-
 
 // Middleware
 app.use(cors());
@@ -67,7 +68,7 @@ app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use("/", updateISPContactRoutes); 
 app.use('/tmf-api/usageManagement/v4/daily', dailyUsageRoutes);
 app.use("/tmf-api/dataGift/v1", dataGiftRoutes);
-app.use('/api/BBVAS', addVASRoutes);
+app.use("/tmf-api/productOrdering/v4", vasConfirmRoutes);
 app.use('/tmf-api/usage/v4', purchasedHistoryRoutes);
 app.use('/tmf-api/serviceActivation/v4.0.0', dataGiftPackagesRoutes);
 app.use('/tmf-api/sales/v4/', salesLeadRoutes);
@@ -89,13 +90,14 @@ app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use("/tmf-api/sales/v4/", salesLeadRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", DataBundlePostpaidRoutes);
 app.use("/tmf-api/productOfferingQualification/v5", poqRoutes);
-app.use("/tmf-api/troubleTicket/v5/troubleTicket", troubleTicketRoutes);
+app.use("/tmf-api/troubleTicket/v5", troubleTicketRoutes);
 app.use("/tmf-api/usageManagement/v4/Vouchers", RedeemVoucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoutes);
 // app.use("/tmf-api/usageManagement/v4/Vouchers", voucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackageRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
 app.use("/", serviceRequestRoutes);
+app.use('/api/v2', faultRequestRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 // app.use('/api/Account', accountRoutes);
 
@@ -113,7 +115,10 @@ app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 //   authMiddleware,
 //   productOfferingQualificationRoutes
 // );
-
+// Health check
+app.get('/', (req, res) => {
+  res.send('Omini API Server is running ✅');
+});
 
 
 module.exports = app; // Export the Express app
