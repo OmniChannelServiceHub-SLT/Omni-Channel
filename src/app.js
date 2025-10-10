@@ -46,11 +46,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Import OTP Auth Routes
-const otpAuthRoutes = require("./EBill/OTPeBillAuthRequest/routes/otpAuth.routes.js");
-
-// TM Forum route pattern
-app.use("/tmf-api/customerBillManagement/v5", otpAuthRoutes);
 
 
 // Routes
@@ -126,4 +121,4 @@ app.get('/', (req, res) => {
 });
 
 
-module.exports = app;
+module.exports = app; // Export the Express app
