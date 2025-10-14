@@ -40,6 +40,7 @@ const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTick
 const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultRequestRoutes');
 const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
 const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
+const ServiceInventoryRoute = require("./EBill/SMSServiceStatusRequest/routes/ServiceInventoryRoute.js");
 
 // Middleware
 app.use(cors());
@@ -99,6 +100,13 @@ app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRou
 app.use("/", serviceRequestRoutes);
 app.use('/api/v2', faultRequestRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
+app.use('/tmf-api/serviceInventory/v4', ServiceInventoryRoute);
+
+
+
+
+
+
 // app.use('/api/Account', accountRoutes);
 
 
