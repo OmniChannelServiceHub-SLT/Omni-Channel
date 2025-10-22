@@ -40,7 +40,7 @@ const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTick
 const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultRequestRoutes');
 const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
 const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
-const customerBillOnDemandRoutes = require("./EBill/smartBillSendRequest/routes/customerBillOnDemandRoutes");
+const customerBillOnDemandRoutes = require("./EBill/smartBillSendRequest/routes/CustomerBillOnDemandRoutes.js");
 
 // Middleware
 app.use(cors());
