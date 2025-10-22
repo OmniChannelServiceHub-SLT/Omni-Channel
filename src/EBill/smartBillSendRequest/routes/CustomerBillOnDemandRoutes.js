@@ -5,7 +5,7 @@ const {
   createCustomerBillOnDemand,
 } = require("../controllers/customerBillOnDemandController");
 
-// TMF-aligned POST endpoint
+// TMF 678 aligned POST endpoint with optional ?fields=
 router.post("/customerBillOnDemand", createCustomerBillOnDemand);
 
 module.exports = router;

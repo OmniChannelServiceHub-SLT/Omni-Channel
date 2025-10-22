@@ -4,13 +4,14 @@ const mongoose = require("mongoose");
 const CustomerBillOnDemandSchema = new mongoose.Schema({
   id: { type: String, required: true, unique: true },
   href: { type: String },
-  description: { type: String },
+  description: { type: String, required: true },
   name: { type: String },
   lastUpdate: { type: Date, default: Date.now },
   state: {
     type: String,
     enum: ["inProgress", "done", "rejected", "terminatedWithError"],
     default: "inProgress",
+    required: true,
   },
   billingAccount: {
     id: { type: String, required: true },
@@ -35,7 +36,7 @@ const CustomerBillOnDemandSchema = new mongoose.Schema({
       value: { type: mongoose.Schema.Types.Mixed },
     },
   ],
-  "@type": { type: String, default: "CustomerBillOnDemand" },
+  "@type": { type: String, default: "CustomerBillOnDemand", required: true },
 });
 
 module.exports = mongoose.model("CustomerBillOnDemand", CustomerBillOnDemandSchema);
