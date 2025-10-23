@@ -1,15 +1,15 @@
-require("dotenv").config();
-const mongoose = require("mongoose");
+const express = require("express");
+const dotenv = require("dotenv");
+const connectDB = require("./src/config/db");
 const app = require("./src/app");
 
-const PORT = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/tmfdb";
+dotenv.config();
 
-mongoose
-  .connect(MONGO_URI)
-  .then(() => {
-    console.log("✅ MongoDB connected");
-    app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`)
-    );
-  })
-  .catch((err) => console.error("❌ DB connection error:", err));
+// Connect DB
+connectDB();
+
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`TMF678 API running: http://localhost:${PORT}/tmf-api/customerBillManagement/v5`);
+});
