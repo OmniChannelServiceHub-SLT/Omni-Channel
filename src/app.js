@@ -41,6 +41,7 @@ const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferi
 const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTicketRoutes.js");
 const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultRequestRoutes');
 const eBillDownloadRoutes = require('./eBill/GET eBillDownloadRequest/routes/eBill.routes.js');
+const billCodeRoutes = require('./eBill/GetBillCodes/routes/BillCode.routes');
 
 // Middleware
 app.use(cors());
@@ -115,6 +116,7 @@ app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRou
 app.use("/", serviceRequestRoutes);
 app.use('/api/v2', faultRequestRoutes);
 app.use('/tmf-api/customerBillManagement/v5', eBillDownloadRoutes);
+app.use('/tmf-api/customerBillManagement/v5', billCodeRoutes);
 // app.use('/api/Account', accountRoutes);
 
 
