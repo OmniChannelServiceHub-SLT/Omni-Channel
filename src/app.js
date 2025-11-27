@@ -23,8 +23,10 @@ const reportTimePeriodRoutes = require("./BBVAS/GetReportTimePeriod/routes/repor
 const advancedReportingPackageRoutes = require("./BBVAS/GetAdvancedReportingPackage/routes/advancedReportingPackage.routes");
 const salesLeadRoutes = require('./Sales/SalesLeadCreationRequest/routes/salesLeadRoutes.js');
 const DataBundlePostpaidRoutes = require("./BBVAS/AddVASDataBundlePostPaidV2/routes/productOrderRoute.js");
-const eBillCheckUserExistRoutes = require("./EBill/eBillCheckUserExistV2/routes/eBillRoutes");
+const eBillCheckUserExistRoutes = require("./EBill/eBillCheckUserExistV2/routes/eBillRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
+const purchasedProductRoutes = require("./PEOVAS/PostPurchasedProduct/route/purchasedProductroutes.js");
+
 
 // Middleware
 app.use(cors());
@@ -77,6 +79,7 @@ app.use('/tmf-api/sales/v4/', salesLeadRoutes);
 app.use('/tmf-api/productOrderingManagement/v4', DataBundlePostpaidRoutes);
 
 app.use("/tmf-api/customerBillManagement/v5", eBillCheckUserExistRoutes);
+app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
 
 // app.use('/api/Account', accountRoutes);
 
