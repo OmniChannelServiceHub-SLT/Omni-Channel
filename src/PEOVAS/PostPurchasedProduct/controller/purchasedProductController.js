@@ -1,4 +1,4 @@
-const PurchasedProduct = require('../models/purchasedProduct.model');
+const PurchasedProduct = require('../models/purchasedProductmodel');
 
 /**
  * Create a Purchased Product
