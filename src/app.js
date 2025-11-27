@@ -26,6 +26,8 @@ const DataBundlePostpaidRoutes = require("./BBVAS/AddVASDataBundlePostPaidV2/rou
 const eBillCheckUserExistRoutes = require("./EBill/eBillCheckUserExistV2/routes/eBillRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
 const purchasedProductRoutes = require("./PEOVAS/PostPurchasedProduct/route/purchasedProductroutes.js");
+const getPurchasedProductsRoutes = require("./PEOVAS/getPurchasedProduct/routes/getPurchasedProducts.routes");
+
 
 
 // Middleware
@@ -80,6 +82,7 @@ app.use('/tmf-api/productOrderingManagement/v4', DataBundlePostpaidRoutes);
 
 app.use("/tmf-api/customerBillManagement/v5", eBillCheckUserExistRoutes);
 app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
+app.use("/tmf-api", getPurchasedProductsRoutes);
 
 // app.use('/api/Account', accountRoutes);
 
