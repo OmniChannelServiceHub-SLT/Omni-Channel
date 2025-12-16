@@ -1,7 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const connectDB = require("./config/db");
-
 const app = express();
 
 // Import Routes
@@ -31,7 +29,7 @@ const serviceRequestRoutes = require("./Fault/CreateServiceRequest/routes/servic
 const DataTransferAmountRoutes = require('./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js');
 const PreviousMonthUsageRoutes = require('./BBVAS/PreviousMonthDailyUsage/routes/usageRoutes.js');
 const RedeemVoucherRoutes = require('./BBVAS/RedeemVoucher/routes/voucherRoutes.js');
-const GiftPackagesRoutes = require('./BBVAS/DatagiftPackages/routes/dataGiftRoutes.js');
+const GiftPackageRoutes = require('./BBVAS/DatagiftPackages/routes/dataGiftRoutes.js');
 const AdvancedReportPostpaidRoutes = require('./BBVAS/Advancedreport-Postpaid/routes/advancedReportRoutes.js');
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
@@ -40,35 +38,22 @@ const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
 const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTicketRoutes.js");
 const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultRequestRoutes');
-const eBillDownloadRoutes = require('./eBill/GET eBillDownloadRequest/routes/eBill.routes.js');
-const billCodeRoutes = require('./eBill/GetBillCodes/routes/BillCode.routes');
+const otpRoutes = require('./PEOVAS/POST SendOTPRequest/routes/otpRoutes');
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 
-// Health check
-app.get("/", (req, res) => {
-  res.send("🚀 Omni API Server is running ✅");
-});
 
-// Mock auth middleware for TMF ServiceOrder
-function authMiddleware(req, res, next) {
-  const authHeader = req.headers["authorization"];
-  if (authHeader && authHeader === "Bearer mock-fake-token-12345") next();
-  else res.status(401).json({ message: "Unauthorized" });
-}
 
 // Routes
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
+//app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 app.use("/tmf-api/usageManagement/v4/usage", enhancedCurrentDailyUsageRoutes);
 app.use("/tmf-api/customerManagement/v5", customerRoutes);
 app.use("/tmf-api/productOrdering/v4/productOrder", productOrderRoutes);
-
 app.use("/tmf-api/dataGift/v1", validateDataGiftRoutes);
-
 app.use("/", vasRoutes);
 app.use("/tmf-api/ServiceActivationAndConfiguration/v4", serviceRoutes);
 app.use(
@@ -76,7 +61,6 @@ app.use(
   require("./BBVAS/DataGiftEnroll/routes/dataGiftEnroll.routes")
 );
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
-app.use("/tmf-api/usageManagement/v4", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
@@ -89,8 +73,6 @@ app.use('/tmf-api/serviceActivation/v4.0.0', dataGiftPackagesRoutes);
 app.use('/tmf-api/sales/v4/', salesLeadRoutes);
 app.use('/tmf-api/productOrderingManagement/v4', DataBundlePostpaidRoutes);
 // app.use('/api/Account', accountRoutes);
-
-
 app.use("/", vasRoutes);
 app.use("/tmf-api/ServiceActivationAndConfiguration/v4", serviceRoutes);
 app.use(
@@ -100,23 +82,22 @@ app.use(
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
 app.use("/tmf-api/usageManagement/v4/PreviousMonth", PreviousMonthUsageRoutes); 
-app.use("/tmf-api/usageManagement/v4", summeryRoutes);
+app.use("/tmf-api/usageManagement/v5", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use("/tmf-api/sales/v4/", salesLeadRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", DataBundlePostpaidRoutes);
 app.use("/tmf-api/productOfferingQualification/v5", poqRoutes);
-app.use("/tmf-api/troubleTicket/v5/troubleTicket", troubleTicketRoutes);
+app.use("/tmf-api/troubleTicket/v5", troubleTicketRoutes);
 app.use("/tmf-api/usageManagement/v4/Vouchers", RedeemVoucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoutes);
 // app.use("/tmf-api/usageManagement/v4/Vouchers", voucherRoutes);
-app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackagesRoutes);
+app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackageRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
 app.use("/", serviceRequestRoutes);
 app.use('/api/v2', faultRequestRoutes);
-app.use('/tmf-api/customerBillManagement/v5', eBillDownloadRoutes);
-app.use('/tmf-api/customerBillManagement/v5', billCodeRoutes);
+app.use('/tmf-api/otpManagement/v1/sendOTP', otpRoutes);
 // app.use('/api/Account', accountRoutes);
 
 
@@ -133,5 +114,10 @@ app.use('/tmf-api/customerBillManagement/v5', billCodeRoutes);
 //   authMiddleware,
 //   productOfferingQualificationRoutes
 // );
+// Health check
+app.get('/', (req, res) => {
+  res.send('Omini API Server is running ✅');
+});
+
 
 module.exports = app; // Export the Express app

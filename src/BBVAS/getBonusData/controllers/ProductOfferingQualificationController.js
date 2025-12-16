@@ -1,13 +1,13 @@
-// controllers/ProductOfferingQualificationController.js
-import express from 'express';
-import {
+// ProductOfferingQualificationController.js
+const express = require('express');
+const {
   createProductOfferingQualification,
   createBonusDataQualification,
   listProductOfferingQualification,
   retrieveProductOfferingQualification,
   patchProductOfferingQualification,
   deleteProductOfferingQualification
-} from '../services/ProductOfferingQualificationService.js';
+} = require('../services/ProductOfferingQualificationService.js');
 
 const router = express.Router();
 
@@ -49,4 +49,4 @@ router.delete('/productOfferingQualification/:id', (req, res) =>
   handleService(res, deleteProductOfferingQualification, req.params.id)
 );
 
-export default router;
+module.exports = router;

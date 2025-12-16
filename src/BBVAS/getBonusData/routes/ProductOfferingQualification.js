@@ -1,5 +1,6 @@
-import express from "express";
-import { createProductOfferingQualification } from "../services/ProductOfferingQualificationService.js";
+// routes/ProductOfferingQualification.js
+const express = require("express");
+const { createProductOfferingQualification } = require("../services/ProductOfferingQualificationService.js");
 
 const router = express.Router();
 
@@ -22,4 +23,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
