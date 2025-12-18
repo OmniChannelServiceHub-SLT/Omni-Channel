@@ -38,6 +38,8 @@ const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
 const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTicketRoutes.js");
 const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultRequestRoutes');
+const sendOTPRoutes = require('./PEOVAS/POST SendOTPRequest/routes/sendOTPRoutes');
+const verifyOTPRoutes = require('./PEOVAS/POST VerifyOTPRequest/routes/verifyOTPRoutes');
 
 // Middleware
 app.use(cors());
@@ -95,6 +97,8 @@ app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackageRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
 app.use("/", serviceRequestRoutes);
 app.use('/api/v2', faultRequestRoutes);
+app.use('/tmf-api/communicationManagement/v4', sendOTPRoutes);
+app.use('/tmf-api/digitalIdentity/v4', verifyOTPRoutes);
 // app.use('/api/Account', accountRoutes);
 
 
