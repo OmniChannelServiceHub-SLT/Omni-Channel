@@ -1,4 +1,4 @@
-const PurchasedProduct = require('../../models/purchasedProduct.model');
+const PurchasedProduct = require('../../PostPurchasedProduct/model/purchasedProductmodel');
 
 exports.getPurchasedProductsByTel = async (req, res, next) => {
   try {
