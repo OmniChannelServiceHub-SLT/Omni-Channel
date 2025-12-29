@@ -1,10 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const eBillUser = require("../models/eBillUsers");
-
 console.log("eBillUser import test:", typeof eBillUser, eBillUser.modelName);
-// console.log("eBillUser import test:", typeof eBillUser, eBillUser.modelName);
-
 
 
 // TMF 678-aligned GET endpoint that accepts JSON body

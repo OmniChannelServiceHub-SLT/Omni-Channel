@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const eBillUser = require("./models/eBillUsers"); 
-const eBillUser = require("./models/eBillUsers"); // ✅ fixed path
 require("dotenv").config({ path: "../../../.env" }); // adjust path to .env
 
 mongoose.connect(process.env.MONGO_URI)
