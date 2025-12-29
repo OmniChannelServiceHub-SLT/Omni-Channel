@@ -27,6 +27,7 @@ const DataBundlePostpaidRoutes = require("./BBVAS/AddVASDataBundlePostPaidV2/rou
 const AddVASDataBundlePostPaid = require("./BBVAS/addVASDataBundlePostPaid/routes/ServiceOrderRoute.js");
 const serviceRequestRoutes = require("./Fault/CreateServiceRequest/routes/serviceRequest.routes");
 const DataTransferAmountRoutes = require('./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js');
+const DataTransferAmountRoutes = require('./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js');
 const PreviousMonthUsageRoutes = require('./BBVAS/PreviousMonthDailyUsage/routes/usageRoutes.js');
 const RedeemVoucherRoutes = require('./BBVAS/RedeemVoucher/routes/voucherRoutes.js');
 const GiftPackageRoutes = require('./BBVAS/DatagiftPackages/routes/dataGiftRoutes.js');
@@ -40,8 +41,7 @@ const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTick
 const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultRequestRoutes');
 const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
 const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
-const eBillRoutes = require("./EBill/eBillCheckUserExistV2/routes/eBillRoutes");
-
+const productInventoryRoutes = require("./PEOVAS/CustomerValidation_malsha/productInventoryRoute");
 
 // Middleware
 app.use(cors());
@@ -101,8 +101,7 @@ app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRou
 app.use("/", serviceRequestRoutes);
 app.use('/api/v2', faultRequestRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
-app.use("/tmf-api/customerBillManagement/v5", eBillRoutes);
-
+app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
 // app.use('/api/Account', accountRoutes);
 
 
