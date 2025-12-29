@@ -1,5 +1,5 @@
 const Customer = require("../models/Customer");   
-const Service = require("../models/Service");     
+const Service = require("../../UnsubscribeAdvancedReports/models/ServiceModel");     
 const PartyRole = require("../models/PartyRole");
 
 exports.validateDataGiftSub = async (req, res) => {

@@ -1,3 +1,4 @@
+// controllers/salesLeadController.js
 const { v4: uuidv4 } = require('uuid');
 const salesLeadService = require('../services/salesLeadService');
 
@@ -7,15 +8,42 @@ exports.createSalesLead = async (req, res) => {
   try {
     const now = new Date();
     const newId = uuidv4();
-
-    // Clone body to avoid mutating incoming data
     const bodyData = { ...req.body };
 
-    //  Detect LTE-specific request 
-    const isLTE = bodyData.servicetype?.toUpperCase() === "LTE";
+    // // ----- Backward compatibility: handle legacy query params -----
+    // const firstName = req.query.firstName;
+    // const lastName = req.query.lastName;
+    // const nic = req.query.nic;
+    // const contactTelNo = req.query.ContactTelNo;
 
+    // if (!bodyData.relatedParty && (firstName || nic)) {
+    //   bodyData.relatedParty = [{
+    //     id: nic,
+    //     name: `${firstName || ''} ${lastName || ''}`.trim(),
+    //     role: 'prospect',
+    //     '@referredType': 'individual'
+    //   }];
+    // }
+
+    // if (!bodyData.prospectContact && contactTelNo) {
+    //   bodyData.prospectContact = [{
+    //     preferred: true,
+    //     mediumType: 'phone',
+    //     characteristic: { phoneNumber: contactTelNo }
+    //   }];
+    // }
+
+    // ----- Enforce TMF mandatory attribute -----
+    if (!bodyData.name || bodyData.name.trim() === "") {
+      return res.status(400).json({
+        status: 400,
+        message: "Missing mandatory attribute: name"
+      });
+    }
+
+    // ----- Detect LTE-specific request -----
+    const isLTE = bodyData.servicetype?.toUpperCase() === "LTE";
     if (isLTE) {
-      // Apply LTE-specific defaults
       bodyData.type = bodyData.type || "LTE Lead";
       bodyData.productOffering = bodyData.productOffering || {
         id: "LTE001",
@@ -29,11 +57,11 @@ exports.createSalesLead = async (req, res) => {
       };
     }
 
-    // Merge with TMF699 mandatory & optional fields
+    // ----- Merge TMF attributes -----
     const leadData = {
       id: newId,
       href: `${baseUrl}/${newId}`,
-      name: bodyData.name || `Lead created on ${now.toISOString()}`,
+      name: bodyData.name,
       description: bodyData.description,
       referredDate: bodyData.referredDate,
       type: bodyData.type,
@@ -59,7 +87,8 @@ exports.createSalesLead = async (req, res) => {
 
     const newLead = await salesLeadService.createSalesLead(leadData);
     res.status(201).json(newLead);
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ status: 500, message: error.message });
   }
 };
