@@ -7,6 +7,7 @@ const app = express();
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
 const productOrderRoutes = require("./BBVAS/VASBundleUnsubscription/routes/productOrderRoutes");
+const dataGiftRoutes = require("./BBVAS/ValidateDataGiftSub/routes/dataGiftRoutes");
 const usageRoutes = require("./BBVAS/WeeksUsage/routes/usageRoutes");
 const serviceRoutes = require("./BBVAS/UnsubscribeAdvancedReports/routes/serviceRoutes");
 const summeryRoutes = require("./BBVAS/UsageSummery/routes/usageRoutes.js");
@@ -41,6 +42,9 @@ const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultReq
 const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
 const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
 const productInventoryRoutes = require("./PEOVAS/CustomerValidation_malsha/productInventoryRoute");
+const eBillCheckUserExistRoutes = require("./EBill/eBillCheckUserExistV2/routes/eBillRoutes.js");
+const purchasedProductRoutes = require("./PEOVAS/PostPurchasedProduct/route/purchasedProductroutes.js");
+const getPurchasedProductsRoutes = require("./PEOVAS/getPurchasedProduct/routes/getPurchasedProducts.routes");
 
 // Middleware
 app.use(cors());
@@ -88,6 +92,9 @@ app.use("/tmf-api/usageManagement/v5", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
+app.use("/tmf-api/customerBillManagement/v5", eBillCheckUserExistRoutes);
+app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
+app.use("/tmf-api", getPurchasedProductsRoutes);
 app.use("/tmf-api/sales/v4/", salesLeadRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", DataBundlePostpaidRoutes);
 app.use("/tmf-api/productOfferingQualification/v5", poqRoutes);
