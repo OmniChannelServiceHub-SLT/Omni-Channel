@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createPurchasedProduct } = require('../controllers/purchasedProduct.controller');
+const { createPurchasedProduct } = require('../controllers/purchasedProductController');
 
 // POST /tmf-api/purchasedProduct
 router.post('/purchasedProduct', createPurchasedProduct);
