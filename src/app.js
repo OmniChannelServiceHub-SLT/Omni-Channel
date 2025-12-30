@@ -41,10 +41,6 @@ const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTick
 const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultRequestRoutes');
 const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
 const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
-const productInventoryRoutes = require("./PEOVAS/CustomerValidation_malsha/productInventoryRoute");
-const eBillCheckUserExistRoutes = require("./EBill/eBillCheckUserExistV2/routes/eBillRoutes.js");
-const purchasedProductRoutes = require("./PEOVAS/PostPurchasedProduct/route/purchasedProductroutes.js");
-const getPurchasedProductsRoutes = require("./PEOVAS/GetPurchasedProducts/routes/getPurchasedProductsroutes.js");
 
 // Middleware
 app.use(cors());
@@ -55,7 +51,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
-app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 app.use("/tmf-api/usageManagement/v4/usage", enhancedCurrentDailyUsageRoutes);
 app.use("/tmf-api/customerManagement/v5", customerRoutes);
 app.use("/tmf-api/productOrdering/v4/productOrder", productOrderRoutes);
@@ -92,9 +87,9 @@ app.use("/tmf-api/usageManagement/v5", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
-app.use("/tmf-api/customerBillManagement/v5", eBillCheckUserExistRoutes);
-app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
-app.use("/tmf-api", getPurchasedProductsRoutes);
+//app.use("/tmf-api/customerBillManagement/v5", eBillCheckUserExistRoutes);
+//app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
+//app.use("/tmf-api", getPurchasedProductsRoutes);
 app.use("/tmf-api/sales/v4/", salesLeadRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", DataBundlePostpaidRoutes);
 app.use("/tmf-api/productOfferingQualification/v5", poqRoutes);
@@ -107,7 +102,6 @@ app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRou
 app.use("/", serviceRequestRoutes);
 app.use('/api/v2', faultRequestRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
-app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
 // app.use('/api/Account', accountRoutes);
 
 
