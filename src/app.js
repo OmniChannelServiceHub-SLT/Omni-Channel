@@ -46,6 +46,9 @@ const eBillCheckUserExistRoutes = require("./EBill/eBillCheckUserExistV2/routes/
 const purchasedProductRoutes = require("./PEOVAS/PostPurchasedProduct/route/purchasedProductroutes.js");
 const getPurchasedProductsRoutes = require("./PEOVAS/GetPurchasedProducts/routes/getPurchasedProductsroutes.js");
 
+//Notifications
+const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/routes/popupMessage.routes.js");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -109,6 +112,7 @@ app.use('/api/v2', faultRequestRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
 // app.use('/api/Account', accountRoutes);
+app.use("/api/notifications", getPopupMessageBanner);
 
 
 // app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)
@@ -124,6 +128,7 @@ app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
 //   authMiddleware,
 //   productOfferingQualificationRoutes
 // );
+
 // Health check
 app.get('/', (req, res) => {
   res.send('Omini API Server is running ✅');
