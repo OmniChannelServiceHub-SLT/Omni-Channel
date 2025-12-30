@@ -44,6 +44,9 @@ const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoute
 //pop up message banner notification
 const notificationRoutes = require('./Notifications/GetPopupMessageBanner/routes/popupMessage.routes');
 
+//Notifications
+const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/routes/popupMessage.routes.js");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -103,7 +106,12 @@ app.use("/", serviceRequestRoutes);
 app.use('/api/v2', faultRequestRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 // app.use('/api/Account', accountRoutes);
+<<<<<<< Updated upstream
 app.use("/api/notifications/v1", notificationRoutes);
+=======
+app.use("/api/notifications", getPopupMessageBanner);
+
+>>>>>>> Stashed changes
 
 // app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)
 // // Mock auth middleware for TMF ServiceOrder
