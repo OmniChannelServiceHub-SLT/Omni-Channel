@@ -41,6 +41,9 @@ const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultReq
 const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
 const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
 
+//pop up message banner notification
+const notificationRoutes = require('./Notifications/GetPopupMessageBanner/routes/popupMessage.routes');
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -100,7 +103,7 @@ app.use("/", serviceRequestRoutes);
 app.use('/api/v2', faultRequestRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 // app.use('/api/Account', accountRoutes);
-
+app.use("/api/notifications/v1", notificationRoutes);
 
 // app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)
 // // Mock auth middleware for TMF ServiceOrder
@@ -115,6 +118,7 @@ app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 //   authMiddleware,
 //   productOfferingQualificationRoutes
 // );
+
 // Health check
 app.get('/', (req, res) => {
   res.send('Omini API Server is running ✅');
