@@ -58,6 +58,16 @@ const getPurchasedProductsRoutes = require("./PEOVAS/GetPurchasedProducts/routes
 //Notifications
 const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/routes/popupMessage.routes.js");
 
+
+//Prepaid 
+const vasBundleConfirmRoutes = require(
+  "./Prepaid/POSTAdd VAS Data Bundle - Prepaid Confirm/routes/vasBundleConfirm.routes"
+);
+
+const unsubscribeAdvancedReportsRoutes = require(
+  "./Prepaid/POSTUnsubscribeAdvancedReports/routes/unsubscribeAdvancedReports.routes"
+);
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -134,6 +144,11 @@ app.use("/tmf-api", getPurchasedProductsRoutes);
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
+
+//Prepaid 
+app.use("/tmf-api", vasBundleConfirmRoutes);
+app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
+
 
 
 // app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)
