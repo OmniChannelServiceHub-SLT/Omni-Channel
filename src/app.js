@@ -61,7 +61,7 @@ const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/rou
 
 
 //Prepaid 
-const dataGiftEnrolInit = require('./Prepaid/DataGiftEnrollPrepaidInit/routes/purchaseRoutes.js')
+const dataGiftEnrolInit = require('./Prepaid/DataGiftEnrollPrepaid-confirm/routes/purchaseRoutes.js')
 const vasBundleConfirmRoutes = require(
   "./Prepaid/POSTAdd VAS Data Bundle - Prepaid Confirm/routes/vasBundleConfirm.routes"
 );
