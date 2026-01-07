@@ -61,7 +61,8 @@ const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/rou
 
 
 //Prepaid 
-const dataGiftEnrolInit = require('./Prepaid/DataGiftEnrollPrepaid-confirm/routes/purchaseRoutes.js')
+const dataGiftEnrollInit = require('./Prepaid/DataGiftEnrollInit/routes/dataGiftEnrollInit.routes.js')
+const dataGiftEnrolInitConfirm = require('./Prepaid/DataGiftEnrollPrepaid-confirm/routes/purchaseRoutes.js')
 const vasBundleConfirmRoutes = require(
   "./Prepaid/POSTAdd VAS Data Bundle - Prepaid Confirm/routes/vasBundleConfirm.routes"
 );
@@ -149,7 +150,8 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 app.use("/api/notifications", getPopupMessageBanner);
 
 //Prepaid 
-app.use("/tmf-api", dataGiftEnrolInit)
+app.use("/tmf-api", dataGiftEnrolInitConfirm),
+app.use('/tmf-api',dataGiftEnrollInit)
 app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 
