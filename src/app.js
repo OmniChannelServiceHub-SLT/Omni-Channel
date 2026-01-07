@@ -61,6 +61,7 @@ const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/rou
 
 
 //Prepaid 
+const dataGiftEnrolInit = require('./Prepaid/DataGiftEnrollPrepaidInit/routes/purchaseRoutes.js')
 const vasBundleConfirmRoutes = require(
   "./Prepaid/POSTAdd VAS Data Bundle - Prepaid Confirm/routes/vasBundleConfirm.routes"
 );
@@ -94,7 +95,7 @@ app.use("/tmf-api/usageManagement/v4", usageRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
-app.use("/", updateISPContactRoutes); 
+app.use("/", updateISPContactRoutes);
 app.use('/tmf-api/usageManagement/v4/daily', dailyUsageRoutes);
 app.use("/tmf-api/dataGift/v1", dataGiftRoutes);
 app.use("/tmf-api/productOrdering/v4", vasConfirmRoutes);
@@ -110,7 +111,7 @@ app.use(
 );
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
-app.use("/tmf-api/usageManagement/v4/PreviousMonth", PreviousMonthUsageRoutes); 
+app.use("/tmf-api/usageManagement/v4/PreviousMonth", PreviousMonthUsageRoutes);
 app.use("/tmf-api/usageManagement/v5", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
@@ -148,6 +149,7 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 app.use("/api/notifications", getPopupMessageBanner);
 
 //Prepaid 
+app.use("/tmf-api", dataGiftEnrolInit)
 app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 
