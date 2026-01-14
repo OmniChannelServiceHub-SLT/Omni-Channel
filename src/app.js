@@ -58,6 +58,7 @@ const serviceInventoryRoutes = require("./PEOVAS/CheckOmniTP/serviceInventoryRou
 
 //Notifications
 const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/routes/popupMessage.routes.js");
+const postPushNotifications = require("./Notifications/PostPushNotifications/routes/pushNotification.routes.js");
 
 
 //Prepaid 
@@ -148,6 +149,7 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
+app.use("/api/notifications", postPushNotifications); //uses TMF681
 
 //Prepaid 
 app.use("/tmf-api", dataGiftEnrolInitConfirm),
