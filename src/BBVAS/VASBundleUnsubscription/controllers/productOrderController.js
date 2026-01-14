@@ -5,11 +5,23 @@ exports.unsubscribeVASBundle = async (req, res) => {
     const { customerId, productId, productName } = req.body;
 
     const order = new ProductOrder({
-      customerId,
-      orderItems: [
-        { productId, productName, action: "delete" }
-      ]
+      state: "acknowledged",
+
+      relatedParty: [{
+        id: customerId,
+        role: "customer"
+      }],
+
+      orderItem: [{
+        id: "1",
+        action: "delete",
+        productOffering: {
+          id: productId,
+          name: productName
+        }
+      }]
     });
+
 
     await order.save();
     res.status(201).json({
