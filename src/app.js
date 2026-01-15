@@ -75,6 +75,13 @@ const unsubscribeAdvancedReportsRoutes = require(
 
 const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/extraGBRoutes.js");
 
+//PrePaid
+const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prepaid-Init/routes/productOrderRoutes.js");
+
+//Dashboard
+const ftthRoutes = require('./Dashboard/GetFTTHFullData/routes/ftthRoutes');
+const ftthSpecificRoutes = require('./Dashboard/GetFTTHSpecificData/routes/ftthSpecificRoutes');
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -160,6 +167,14 @@ app.use('/tmf-api',dataGiftEnrollInit)
 app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
+
+
+//PrePaid
+app.use('/tmf-api/productOrdering/v4/productOrder', prepaidOrderRoutes);
+
+//Dashboard
+app.use('/api/dashboard/ftth-full-data', ftthRoutes);
+app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
 
 
 
