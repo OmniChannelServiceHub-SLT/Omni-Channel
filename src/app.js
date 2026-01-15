@@ -60,6 +60,7 @@ const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/rou
 
 //PrePaid
 const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prepaid-Init/routes/productOrderRoutes.js");
+const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
 
 // Middleware
 app.use(cors());
@@ -140,6 +141,7 @@ app.use("/api/notifications", getPopupMessageBanner);
 
 //PrePaid
 app.use('/tmf-api/productOrdering/v4/productOrder', prepaidOrderRoutes);
+app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 
 
 // app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)
