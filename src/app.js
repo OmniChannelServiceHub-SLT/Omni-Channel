@@ -5,6 +5,9 @@ const app = express();
 // Import Routes
 // const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 
+//Account
+const register = require("./Account/RegisterV2/routes/registerroutes");
+
 //BBVAS
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
@@ -80,6 +83,9 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
+
+//Account
+app.use("/tmf-api", register);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
