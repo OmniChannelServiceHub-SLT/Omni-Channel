@@ -156,10 +156,13 @@ app.use("/api/notifications", postPushNotifications); //uses TMF681
 
 //Prepaid 
 app.use("/tmf-api", dataGiftEnrolInitConfirm),
-app.use('/tmf-api',dataGiftEnrollInit)
+app.use('/tmf-api', dataGiftEnrollInit)
 app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
+
+// BBExternal
+app.use("/api/BBExternal", require("./BBExternal/RegisterForBBFreedom_Nethmi/routes/registerForBBFreedomRoutes"));
 
 
 
