@@ -75,6 +75,9 @@ const unsubscribeAdvancedReportsRoutes = require(
 
 const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/extraGBRoutes.js");
 
+//BB Package upgrade
+const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -161,6 +164,8 @@ app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
 
+//BB package Upgrade
+app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList);
 
 
 // app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)
