@@ -34,11 +34,15 @@ const GiftPackageRoutes = require('./BBVAS/DatagiftPackages/routes/dataGiftRoute
 const AdvancedReportPostpaidRoutes = require('./BBVAS/Advancedreport-Postpaid/routes/advancedReportRoutes.js');
 const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/ProductOfferingQualification.js");
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
+const dashboardRoutes = require("./BBVAS/Dashboard/GetExtraGBDashboard/routes/dashboardRoutes.js");
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
 
 //Sales
 const salesLeadRoutes = require("./Sales/SalesLeadCreationRequest/routes/salesLeadRoutes.js");
+
+//Banner
+const bannerRoutes = require("./Banner/BannerDetailRequest/routes/bannerRoutes.js");
 
 //Faults
 const serviceRequestRoutes = require("./Fault/CreateServiceRequest/routes/serviceRequest.routes");
@@ -122,10 +126,14 @@ app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRou
 // app.use("/tmf-api/usageManagement/v4/Vouchers", voucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackageRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
+app.use("/api/Dashboard", dashboardRoutes);
 // app.use('/api/Account', accountRoutes);
 
 //Sales
 app.use('/tmf-api/sales/v4/', salesLeadRoutes);
+
+//Banner
+app.use('/api/Banner', bannerRoutes);
 
 //Faults
 app.use("/", serviceRequestRoutes);
