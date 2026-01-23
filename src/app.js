@@ -61,6 +61,11 @@ const serviceInventoryRoutes = require("./PEOVAS/CheckOmniTP/serviceInventoryRou
 const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/routes/popupMessage.routes.js");
 const postPushNotifications = require("./Notifications/PostPushNotifications/routes/pushNotification.routes.js");
 
+//BB Package upgrade
+const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
+
+//BBExternal
+//const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
 
 //Prepaid 
 const dataGiftEnrollInit = require('./Prepaid/DataGiftEnrollInit/routes/dataGiftEnrollInit.routes.js')
@@ -158,6 +163,12 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
+
+//BB package Upgrade
+app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
+
+//BBExternal
+//app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
 
 //Prepaid 
 app.use("/tmf-api", dataGiftEnrolInitConfirm),
