@@ -18,30 +18,27 @@ exports.getProductOfferingQualification = async (req, res) => {
       currentProductName
     );
 
-    console.log('QUERY PARAMS:', {
-  bbType,
-  currentProductName
-});
+    console.log('DB RESULTS COUNT:', results.length);
+    console.log('Raw DB results:', results);
 
-console.log('DB RESULTS COUNT:', results.length);
-console.log('DB RESULTS:', results);
+    // 🔒 HARD GUARD — THIS FIXES YOUR ERROR
+    const qualificationItems = results
+      .filter(item =>
+        item &&
+        item.productOffering &&
+        typeof item.productOffering.name === 'string'
+      )
+      .map((item, index) => ({
+        id: String(index + 1),
+        qualificationResult: "qualified",
+        category: item.category,
+        productOffering: {
+          name: item.productOffering.name,
+          productOfferingCode: item.productOffering.productOfferingCode
+        }
+      }));
 
-
-    // ✅ Build the exact array you will return
-const qualificationItems = results.map((item, index) => ({
-  id: String(index + 1),
-  qualificationResult: "qualified",
-  category: item.category,
-  productOffering: {
-    name: item.productOffering.name,
-    productOfferingCode: item.productOffering.productOfferingCode
-  }
-}));
-
-console.log('Qualification Items:', qualificationItems);
-
-    // ✅ Validate AFTER filtering
-    if (!qualificationItems.length) {
+    if (!results.length) {
       return res.status(404).json({
         code: "NOT_FOUND",
         reason: "No qualification results",
@@ -53,10 +50,11 @@ console.log('Qualification Items:', qualificationItems);
     return res.status(200).json({
       id: `poq-${Date.now()}`,
       "@type": "ProductOfferingQualification",
-      qualificationItem: qualificationItems
+      qualificationItem: results
     });
 
   } catch (err) {
+    console.error('CONTROLLER ERROR:', err);
     return res.status(500).json({
       code: "INTERNAL_ERROR",
       reason: "Server error",

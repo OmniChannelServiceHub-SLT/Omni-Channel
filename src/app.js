@@ -78,6 +78,8 @@ const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/
 //BB Package upgrade
 const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
 
+//BBExternal
+const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -166,6 +168,9 @@ app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
 
 //BB package Upgrade
 app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList);
+
+//BBExternal
+app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
 
 
 // app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)

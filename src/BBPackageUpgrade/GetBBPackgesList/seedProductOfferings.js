@@ -6,7 +6,6 @@ const ProductOffering = require('./models/productOffering.model');
 const connectionString =
   process.env.MONGO_URI ||
   "mongodb+srv://omnichannelservicehub_db_user:OmniChannel@cluster0.jgutgzr.mongodb.net/OmniChannel?retryWrites=true&w=majority";
-
 // Connect to MongoDB Atlas
 mongoose
   .connect(connectionString, {
@@ -26,26 +25,27 @@ async function seed() {
     await ProductOffering.deleteMany({});
 
     // Insert normalized TMF seed data
-    const seedData = [
-      {
-        bbType: "SLT FIBER",
-        currentProductName: "ANY BLAZE",
-        category: "upgrade",
-        productOffering: {
-          name: "Web Family Xtra",
-          productOfferingCode: "Fiber-WFX"
-        }
-      },
-      {
-        bbType: "SLT FIBER",
-        currentProductName: "ANY BLAZE",
-        category: "downgrade",
-        productOffering: {
-          name: "Web Family Plus",
-          productOfferingCode: "Fiber-WFP"
-        }
-      }
-    ];
+const seedData = [
+  {
+    bbType: "SLTFIBER",
+    currentProductName: "ANYBLAZE",
+    category: "upgrade",
+    productOffering: {
+      name: "Web Family Xtra",
+      productOfferingCode: "Fiber-WFX"
+    }
+  },
+  {
+    bbType: "SLTFIBER",
+    currentProductName: "ANYBLAZE",
+    category: "downgrade",
+    productOffering: {
+      name: "Web Family Plus",
+      productOfferingCode: "Fiber-WFP"
+    }
+  }
+];
+
 
     await ProductOffering.insertMany(seedData);
 
