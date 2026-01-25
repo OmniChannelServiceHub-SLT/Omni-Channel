@@ -6,6 +6,6 @@ const controller = require('../controllers/getBBPackageDetails.controller');
 
 
 
-router.get("/GetBBPackageDetails", controller.getBBPackageDetails);
+router.get('/', controller.getBBPackageDetails);
 
 module.exports = router;
