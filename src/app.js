@@ -85,6 +85,15 @@ const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/
 
 //BBExternal
 //const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
+
+//PrePaid
+const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prepaid-Init/routes/productOrderRoutes.js");
+
+//Dashboard
+const ftthRoutes = require('./Dashboard/GetFTTHFullData/routes/ftthRoutes');
+const ftthSpecificRoutes = require('./Dashboard/GetFTTHSpecificData/routes/ftthSpecificRoutes');
+const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -182,6 +191,14 @@ app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
 
 //BBExternal
 //app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
+
+//PrePaid
+app.use('/tmf-api/productOrdering/v4/productOrder', prepaidOrderRoutes);
+
+//Dashboard
+app.use('/api/dashboard/ftth-full-data', ftthRoutes);
+app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
+app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 
 
 // app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)
