@@ -81,6 +81,7 @@ const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prep
 //Dashboard
 const ftthRoutes = require('./Dashboard/GetFTTHFullData/routes/ftthRoutes');
 const ftthSpecificRoutes = require('./Dashboard/GetFTTHSpecificData/routes/ftthSpecificRoutes');
+const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
 
 // Middleware
 app.use(cors());
@@ -175,7 +176,7 @@ app.use('/tmf-api/productOrdering/v4/productOrder', prepaidOrderRoutes);
 //Dashboard
 app.use('/api/dashboard/ftth-full-data', ftthRoutes);
 app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
-
+app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 
 
 // app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)
