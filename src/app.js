@@ -3,10 +3,10 @@ const cors = require("cors");
 const app = express();
 
 // Import Routes
-// const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 
 
 //BBVAS
+// const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
 const productOrderRoutes = require("./BBVAS/VASBundleUnsubscription/routes/productOrderRoutes");
@@ -79,15 +79,8 @@ const unsubscribeAdvancedReportsRoutes = require(
 );
 
 const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/extraGBRoutes.js");
-
-//BB Package upgrade
-//const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
-
-//BBExternal
-//const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
-
-//PrePaid
 const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prepaid-Init/routes/productOrderRoutes.js");
+
 
 //Dashboard
 const ftthRoutes = require('./Dashboard/GetFTTHFullData/routes/ftthRoutes');
@@ -185,14 +178,6 @@ app.use('/tmf-api',dataGiftEnrollInit)
 app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
-
-//BB package Upgrade
-//app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList);
-
-//BBExternal
-//app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
-
-//PrePaid
 app.use('/tmf-api/productOrdering/v4/productOrder', prepaidOrderRoutes);
 
 //Dashboard
