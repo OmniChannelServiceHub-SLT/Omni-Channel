@@ -10,6 +10,7 @@ const register = require("./Account/RegisterV2/routes/registerroutes");
 const OTPVerificationRoutes = require("./Account/OTP Verification/routes/authRoutes.js");
 const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js");
 
+
 //BBVAS
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
@@ -76,6 +77,8 @@ const vasBundleConfirmRoutes = require(
 const unsubscribeAdvancedReportsRoutes = require(
   "./Prepaid/POSTUnsubscribeAdvancedReports/routes/unsubscribeAdvancedReports.routes"
 );
+
+const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/extraGBRoutes.js");
 
 // Middleware
 app.use(cors());
@@ -166,6 +169,7 @@ app.use("/tmf-api", dataGiftEnrolInitConfirm),
 app.use('/tmf-api',dataGiftEnrollInit)
 app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
+app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
 
 
 
