@@ -50,6 +50,9 @@ class RegisterService {
 
     // 5. Send OTP (stub for now)
     console.log(`OTP for ${mobile}: ${otpCode}`);
+    
+    // otpSender.send(mobile, otpCode);
+    //TODO: Integrate actual OTP sending service
 
     return {
       registrationId: user._id
