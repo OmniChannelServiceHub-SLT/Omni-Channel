@@ -4,6 +4,11 @@ const app = express();
 
 // Import Routes
 
+//Account
+const register = require("./Account/RegisterV2/routes/registerroutes");
+const OTPVerificationRoutes = require("./Account/OTP Verification/routes/authRoutes.js");
+const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js");
+
 
 //BBVAS
 // const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
@@ -95,6 +100,11 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
+
+//Account
+app.use("/tmf-api", register);
+app.use("/tmf-api", OTPVerificationRoutes);
+app.use("/tmf-api", resendOTPRoutes);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
