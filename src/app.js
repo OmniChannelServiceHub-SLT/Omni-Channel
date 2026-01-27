@@ -61,6 +61,11 @@ const serviceInventoryRoutes = require("./PEOVAS/CheckOmniTP/serviceInventoryRou
 const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/routes/popupMessage.routes.js");
 const postPushNotifications = require("./Notifications/PostPushNotifications/routes/pushNotification.routes.js");
 
+//BB Package upgrade
+const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
+
+//BBExternal
+//const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
 
 //Prepaid 
 const dataGiftEnrollInit = require('./Prepaid/DataGiftEnrollInit/routes/dataGiftEnrollInit.routes.js')
@@ -74,6 +79,12 @@ const unsubscribeAdvancedReportsRoutes = require(
 );
 
 const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/extraGBRoutes.js");
+
+//BB Package upgrade
+//const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
+
+//BBExternal
+//const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
 
 //PrePaid
 const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prepaid-Init/routes/productOrderRoutes.js");
@@ -162,6 +173,12 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
 
+//BB package Upgrade
+app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
+
+//BBExternal
+//app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
+
 //Prepaid 
 app.use("/tmf-api", dataGiftEnrolInitConfirm),
 app.use('/tmf-api',dataGiftEnrollInit)
@@ -169,6 +186,11 @@ app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
 
+//BB package Upgrade
+//app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList);
+
+//BBExternal
+//app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
 
 //PrePaid
 app.use('/tmf-api/productOrdering/v4/productOrder', prepaidOrderRoutes);
