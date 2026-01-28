@@ -101,6 +101,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 
+// SystemMonitor
+app.use("/api/SystemMonitor", require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes"));
+app.use("/api/SystemMonitor", require("./HealthCheck/NotificationDeatail/routes/notificationDetailRoutes"));
+
 //Account
 app.use("/tmf-api", register);
 app.use("/tmf-api", OTPVerificationRoutes);
@@ -177,14 +181,14 @@ app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
 
 //BB package Upgrade
-app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
+app.use('/tmf-api/productOfferingQualification/v4', getBBpackageList); //uses TMF620
 
 //BBExternal
 //app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
 
 //Prepaid 
 app.use("/tmf-api", dataGiftEnrolInitConfirm),
-app.use('/tmf-api',dataGiftEnrollInit)
+  app.use('/tmf-api', dataGiftEnrollInit)
 app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
