@@ -3,10 +3,15 @@ const cors = require("cors");
 const app = express();
 
 // Import Routes
-// const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
+
+//Account
+const register = require("./Account/RegisterV2/routes/registerroutes");
+const OTPVerificationRoutes = require("./Account/OTP Verification/routes/authRoutes.js");
+const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js");
 
 
 //BBVAS
+// const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
 const productOrderRoutes = require("./BBVAS/VASBundleUnsubscription/routes/productOrderRoutes");
@@ -79,6 +84,13 @@ const unsubscribeAdvancedReportsRoutes = require(
 );
 
 const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/extraGBRoutes.js");
+const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prepaid-Init/routes/productOrderRoutes.js");
+
+
+//Dashboard
+const ftthRoutes = require('./Dashboard/GetFTTHFullData/routes/ftthRoutes');
+const ftthSpecificRoutes = require('./Dashboard/GetFTTHSpecificData/routes/ftthSpecificRoutes');
+const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
 
 // Middleware
 app.use(cors());
@@ -88,6 +100,11 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
+
+//Account
+app.use("/tmf-api", register);
+app.use("/tmf-api", OTPVerificationRoutes);
+app.use("/tmf-api", resendOTPRoutes);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
@@ -171,7 +188,12 @@ app.use('/tmf-api',dataGiftEnrollInit)
 app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
+app.use('/tmf-api/productOrdering/v4/productOrder', prepaidOrderRoutes);
 
+//Dashboard
+app.use('/api/dashboard/ftth-full-data', ftthRoutes);
+app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
+app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 
 
 // app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)
