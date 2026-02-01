@@ -2,10 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/getBBPackageComparison.controller');
+const authMiddleware = require("../../../middleware/authMiddleware");
 
 
 
-
-router.get('/', controller.getBBPackageComparison);
+router.get('/', authMiddleware,controller.getBBPackageComparison);
 
 module.exports = router;
