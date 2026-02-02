@@ -72,7 +72,7 @@ const postPushNotifications = require("./Notifications/PostPushNotifications/rou
 const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
 
 //BBExternal
-//const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
+const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
 
 //Prepaid 
 const dataGiftEnrollInit = require('./Prepaid/DataGiftEnrollInit/routes/dataGiftEnrollInit.routes.js')
@@ -185,7 +185,7 @@ app.use("/api/notifications", postPushNotifications); //uses TMF681
 app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
 
 //BBExternal
-//app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
+app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
 
 //Prepaid 
 app.use("/tmf-api", dataGiftEnrolInitConfirm),

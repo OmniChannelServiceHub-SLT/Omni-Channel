@@ -2,12 +2,11 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/productOffering.controller');
-const authMiddleware = require('../middlewares/auth.middleware');
+const authMiddleware = require("../../../middleware/authMiddleware");
 
-router.get(
-  '/BBExternal/GetBBPackagesv2',
-  authMiddleware,
-  controller.getBBPackagesV2
-);
+
+
+// GetBBPackagesV2
+router.get('/', authMiddleware, controller.getBBPackagesV2);
 
 module.exports = router;
