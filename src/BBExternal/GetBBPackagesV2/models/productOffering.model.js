@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const mongoose = require("mongoose");
 
 const ProductOfferingPriceSchema = new mongoose.Schema({
@@ -41,6 +40,7 @@ module.exports = mongoose.model(
   ProductOfferingSchema,
   "productOfferings"
 );
+<<<<<<< HEAD
 =======
 // models/productOffering.model.js
 const mongoose = require('mongoose');
@@ -81,3 +81,5 @@ module.exports =
   mongoose.models.ProductOffering ||
   mongoose.model('ProductOffering', ProductOfferingSchema);
 >>>>>>> dev
+=======
+>>>>>>> BBExternal_GetBBPackagesV2_Tharini

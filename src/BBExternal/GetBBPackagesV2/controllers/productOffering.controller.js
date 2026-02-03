@@ -1,20 +1,21 @@
-<<<<<<< HEAD
 const ProductOffering = require("../models/productOffering.model");
 
 /**
  * GET GetBBPackagesV2
  * /BBExternal/GetBBPackagesV2?type=SLT 4G&package=Any Tide
  */
+<<<<<<< HEAD
 =======
 // controllers/bbExternal.controller.js
 const ProductOffering = require('../models/productOffering.model');
 
 >>>>>>> dev
+=======
+>>>>>>> BBExternal_GetBBPackagesV2_Tharini
 exports.getBBPackagesV2 = async (req, res) => {
   try {
     const { type, package: packageName } = req.query;
 
-<<<<<<< HEAD
     if (!type) {
       return res.status(400).json({
         code: "400",
@@ -43,6 +44,7 @@ exports.getBBPackagesV2 = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+<<<<<<< HEAD
 =======
     if (!type || !packageName) {
       return res.status(400).json({
@@ -80,3 +82,5 @@ exports.getBBPackagesV2 = async (req, res) => {
   }
 };
 >>>>>>> dev
+=======
+>>>>>>> BBExternal_GetBBPackagesV2_Tharini
