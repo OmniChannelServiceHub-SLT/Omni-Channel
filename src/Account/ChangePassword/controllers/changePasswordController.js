@@ -5,7 +5,6 @@ class changePasswordController {
     try {
       const { username, currentPassword, newPassword } = req.body;
 
-      // Basic validation (same style as login & refresh token controllers)
       if (!username || !currentPassword || !newPassword) {
         return res.status(400).json({
           code: "VALIDATION_ERROR",
