@@ -8,6 +8,8 @@ const app = express();
 const register = require("./Account/RegisterV2/routes/registerroutes");
 const OTPVerificationRoutes = require("./Account/OTP Verification/routes/authRoutes.js");
 const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js");
+const refreshTokenRoutes = require("./Account/RefreshToken/routes/refreshTokenRoute.js");
+const loginRoutes = require("./Account/Login/routes/loginRoute.js");
 
 
 //BBVAS
@@ -75,7 +77,6 @@ const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/pro
 //BBExternal
 const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
 
-
 //Prepaid 
 const dataGiftEnrollInit = require('./Prepaid/DataGiftEnrollInit/routes/dataGiftEnrollInit.routes.js')
 const dataGiftEnrolInitConfirm = require('./Prepaid/DataGiftEnrollPrepaid-confirm/routes/purchaseRoutes.js')
@@ -109,6 +110,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/tmf-api", register);
 app.use("/tmf-api", OTPVerificationRoutes);
 app.use("/tmf-api", resendOTPRoutes);
+app.use("/tmf-api", refreshTokenRoutes);
+app.use("/tmf-api", loginRoutes);
+
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
