@@ -8,6 +8,8 @@ const app = express();
 const register = require("./Account/RegisterV2/routes/registerroutes");
 const OTPVerificationRoutes = require("./Account/OTP Verification/routes/authRoutes.js");
 const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js");
+const refreshTokenRoutes = require("./Account/RefreshToken/routes/refreshTokenRoute.js");
+const loginRoutes = require("./Account/Login/routes/loginRoute.js");
 
 
 //BBVAS
@@ -66,6 +68,9 @@ const serviceInventoryRoutes = require("./PEOVAS/CheckOmniTP/serviceInventoryRou
 const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/routes/popupMessage.routes.js");
 const postPushNotifications = require("./Notifications/PostPushNotifications/routes/pushNotification.routes.js");
 
+
+const getBBPackageDetails = require('./BBExternal/GetBBPackageDetails/routes/getBBPackageDetails.routes');
+
 //BB Package upgrade
 <<<<<<< HEAD
 //const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
@@ -115,6 +120,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/tmf-api", register);
 app.use("/tmf-api", OTPVerificationRoutes);
 app.use("/tmf-api", resendOTPRoutes);
+app.use("/tmf-api", refreshTokenRoutes);
+app.use("/tmf-api", loginRoutes);
+
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
@@ -186,6 +194,9 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
 
+
+
+
 //BB package Upgrade
 <<<<<<< HEAD
 //app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
@@ -200,7 +211,11 @@ app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF
 
 //BBExternal
 app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
+<<<<<<< HEAD
 >>>>>>> BBExternal_GetBBPackagesV2_Tharini
+=======
+app.use('/tmf-api/BBExternal/GetBBPackageDetails',getBBPackageDetails);
+>>>>>>> BBExternal_GetBBPackageDetails_Tharini
 
 //Prepaid 
 app.use("/tmf-api", dataGiftEnrolInitConfirm),
