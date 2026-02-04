@@ -1,12 +1,11 @@
 // routes/bbExternal.routes.js
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/productOffering.controller');
+const controller = require('../controllers/getBBPackageDetails.controller');
 const authMiddleware = require("../../../middleware/authMiddleware");
 
 
 
-// GetBBPackagesV2
-router.get('/', authMiddleware, controller.getBBPackagesV2);
+router.get('/', authMiddleware, controller.getBBPackageDetails);
 
 module.exports = router;

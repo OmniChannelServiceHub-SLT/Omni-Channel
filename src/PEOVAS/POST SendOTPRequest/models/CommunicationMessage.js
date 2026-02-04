@@ -47,4 +47,8 @@ const communicationMessageSchema = new mongoose.Schema({
   }
 });
 
+<<<<<<< HEAD
 module.exports = mongoose.model('CommunicationMessage', communicationMessageSchema);*/
+=======
+module.exports = mongoose.model('CommunicationMessage', communicationMessageSchema);*/
+>>>>>>> dev
