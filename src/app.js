@@ -5,6 +5,7 @@ const app = express();
 // Import Routes
 // const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 
+
 //BBVAS
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
@@ -58,12 +59,16 @@ const eBillCheckUserExistRoutes = require("./EBill/eBillCheckUserExistV2/routes/
 const productInventoryRoutes = require("./PEOVAS/CustomerValidation_malsha/productInventoryRoute");
 const purchasedProductRoutes = require("./PEOVAS/PostPurchasedProduct/route/purchasedProductroutes.js");
 const getPurchasedProductsRoutes = require("./PEOVAS/GetPurchasedProducts/routes/getPurchasedProductsroutes.js");
+const serviceInventoryRoutes = require("./PEOVAS/CheckOmniTP/serviceInventoryRoutes.js");
 
 //Notifications
 const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/routes/popupMessage.routes.js");
+const postPushNotifications = require("./Notifications/PostPushNotifications/routes/pushNotification.routes.js");
 
 
 //Prepaid 
+const dataGiftEnrollInit = require('./Prepaid/DataGiftEnrollInit/routes/dataGiftEnrollInit.routes.js')
+const dataGiftEnrolInitConfirm = require('./Prepaid/DataGiftEnrollPrepaid-confirm/routes/purchaseRoutes.js')
 const vasBundleConfirmRoutes = require(
   "./Prepaid/POSTAdd VAS Data Bundle - Prepaid Confirm/routes/vasBundleConfirm.routes"
 );
@@ -71,6 +76,16 @@ const vasBundleConfirmRoutes = require(
 const unsubscribeAdvancedReportsRoutes = require(
   "./Prepaid/POSTUnsubscribeAdvancedReports/routes/unsubscribeAdvancedReports.routes"
 );
+
+const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/extraGBRoutes.js");
+
+//Dashboard
+const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prepaid-Init/routes/productOrderRoutes.js");
+
+//Dashboard
+const ftthRoutes = require('./Dashboard/GetFTTHFullData/routes/ftthRoutes');
+const ftthSpecificRoutes = require('./Dashboard/GetFTTHSpecificData/routes/ftthSpecificRoutes');
+const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
 
 // Middleware
 app.use(cors());
@@ -97,7 +112,7 @@ app.use("/tmf-api/usageManagement/v4", usageRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
-app.use("/", updateISPContactRoutes); 
+app.use("/", updateISPContactRoutes);
 app.use('/tmf-api/usageManagement/v4/daily', dailyUsageRoutes);
 app.use("/tmf-api/dataGift/v1", dataGiftRoutes);
 app.use("/tmf-api/productOrdering/v4", vasConfirmRoutes);
@@ -113,7 +128,7 @@ app.use(
 );
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
-app.use("/tmf-api/usageManagement/v4/PreviousMonth", PreviousMonthUsageRoutes); 
+app.use("/tmf-api/usageManagement/v4/PreviousMonth", PreviousMonthUsageRoutes);
 app.use("/tmf-api/usageManagement/v5", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
@@ -149,13 +164,26 @@ app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
 app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
 app.use("/tmf-api", getPurchasedProductsRoutes);
+app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
+app.use("/api/notifications", postPushNotifications); //uses TMF681
 
 //Prepaid 
+app.use("/tmf-api", dataGiftEnrolInitConfirm),
+  app.use('/tmf-api', dataGiftEnrollInit)
 app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
+app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
+
+// BBExternal
+app.use("/api/BBExternal", require("./BBExternal/RegisterForBBFreedom_Nethmi/routes/registerForBBFreedomRoutes"));
+
+//Dashboard
+app.use('/api/dashboard/ftth-full-data', ftthRoutes);
+app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
+app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 
 
 
