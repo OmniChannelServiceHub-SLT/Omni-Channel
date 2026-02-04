@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const CommunicationMessage = require('./models/Banner');
+const CommunicationMessage = require('../../Notifications/PostPushNotifications/models/CommunicationMessage.model.js');
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/OmniChannel';
 
@@ -12,7 +12,7 @@ const sampleCommunications = [
     "@type": "CommunicationMessage",
     subject: "New Year Promotion 2026",
     scheduledSendTime: new Date("2026-01-01T00:00:00.000Z"),
-    state: "sent",
+    state: "Completed",
     description: "Special promotion for new year - Get 50% off on all data packages",
     content: "Dear $CustomerName, Here is the latest promotion: $PromotionDetails",
     messageType: "Banner",
@@ -81,7 +81,7 @@ const sampleCommunications = [
     "@type": "CommunicationMessage",
     subject: "System Maintenance Notice",
     scheduledSendTime: new Date("2026-01-10T00:00:00.000Z"),
-    state: "scheduled",
+    state: "Scheduled",
     description: "Scheduled system maintenance notification",
     content: "Dear Customer, System maintenance is scheduled on $MaintenanceDate from $StartTime to $EndTime",
     messageType: "Banner",
