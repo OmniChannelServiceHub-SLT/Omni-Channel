@@ -1,4 +1,4 @@
-const CommunicationMessage = require('../../Notifications/PostPushNotifications/models/CommunicationMessage.model.js');
+const CommunicationMessage = require('../../../Notifications/PostPushNotifications/models/CommunicationMessage.model.js');
 
 async function getBannerDetails(filters, selectedFields) {
   try {
