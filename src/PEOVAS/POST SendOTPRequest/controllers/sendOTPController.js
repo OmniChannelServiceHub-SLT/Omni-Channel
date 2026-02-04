@@ -1,4 +1,66 @@
-const CommunicationMessage = require('../models/CommunicationMessage');
+const CommunicationMessage = require(
+  '../../Notifications/PostPushNotifications/models/CommunicationMessage.model.js'
+);
+
+exports.sendOTP = async (req, res) => {
+  try {
+    // 1. Destructure incoming request
+    const { requestType, requestPeriod, otpSource, otpContact } = req.body;
+
+    // 2. Generate OTP
+    const otpCode = Math.floor(100000 + Math.random() * 900000);
+
+    // 3. Build TMF 681 CommunicationMessage
+    const newMessage = new CommunicationMessage({
+      messageType: 'OTP',
+      state: 'Initial',
+      content: `Your OTP code is ${otpCode}`,
+
+      receiver: [
+        {
+          '@type': 'RelatedParty',
+          contactMedium: [
+            {
+              '@type': 'ContactMedium',
+              mediumType: otpSource, // EMAIL | MOBILE | SMS
+              emailAddress: otpSource === 'EMAIL' ? otpContact : undefined,
+              phoneNumber:
+                otpSource !== 'EMAIL' ? otpContact : undefined
+            }
+          ]
+        }
+      ],
+
+      characteristic: [
+        {
+          name: 'requestType',
+          value: requestType,
+          valueType: 'String'
+        },
+        {
+          name: 'requestPeriod',
+          value: requestPeriod,
+          valueType: 'Number'
+        }
+      ]
+    });
+
+    // 4. Save message
+    const savedMessage = await newMessage.save();
+
+    // 5. TMF-style response
+    res.status(201).json(savedMessage);
+
+  } catch (error) {
+    res.status(500).json({
+      message: 'Failed to send OTP',
+      error: error.message
+    });
+  }
+};
+
+
+/*const CommunicationMessage = require('../../Notifications/PostPushNotifications/models/CommunicationMessage.model.js');
 
 exports.sendOTP = async (req, res) => {
   try {
@@ -31,4 +93,4 @@ exports.sendOTP = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+};*/

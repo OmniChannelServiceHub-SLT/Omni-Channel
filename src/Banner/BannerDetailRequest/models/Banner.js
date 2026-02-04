@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+/*const mongoose = require('mongoose');
 
 // TMF 681 Communication Management API v4.0.0
 const CharacteristicSchema = new mongoose.Schema({
@@ -89,3 +89,4 @@ const CommunicationMessageSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('CommunicationMessage', CommunicationMessageSchema);
+*/
