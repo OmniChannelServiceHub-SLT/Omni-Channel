@@ -3,15 +3,10 @@ const cors = require("cors");
 const app = express();
 
 // Import Routes
-
-//Account
-const register = require("./Account/RegisterV2/routes/registerroutes");
-const OTPVerificationRoutes = require("./Account/OTP Verification/routes/authRoutes.js");
-const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js");
+// const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 
 
 //BBVAS
-// const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
 const productOrderRoutes = require("./BBVAS/VASBundleUnsubscription/routes/productOrderRoutes");
@@ -40,11 +35,15 @@ const GiftPackageRoutes = require('./BBVAS/DatagiftPackages/routes/dataGiftRoute
 const AdvancedReportPostpaidRoutes = require('./BBVAS/Advancedreport-Postpaid/routes/advancedReportRoutes.js');
 const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/ProductOfferingQualification.js");
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
+const dashboardRoutes = require("./BBVAS/Dashboard/GetExtraGBDashboard/routes/dashboardRoutes.js");
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
 
 //Sales
 const salesLeadRoutes = require("./Sales/SalesLeadCreationRequest/routes/salesLeadRoutes.js");
+
+//Banner
+const bannerRoutes = require("./Banner/BannerDetailRequest/routes/bannerRoutes.js");
 
 //Faults
 const serviceRequestRoutes = require("./Fault/CreateServiceRequest/routes/serviceRequest.routes");
@@ -66,11 +65,6 @@ const serviceInventoryRoutes = require("./PEOVAS/CheckOmniTP/serviceInventoryRou
 const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/routes/popupMessage.routes.js");
 const postPushNotifications = require("./Notifications/PostPushNotifications/routes/pushNotification.routes.js");
 
-//BB Package upgrade
-const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
-
-//BBExternal
-const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
 
 //Prepaid 
 const dataGiftEnrollInit = require('./Prepaid/DataGiftEnrollInit/routes/dataGiftEnrollInit.routes.js')
@@ -84,8 +78,9 @@ const unsubscribeAdvancedReportsRoutes = require(
 );
 
 const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/extraGBRoutes.js");
-const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prepaid-Init/routes/productOrderRoutes.js");
 
+//Dashboard
+const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prepaid-Init/routes/productOrderRoutes.js");
 
 //Dashboard
 const ftthRoutes = require('./Dashboard/GetFTTHFullData/routes/ftthRoutes');
@@ -100,11 +95,6 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
-
-//Account
-app.use("/tmf-api", register);
-app.use("/tmf-api", OTPVerificationRoutes);
-app.use("/tmf-api", resendOTPRoutes);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
@@ -151,10 +141,14 @@ app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRou
 // app.use("/tmf-api/usageManagement/v4/Vouchers", voucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackageRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
+app.use("/api/Dashboard", dashboardRoutes);
 // app.use('/api/Account', accountRoutes);
 
 //Sales
 app.use('/tmf-api/sales/v4/', salesLeadRoutes);
+
+//Banner
+app.use('/api/Banner', bannerRoutes);
 
 //Faults
 app.use("/", serviceRequestRoutes);
@@ -176,24 +170,21 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
 
-//BB package Upgrade
-app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
-
-//BBExternal
-app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
-
 //Prepaid 
 app.use("/tmf-api", dataGiftEnrolInitConfirm),
-app.use('/tmf-api',dataGiftEnrollInit)
+  app.use('/tmf-api', dataGiftEnrollInit)
 app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
-app.use('/tmf-api/productOrdering/v4/productOrder', prepaidOrderRoutes);
+
+// BBExternal
+app.use("/api/BBExternal", require("./BBExternal/RegisterForBBFreedom_Nethmi/routes/registerForBBFreedomRoutes"));
 
 //Dashboard
 app.use('/api/dashboard/ftth-full-data', ftthRoutes);
 app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
+
 
 
 // app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)

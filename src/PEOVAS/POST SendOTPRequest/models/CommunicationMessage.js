@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+/*const mongoose = require('mongoose');
 
 // TMF681: Communication Message Resource
 // Mandatory attributes based on User Guide: content, receiver, state, type
@@ -47,4 +47,8 @@ const communicationMessageSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('CommunicationMessage', communicationMessageSchema);
+<<<<<<< HEAD
+module.exports = mongoose.model('CommunicationMessage', communicationMessageSchema);*/
+=======
+module.exports = mongoose.model('CommunicationMessage', communicationMessageSchema);*/
+>>>>>>> dev
