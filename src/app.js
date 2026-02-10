@@ -202,9 +202,6 @@ app.use("/api/notifications", postPushNotifications); //uses TMF681
 
 
 //BB package Upgrade
-//app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
-
-//BB package Upgrade
 app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
 
 
