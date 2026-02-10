@@ -71,10 +71,17 @@ const serviceInventoryRoutes = require("./PEOVAS/CheckOmniTP/serviceInventoryRou
 const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/routes/popupMessage.routes.js");
 const postPushNotifications = require("./Notifications/PostPushNotifications/routes/pushNotification.routes.js");
 
+//BB Package upgrade
+const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
+
+//BBExternal
+// const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
+// const getBBPackageDetails = require('./BBExternal/GetBBPackageDetails/routes/getBBPackageDetails.routes');
+const getBBPackageComparison = require('./BBExternal/GetBBPackageComparison/routes/getBBPackageComparison.routes');
 
 
 //BB Package upgrade
-/const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
+//const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
 
 //BBExternal
 const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
@@ -194,17 +201,17 @@ app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
 
 
-
+//BB package Upgrade
+//app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
 
 //BB package Upgrade
 app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
 
-//BBExternal
-app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
-app.use('/tmf-api/BBExternal/GetBBPackageDetails',getBBPackageDetails);
-app.use('/tmf-api/BBExternal/GetBBPackageComparison',getBBPackageComparison);
-app.use('/tmf-api/BBExternal/GetCurrentBBPackageV2',getCurrentBBPackageV2);
 
+//BBExternal
+// app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
+// app.use('/tmf-api/BBExternal/GetBBPackageDetails',getBBPackageDetails);
+app.use('/tmf-api/BBExternal/GetBBPackageComparison',getBBPackageComparison);
 
 //Prepaid 
 app.use("/tmf-api", dataGiftEnrolInitConfirm),
