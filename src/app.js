@@ -72,11 +72,11 @@ const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/rou
 const postPushNotifications = require("./Notifications/PostPushNotifications/routes/pushNotification.routes.js");
 
 //BB Package upgrade
-//const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
+const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
 
 //BBExternal
-const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
-const getBBPackageDetails = require('./BBExternal/GetBBPackageDetails/routes/getBBPackageDetails.routes');
+// const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
+// const getBBPackageDetails = require('./BBExternal/GetBBPackageDetails/routes/getBBPackageDetails.routes');
 const getBBPackageComparison = require('./BBExternal/GetBBPackageComparison/routes/getBBPackageComparison.routes');
 
 //Prepaid 
@@ -199,8 +199,8 @@ app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF
 
 
 //BBExternal
-app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
-app.use('/tmf-api/BBExternal/GetBBPackageDetails',getBBPackageDetails);
+// app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
+// app.use('/tmf-api/BBExternal/GetBBPackageDetails',getBBPackageDetails);
 app.use('/tmf-api/BBExternal/GetBBPackageComparison',getBBPackageComparison);
 
 //Prepaid 
