@@ -10,6 +10,7 @@ const OTPVerificationRoutes = require("./Account/OTP Verification/routes/authRou
 const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js");
 const refreshTokenRoutes = require("./Account/RefreshToken/routes/refreshTokenRoute.js");
 const loginRoutes = require("./Account/Login/routes/loginRoute.js");
+const changePasswordRoutes = require("./Account/ChangePassword/routes/changePasswordRoutes.js");
 
 
 //BBVAS
@@ -114,6 +115,7 @@ app.use("/tmf-api", OTPVerificationRoutes);
 app.use("/tmf-api", resendOTPRoutes);
 app.use("/tmf-api", refreshTokenRoutes);
 app.use("/tmf-api", loginRoutes);
+app.use("/tmf-api", changePasswordRoutes);
 
 
 //BBVAS
