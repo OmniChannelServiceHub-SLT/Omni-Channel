@@ -180,11 +180,17 @@ app.use("/tmf-api/customerBillManagement/v5", eBillCheckUserExistRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 
+// New Connection (Catalog)
+const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
+
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
 app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
 app.use("/tmf-api", getPurchasedProductsRoutes);
 app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
+
+// New Connection (Catalog)
+app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
@@ -195,13 +201,13 @@ app.use("/api/notifications", postPushNotifications); //uses TMF681
 //app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
 
 //BB package Upgrade
-app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
+app.use('/tmf-api/productOfferingQualification/v4', getBBpackageList); //uses TMF620
 
 
 //BBExternal
 // app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
 // app.use('/tmf-api/BBExternal/GetBBPackageDetails',getBBPackageDetails);
-app.use('/tmf-api/BBExternal/GetBBPackageComparison',getBBPackageComparison);
+app.use('/tmf-api/BBExternal/GetBBPackageComparison', getBBPackageComparison);
 
 //Prepaid 
 app.use("/tmf-api", dataGiftEnrolInitConfirm),
