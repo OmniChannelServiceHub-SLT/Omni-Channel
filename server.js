@@ -19,8 +19,8 @@ function startServer(port) {
   server.on("listening", () => {
     const address = server.address();
     if (address && typeof address === "object") {
-      console.log(`🚀 Server is running on port ${address.port}`);
-      console.log(`👉 http://localhost:${address.port}`);
+      console.log(`Server has started.`);
+      console.log(`visit - http://localhost:${address.port}`);
     }
   });
 
