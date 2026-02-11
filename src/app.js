@@ -98,6 +98,7 @@ const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prep
 //Dashboard
 const ftthRoutes = require('./Dashboard/GetFTTHFullData/routes/ftthRoutes');
 const ftthSpecificRoutes = require('./Dashboard/GetFTTHSpecificData/routes/ftthSpecificRoutes');
+const ftthLoginRoutes = require('./Dashboard/FTTHDashboardLogin/routes/ftthLoginRoutes');
 const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
 
 // Middleware
@@ -214,6 +215,7 @@ app.use("/api/BBExternal", require("./BBExternal/RegisterForBBFreedom_Nethmi/rou
 //Dashboard
 app.use('/api/dashboard/ftth-full-data', ftthRoutes);
 app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
+app.use('/api/Dashboard/FTTHDashboardLogin', ftthLoginRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 
 
