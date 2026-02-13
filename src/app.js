@@ -10,6 +10,7 @@ const OTPVerificationRoutes = require("./Account/OTP Verification/routes/authRou
 const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js");
 const refreshTokenRoutes = require("./Account/RefreshToken/routes/refreshTokenRoute.js");
 const loginRoutes = require("./Account/Login/routes/loginRoute.js");
+const changePasswordRoutes = require("./Account/ChangePassword/routes/changePasswordRoutes.js");
 
 
 //BBVAS
@@ -78,6 +79,7 @@ const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/pro
 // const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
 // const getBBPackageDetails = require('./BBExternal/GetBBPackageDetails/routes/getBBPackageDetails.routes');
 const getBBPackageComparison = require('./BBExternal/GetBBPackageComparison/routes/getBBPackageComparison.routes');
+const getCurrentBBPackageV2 = require('./BBExternal/GetCurrentBBPackageV2/routes/getCurrentBBPackageV2.routes');
 
 //Prepaid 
 const dataGiftEnrollInit = require('./Prepaid/DataGiftEnrollInit/routes/dataGiftEnrollInit.routes.js')
@@ -91,8 +93,6 @@ const unsubscribeAdvancedReportsRoutes = require(
 );
 
 const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/extraGBRoutes.js");
-
-//Dashboard
 const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prepaid-Init/routes/productOrderRoutes.js");
 
 //Dashboard
@@ -114,6 +114,7 @@ app.use("/tmf-api", OTPVerificationRoutes);
 app.use("/tmf-api", resendOTPRoutes);
 app.use("/tmf-api", refreshTokenRoutes);
 app.use("/tmf-api", loginRoutes);
+app.use("/tmf-api", changePasswordRoutes);
 
 
 //BBVAS
@@ -190,9 +191,6 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
 
-
-//BB package Upgrade
-//app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
 
 //BB package Upgrade
 app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
