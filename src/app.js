@@ -11,7 +11,7 @@ const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js"
 const refreshTokenRoutes = require("./Account/RefreshToken/routes/refreshTokenRoute.js");
 const loginRoutes = require("./Account/Login/routes/loginRoute.js");
 const changePasswordRoutes = require("./Account/ChangePassword/routes/changePasswordRoutes.js");
-
+const postLoginExternalFBGoogle = require("./Account/PostLoginExternalFBGoogle/routes/postLoginExternalFBGoogle.route.js");
 
 //BBVAS
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
@@ -115,6 +115,7 @@ app.use("/tmf-api", resendOTPRoutes);
 app.use("/tmf-api", refreshTokenRoutes);
 app.use("/tmf-api", loginRoutes);
 app.use("/tmf-api", changePasswordRoutes);
+app.use("tmf-api" , postLoginExternalFBGoogle);
 
 
 //BBVAS
