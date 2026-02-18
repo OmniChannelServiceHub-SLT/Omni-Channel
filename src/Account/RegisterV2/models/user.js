@@ -48,7 +48,22 @@ const UserSchema = new mongoose.Schema(
     refreshToken: {
       type: String,
       select: false
+    },
+    externalIdentities: [
+    {
+      provider: String,
+      externalUserId: String,
+      email: String
     }
+  ],
+
+  deviceContext: {
+    firebaseId: String,
+    appVersion: String,
+    osType: String,
+    channelId: String
+  },
+
   },
   {
     timestamps: true
