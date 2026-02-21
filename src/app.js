@@ -10,6 +10,7 @@ const OTPVerificationRoutes = require("./Account/OTP Verification/routes/authRou
 const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js");
 const refreshTokenRoutes = require("./Account/RefreshToken/routes/refreshTokenRoute.js");
 const loginRoutes = require("./Account/Login/routes/loginRoute.js");
+const changePasswordRoutes = require("./Account/ChangePassword/routes/changePasswordRoutes.js");
 
 
 //BBVAS
@@ -78,6 +79,7 @@ const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/pro
 // const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
 // const getBBPackageDetails = require('./BBExternal/GetBBPackageDetails/routes/getBBPackageDetails.routes');
 const getBBPackageComparison = require('./BBExternal/GetBBPackageComparison/routes/getBBPackageComparison.routes');
+const getCurrentBBPackageV2 = require('./BBExternal/GetCurrentBBPackageV2/routes/getCurrentBBPackageV2.routes');
 
 //Prepaid 
 const dataGiftEnrollInit = require('./Prepaid/DataGiftEnrollInit/routes/dataGiftEnrollInit.routes.js')
@@ -91,14 +93,21 @@ const unsubscribeAdvancedReportsRoutes = require(
 );
 
 const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/extraGBRoutes.js");
-
-//Dashboard
 const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prepaid-Init/routes/productOrderRoutes.js");
 
 //Dashboard
 const ftthRoutes = require('./Dashboard/GetFTTHFullData/routes/ftthRoutes');
 const ftthSpecificRoutes = require('./Dashboard/GetFTTHSpecificData/routes/ftthSpecificRoutes');
+const ftthLoginRoutes = require('./Dashboard/FTTHDashboardLogin/routes/ftthLoginRoutes');
+const ftthStatusRoutes = require('./Dashboard/GetFTTHRequestStatusCount/routes/ftthStatusRoutes');
+const ftthPermissionRoutes = require('./Dashboard/SetFTTHPermission/routes/ftthPermissionRoutes');
+const ftthChartRoutes = require('./Dashboard/GetFTTHRequestCharts/routes/ftthChartRoutes');
 const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
+
+//HealthCheck
+const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
+const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/notificationDetailRoutes")
+
 
 // Middleware
 app.use(cors());
@@ -108,12 +117,15 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
+
+
 //Account
 app.use("/tmf-api", register);
 app.use("/tmf-api", OTPVerificationRoutes);
 app.use("/tmf-api", resendOTPRoutes);
 app.use("/tmf-api", refreshTokenRoutes);
 app.use("/tmf-api", loginRoutes);
+app.use("/tmf-api", changePasswordRoutes);
 
 
 //BBVAS
@@ -196,10 +208,6 @@ app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
 
-
-//BB package Upgrade
-//app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
-
 //BB package Upgrade
 app.use('/tmf-api/productOfferingQualification/v4', getBBpackageList); //uses TMF620
 
@@ -217,12 +225,21 @@ app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
 
 // BBExternal
+app.use("/api/BBExternal", require("./BBExternal/GetBBFreedomStatus/routes/getBBFreedomStatusRoutes"));
 app.use("/api/BBExternal", require("./BBExternal/RegisterForBBFreedom_Nethmi/routes/registerForBBFreedomRoutes"));
 
 //Dashboard
 app.use('/api/dashboard/ftth-full-data', ftthRoutes);
 app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
+app.use('/api/Dashboard/FTTHDashboardLogin', ftthLoginRoutes);
+app.use('/api/Dashboard/GetFTTHRequestStatusCount', ftthStatusRoutes);
+app.use('/api/Dashboard/SetFTTHPermission', ftthPermissionRoutes);
+app.use('/api/Dashboard/GetFTTHRequestCharts', ftthChartRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
+
+// HealthCheck
+app.use("/api/SystemMonitor", HealthCheck);
+app.use("/api/SystemMonitor", NotificationDetail);
 
 
 
@@ -239,6 +256,8 @@ app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 //   authMiddleware,
 //   productOfferingQualificationRoutes
 // );
+
+
 
 // Health check
 app.get('/', (req, res) => {
