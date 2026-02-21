@@ -109,6 +109,10 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 
+// SystemMonitor
+console.log("Registering SystemMonitor routes...");
+app.use("/api/SystemMonitor", require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes"));
+
 //Account
 app.use("/tmf-api", register);
 app.use("/tmf-api", OTPVerificationRoutes);
@@ -236,6 +240,8 @@ app.use("/api/SystemMonitor", require("./HealthCheck/NotificationDeatail/routes/
 //   authMiddleware,
 //   productOfferingQualificationRoutes
 // );
+
+
 
 // Health check
 app.get('/', (req, res) => {
