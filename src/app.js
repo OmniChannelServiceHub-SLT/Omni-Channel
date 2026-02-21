@@ -181,11 +181,19 @@ app.use("/tmf-api/customerBillManagement/v5", eBillCheckUserExistRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 
+// New Connection (Catalog)
+const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
+const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
+
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
 app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
 app.use("/tmf-api", getPurchasedProductsRoutes);
 app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
+
+// New Connection (Catalog)
+app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
+app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
