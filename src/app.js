@@ -100,6 +100,11 @@ const ftthRoutes = require('./Dashboard/GetFTTHFullData/routes/ftthRoutes');
 const ftthSpecificRoutes = require('./Dashboard/GetFTTHSpecificData/routes/ftthSpecificRoutes');
 const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
 
+//HealthCheck
+const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
+const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/notificationDetailRoutes")
+
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -109,9 +114,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 
-// SystemMonitor
-console.log("Registering SystemMonitor routes...");
-app.use("/api/SystemMonitor", require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes"));
 
 //Account
 app.use("/tmf-api", register);
@@ -222,8 +224,8 @@ app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 
 // HealthCheck
-app.use("/api/SystemMonitor", require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes"));
-app.use("/api/SystemMonitor", require("./HealthCheck/NotificationDeatail/routes/notificationDetailRoutes"));
+app.use("/api/SystemMonitor", HealthCheck);
+app.use("/api/SystemMonitor", NotificationDetail);
 
 
 
