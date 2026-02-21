@@ -30,5 +30,9 @@ exports.verifyOtpAndActivate = async ({ registrationId, otp }) => {
   const accessToken = generateAccessToken(user);
   const refreshToken = generateRefreshToken(user);
 
+  // persist refresh token
+  user.refreshToken = refreshToken;
+  await user.save();
+
   return { accessToken, refreshToken };
 };
