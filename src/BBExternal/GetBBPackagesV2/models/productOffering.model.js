@@ -36,3 +36,4 @@ const ProductOfferingSchema = new mongoose.Schema({
 module.exports =
   mongoose.models.ProductOffering ||
   mongoose.model('ProductOffering', ProductOfferingSchema);
+

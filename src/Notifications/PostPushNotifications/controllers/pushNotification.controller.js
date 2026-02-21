@@ -9,13 +9,17 @@ exports.sendPushNotification = async (req, res) => {
       mobile
     } = req.body;
 
+    // Basic validation
     if (!accountNo || !NotType || (!email && !mobile)) {
-      return res.status(400).json(buildErrorResponse(
-        'Invalid request payload',
-        'Mandatory fields are missing'
-      ));
+      return res.status(400).json(
+        buildErrorResponse(
+          'Invalid request payload',
+          'accountNo, NotType and at least one contact (email or mobile) are mandatory'
+        )
+      );
     }
 
+    // Delegate to service (TMF-681 resource creation)
     const message = await pushService.processPushNotification(req.body);
 
     return res.status(200).json({
@@ -23,8 +27,9 @@ exports.sendPushNotification = async (req, res) => {
       errorMessege: null,
       exceptionDetail: null,
       dataBundle: {
-        messageId: message._id,
-        status: message.status
+        messageId: message.id || message._id, // Prefer TMF id
+        state: message.state,                 // TMF-compliant
+        messageType: message.messageType
       },
       errorShow: null,
       errorCode: null
@@ -35,13 +40,18 @@ exports.sendPushNotification = async (req, res) => {
   }
 };
 
+/**
+ * ===== Error Builders =====
+ */
+
 function buildExceptionResponse(err) {
   return {
     isSuccess: false,
-    errorMessege: 'Exception occured while sending push notification for user',
+    errorMessege: 'Exception occurred while sending push notification for user',
     exceptionDetail: err.stack,
     dataBundle: null,
-    errorShow: 'Sorry, the service is temporary unavailable. Please try again later.',
+    errorShow:
+      'Sorry, the service is temporarily unavailable. Please try again later.',
     errorCode: null
   };
 }
