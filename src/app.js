@@ -108,6 +108,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
+
 //Account
 app.use("/tmf-api", register);
 app.use("/tmf-api", OTPVerificationRoutes);
@@ -193,7 +194,7 @@ app.use("/api/notifications", postPushNotifications); //uses TMF681
 
 
 //BB package Upgrade
-app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
+app.use('/tmf-api/productOfferingQualification/v4', getBBpackageList); //uses TMF620
 
 
 //BBExternal
@@ -215,6 +216,10 @@ app.use("/api/BBExternal", require("./BBExternal/RegisterForBBFreedom_Nethmi/rou
 app.use('/api/dashboard/ftth-full-data', ftthRoutes);
 app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
+
+// HealthCheck
+app.use("/api/SystemMonitor", require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes"));
+app.use("/api/SystemMonitor", require("./HealthCheck/NotificationDeatail/routes/notificationDetailRoutes"));
 
 
 
