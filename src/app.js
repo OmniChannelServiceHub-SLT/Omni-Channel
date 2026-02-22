@@ -194,10 +194,13 @@ app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
+const getDraftDataLTERoutes = require("./NewCon/GetDraftDataLTE/routes/productOrderRoutes.js");
 
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
 app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
+// New Connection – must be before generic /tmf-api so path is matched
+app.use("/tmf-api/productOrderManagement/v4", getDraftDataLTERoutes);
 app.use("/tmf-api", getPurchasedProductsRoutes);
 app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 
