@@ -98,7 +98,16 @@ const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prep
 //Dashboard
 const ftthRoutes = require('./Dashboard/GetFTTHFullData/routes/ftthRoutes');
 const ftthSpecificRoutes = require('./Dashboard/GetFTTHSpecificData/routes/ftthSpecificRoutes');
+const ftthLoginRoutes = require('./Dashboard/FTTHDashboardLogin/routes/ftthLoginRoutes');
+const ftthStatusRoutes = require('./Dashboard/GetFTTHRequestStatusCount/routes/ftthStatusRoutes');
+const ftthPermissionRoutes = require('./Dashboard/SetFTTHPermission/routes/ftthPermissionRoutes');
+const ftthChartRoutes = require('./Dashboard/GetFTTHRequestCharts/routes/ftthChartRoutes');
 const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
+
+//HealthCheck
+const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
+const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/notificationDetailRoutes")
+
 
 // Middleware
 app.use(cors());
@@ -108,6 +117,8 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // Routes
+
+
 //Account
 app.use("/tmf-api", register);
 app.use("/tmf-api", OTPVerificationRoutes);
@@ -199,15 +210,14 @@ app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
 
-
 //BB package Upgrade
-app.use('/tmf-api/productOfferingQualification/v4',getBBpackageList); //uses TMF620
+app.use('/tmf-api/productOfferingQualification/v4', getBBpackageList); //uses TMF620
 
 
 //BBExternal
 // app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
 // app.use('/tmf-api/BBExternal/GetBBPackageDetails',getBBPackageDetails);
-app.use('/tmf-api/BBExternal/GetBBPackageComparison',getBBPackageComparison);
+app.use('/tmf-api/BBExternal/GetBBPackageComparison', getBBPackageComparison);
 
 //Prepaid 
 app.use("/tmf-api", dataGiftEnrolInitConfirm),
@@ -217,12 +227,21 @@ app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
 
 // BBExternal
+app.use("/api/BBExternal", require("./BBExternal/GetBBFreedomStatus/routes/getBBFreedomStatusRoutes"));
 app.use("/api/BBExternal", require("./BBExternal/RegisterForBBFreedom_Nethmi/routes/registerForBBFreedomRoutes"));
 
 //Dashboard
 app.use('/api/dashboard/ftth-full-data', ftthRoutes);
 app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
+app.use('/api/Dashboard/FTTHDashboardLogin', ftthLoginRoutes);
+app.use('/api/Dashboard/GetFTTHRequestStatusCount', ftthStatusRoutes);
+app.use('/api/Dashboard/SetFTTHPermission', ftthPermissionRoutes);
+app.use('/api/Dashboard/GetFTTHRequestCharts', ftthChartRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
+
+// HealthCheck
+app.use("/api/SystemMonitor", HealthCheck);
+app.use("/api/SystemMonitor", NotificationDetail);
 
 
 
@@ -239,6 +258,8 @@ app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 //   authMiddleware,
 //   productOfferingQualificationRoutes
 // );
+
+
 
 // Health check
 app.get('/', (req, res) => {
