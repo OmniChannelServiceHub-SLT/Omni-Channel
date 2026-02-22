@@ -15,8 +15,6 @@ const checkBonusData = (subscriberID, productName) => {
   };
 };
 
-
-
 // Mock SLT API for VAS Data Bundle
 const checkVASBundle = (subscriberID, productName) => {
   const availableVAS = ["FTTH_ANYTIME 75GB", "FTTH_ANYTIME 150GB"];
@@ -28,60 +26,8 @@ const checkVASBundle = (subscriberID, productName) => {
   };
 };
 
-// export const createProductOfferingQualification = async (body) => {
-//   const items = body.productOfferingQualificationItem || [];
-
-//   if (items.length === 0) {
-//     return {
-//       success: false,
-//       status: 400,
-//       message: "At least one productOfferingQualificationItem is required"
-//     };
-//   }
-
-//   const results = items.map(item => {
-//     const subscriber = item?.relatedParty?.find(p => p.role === "subscriber");
-//     const productName = item.productOffering?.name || "";
-
-//     if (!subscriber?.id || !productName) {
-//       return {
-//         ...item,
-//         qualificationResult: "unqualified",
-//         qualificationReason: "Missing subscriber ID or productOffering name"
-//       };
-//     }
-
-//     // Route to correct mock SLT API
-//     let qualification;
-//     if (productName.toLowerCase().includes("bonus")) {
-//       qualification = checkBonusData(subscriber.id, productName);
-//     } else {
-//       qualification = checkVASBundle(subscriber.id, productName);
-//     }
-
-//     return {
-//       id: item.id || String(Date.now()),
-//       productOffering: item.productOffering,
-//       relatedParty: item.relatedParty,
-//       qualificationResult: qualification.qualified ? "qualified" : "unqualified",
-//       qualificationReason: qualification.reason
-//     };
-//   });
-
-//   return {
-//     success: true,
-//     status: 201,
-//     data: {
-//       id: `POQ-${Date.now()}`,
-//       state: "completed",
-//       productOfferingQualificationItem: results
-//     }
-//   };
-// };
-
 // Service function to create a ProductOfferingQualification and save to MongoDB
-
-export const createProductOfferingQualification = async (body) => {
+const createProductOfferingQualification = async (body) => {
   const items = body.productOfferingQualificationItem || [];
 
   if (items.length === 0) {
@@ -118,6 +64,7 @@ export const createProductOfferingQualification = async (body) => {
   });
 
   // Create MongoDB document
+  const ProductOfferingQualification = require('../models/ProductOfferingQualification'); // CJS import
   const doc = new ProductOfferingQualification({
     id: `POQ-${Date.now()}`,
     state: "completed",
@@ -131,4 +78,9 @@ export const createProductOfferingQualification = async (body) => {
     status: 201,
     data: doc,
   };
+};
+
+// CJS export
+module.exports = {
+  createProductOfferingQualification,
 };

@@ -1,12 +1,21 @@
-const ProductOrder = require('../models/ProductOderModel');
+const ProductOrder = require('../../VASBundleUnsubscription/models/ProductOrder');
 
 // POST /productOrder
 exports.createProductOrder = async (req, res) => {
   try {
     const newOrder = new ProductOrder({
-      ...req.body,
-      state: "acknowledged"
+      externalId: req.body.externalId,
+      description: req.body.description,
+      category: req.body.category,
+      priority: req.body.priority,
+
+      state: "acknowledged",
+
+      orderItem: req.body.productOrderItem, // rename
+      relatedParty: req.body.relatedParty,
+      channel: req.body.channel ? [req.body.channel] : []
     });
+
 
     const savedOrder = await newOrder.save();
 

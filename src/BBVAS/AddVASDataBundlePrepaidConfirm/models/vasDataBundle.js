@@ -33,7 +33,7 @@ const relatedPartySchema = new mongoose.Schema({
 });
 
 const vasDataBundleSchema = new mongoose.Schema({
-  id: String,
+  id: { type: String, required: true, unique: true }, // Add the unique ID field here
   href: String,
   externalId: [externalIdentifierSchema],
   priority: String,

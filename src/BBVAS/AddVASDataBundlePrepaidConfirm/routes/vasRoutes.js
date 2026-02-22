@@ -1,7 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const vasController = require('../controllers/vasController');
+const vasController = require("../controllers/vasController");
 
-router.post('/AddVASDataBundlePrepaidConfirm', vasController.addVASDataBundlePrepaidConfirm);
+// Define relative path only (let app.js handle the prefix)
+router.post(
+  "/AddVASDataBundlePrepaidConfirm",
+  vasController.addVASDataBundlePrepaidConfirm
+);
 
 module.exports = router;

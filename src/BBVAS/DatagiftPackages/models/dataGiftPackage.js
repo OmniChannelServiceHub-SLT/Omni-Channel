@@ -6,7 +6,11 @@ const dataGiftPackageSchema = new mongoose.Schema({
   unit: { type: String, default: "MB" },
   price: { type: Number, default: 0 },
   status: { type: String, default: "available" }, // available / inactive
-  createdAt: { type: Date, default: Date.now },
+  subscriberID: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
+}, {
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
 });
 
 dataGiftPackageSchema.methods.toTMF = function () {
