@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const User = require("../../RegisterV2/models/user");
+const User = require("../../RegisterV2/models/User");
 
 class ChangePasswordService {
   static async changePassword({ username, currentPassword, newPassword }) {

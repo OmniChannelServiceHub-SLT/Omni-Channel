@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const User = require("../../RegisterV2/models/user");
+const User = require("../../RegisterV2/models/User");
 const {
   generateAccessToken,
   generateRefreshToken

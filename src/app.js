@@ -115,7 +115,7 @@ app.use("/tmf-api", resendOTPRoutes);
 app.use("/tmf-api", refreshTokenRoutes);
 app.use("/tmf-api", loginRoutes);
 app.use("/tmf-api", changePasswordRoutes);
-app.use("tmf-api" , postLoginExternalFBGoogle);
+app.use("/tmf-api/Account/LoginExternal" , postLoginExternalFBGoogle);
 
 
 //BBVAS

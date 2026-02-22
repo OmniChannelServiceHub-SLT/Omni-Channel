@@ -1,5 +1,5 @@
 // services/otpVerification.service.js
-const User = require("../../RegisterV2/models/user");
+const User = require("../../RegisterV2/models/User");
 const { generateAccessToken, generateRefreshToken } = require("../../../utilities/jwt");
 
 exports.verifyOtpAndActivate = async ({ registrationId, otp }) => {

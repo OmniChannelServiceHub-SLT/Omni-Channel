@@ -1,9 +1,8 @@
 // account.routes.js
 const router = require("express").Router();
-const controller = require("../postLoginExternalFBGoogle.controller");
+const controller = require("../controllers/postLoginExternalFBGoogle.controller");
+const authMiddleware = require("../../../middleware/authMiddleware");
 
-router.post("/LoginExternal", controller.loginExternal);
-router.post("/FacebookLoginAndroid", controller.facebookLoginAndroid);
-router.post("/FacebookLoginIos", controller.facebookLoginIos);
+router.post("/", controller.loginExternal);
 
 module.exports = router;

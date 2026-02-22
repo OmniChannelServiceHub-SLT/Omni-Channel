@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const User = require('../models/user');
+const User = require("../../RegisterV2/models/user");
 
 const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();

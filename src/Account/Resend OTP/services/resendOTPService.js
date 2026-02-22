@@ -1,5 +1,5 @@
 // services/ResendOtpService.js
-const User = require('../../RegisterV2/models/user');
+const User = require('../../RegisterV2/models/User');
 
 const generateOTP = () =>
   Math.floor(100000 + Math.random() * 900000).toString();

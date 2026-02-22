@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../../RegisterV2/models/user");
+const User = require("../../RegisterV2/models/User");
 const { generateAccessToken } = require("../../../utilities/jwt");
 
 class refreshTokenService {
