@@ -1,4 +1,4 @@
-const productInventoryService = require("./ProductInventoryService");
+const productInventoryService = require("./productInventoryService");
 
 class ProductInventoryController {
 
