@@ -15,10 +15,10 @@ const seed = async () => {
 
     console.log("✅ Connected to MongoDB");
 
-    // Clear existing data
-    await Customer.deleteMany({});
-    await BillingAccount.deleteMany({});
-    console.log("🧹 Cleared old data");
+    // // Clear existing data
+    // await Customer.deleteMany({});
+    // await BillingAccount.deleteMany({});
+    // console.log("🧹 Cleared old data");
 
     // Insert Customer
     const customer = await Customer.create({
