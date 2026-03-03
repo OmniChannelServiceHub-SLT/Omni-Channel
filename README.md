@@ -54,6 +54,20 @@ When you are assigned to reimplement an original endpoint, follow these steps:
    - Develop the controller, service, and route files for the endpoint.
    - Ensure the implementation adheres to the TMF API specifications.
 
+## Branching and Pull Request Practices
+
+1. **Create a New Branch for Related Endpoints**
+   - Always create a new branch for related endpoints.
+   - Example: Since `RegisterV2`, `LogIn`, `OTP Verification`, and `ResendOTP` are related, create a new branch from the main branch named something like 
+   `Authentication_<yourName>`
+   - Example: Authentication_malsha
+
+2. **Merge the `dev` Branch Before PR**
+   - Always merge the `dev` branch into your branch before creating a pull request (PR).
+
+3. **Send PRs to the `dev` Branch Only**
+   - Ensure that all pull requests are sent to the `dev` branch only.
+
 ## Authentication
 
 The system uses JWT-based authentication.
