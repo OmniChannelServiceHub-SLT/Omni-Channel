@@ -68,6 +68,10 @@ When you are assigned to reimplement an original endpoint, follow these steps:
 3. **Send PRs to the `dev` Branch Only**
    - Ensure that all pull requests are sent to the `dev` branch only.
 
+4. **Avoid Direct Commits to `dev` or `main`**
+   - Never commit directly to the `dev` or `main` branches.
+   - Always use pull requests for any changes.
+
 ## Authentication
 
 The system uses JWT-based authentication.
