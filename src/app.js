@@ -108,6 +108,9 @@ const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-C
 const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
 const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/notificationDetailRoutes")
 
+//Ebill
+const ebillStatusRequest = require("./eBill/eBillStatusRequest/routes/eBillStatusRoute.js");
+
 
 // Middleware
 app.use(cors());
@@ -194,6 +197,7 @@ app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
+const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
 
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
@@ -203,6 +207,7 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 
 // New Connection (Catalog)
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
+app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
@@ -243,19 +248,8 @@ app.use("/api/SystemMonitor", NotificationDetail);
 
 
 
-// app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)
-// // Mock auth middleware for TMF ServiceOrder
-// function authMiddleware(req, res, next) {
-//   const authHeader = req.headers["authorization"];
-//   if (authHeader && authHeader === "Bearer mock-fake-token-12345") next();
-//   else res.status(401).json({ message: "Unauthorized" });
-// }
-
-// app.use(
-//   '/tmf-api/productOfferingQualification/v1/productOfferingQualification',
-//   authMiddleware,
-//   productOfferingQualificationRoutes
-// );
+//ebill
+app.use("/tmf-api/customerBillManagement/v5", ebillStatusRequest);
 
 
 
