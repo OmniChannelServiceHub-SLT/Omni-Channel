@@ -15,8 +15,6 @@ const checkEbillStatus = async (accountId, tpNo) => {
   // 2. Find related Customer
   const relatedPartyId = billingAccount.relatedParty?.[0]?.id;
   const customer = await Customer.findOne({ id: relatedPartyId }).lean();
-  console.log("Customer found:", customer.id); // CUST1001
-console.log("contactMedium:", customer.contactMedium); // Array
 
   if (!customer) {
     return {
@@ -34,7 +32,7 @@ console.log("contactMedium:", customer.contactMedium); // Array
   const customerPhone = mobileContact?.characteristic?.number?.replace(/\D/g, "").trim();
   const normalizedTpNo = tpNo?.replace(/\D/g, "").trim();
 
-  console.log("Normalized DB phone:", customerPhone, "Normalized Request phone:", normalizedTpNo);
+  // console.log("Normalized DB phone:", customerPhone, "Normalized Request phone:", normalizedTpNo);
 
   if (normalizedTpNo && customerPhone && customerPhone !== normalizedTpNo) {
     return {
