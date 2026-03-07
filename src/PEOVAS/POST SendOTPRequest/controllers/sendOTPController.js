@@ -1,5 +1,5 @@
 const CommunicationMessage = require(
-  '../../../Notifications/PostPushNotifications/models/CommunicationMessage.model.js'
+  '../../../Notifications/PostPushNotifications/models/communicationMessage.model.js'
 );
 
 exports.sendOTP = async (req, res) => {
@@ -60,7 +60,7 @@ exports.sendOTP = async (req, res) => {
 };
 
 
-/*const CommunicationMessage = require('../../Notifications/PostPushNotifications/models/CommunicationMessage.model.js');
+/*const CommunicationMessage = require('../../Notifications/PostPushNotifications/models/communicationMessage.model.js');
 
 exports.sendOTP = async (req, res) => {
   try {

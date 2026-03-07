@@ -1,4 +1,4 @@
-const CommunicationMessage = require('../../../Notifications/PostPushNotifications/models/CommunicationMessage.model.js');
+const CommunicationMessage = require('../../../Notifications/PostPushNotifications/models/communicationMessage.model.js');
 const { v4: uuidv4 } = require('uuid');
 
 async function processPushNotification(payload) {

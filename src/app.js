@@ -60,6 +60,7 @@ const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultReq
 //Ebill
 const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
 const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
+const customerBillOnDemandRoutes = require("./EBill/smartBillSendRequest/routes/CustomerBillOnDemandRoutes.js");
 const eBillCheckUserExistRoutes = require("./EBill/eBillCheckUserExistV2/routes/eBillRoutes.js");
 
 //PEOVAS
@@ -176,6 +177,10 @@ app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRou
 // app.use("/tmf-api/usageManagement/v4/Vouchers", voucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackageRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
+app.use("/", serviceRequestRoutes);
+app.use('/api/v2', faultRequestRoutes);
+app.use('/tmf-api/customerBillManagement/v5', billRoutes);
+app.use("/tmf-api/Customer_Bill_Management/v5", customerBillOnDemandRoutes);
 app.use("/api/Dashboard", dashboardRoutes);
 // app.use('/api/Account', accountRoutes);
 
@@ -194,6 +199,7 @@ app.use('/api/v2', faultRequestRoutes);
 app.use("/tmf-api/customerBillManagement/v5", eBillCheckUserExistRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
+app.use("/tmf-api/customerBillManagement/v5", ebillStatusRequest);
 
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
@@ -245,11 +251,6 @@ app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 // HealthCheck
 app.use("/api/SystemMonitor", HealthCheck);
 app.use("/api/SystemMonitor", NotificationDetail);
-
-
-
-//ebill
-app.use("/tmf-api/customerBillManagement/v5", ebillStatusRequest);
 
 
 
