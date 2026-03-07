@@ -59,9 +59,9 @@ const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultReq
 
 //Ebill
 const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
-const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
-const customerBillOnDemandRoutes = require("./EBill/smartBillSendRequest/routes/CustomerBillOnDemandRoutes.js");
-const eBillCheckUserExistRoutes = require("./EBill/eBillCheckUserExistV2/routes/eBillRoutes.js");
+const billRoutes = require('./eBill/BillDownloadRequest/routes/billDownloadRoutes');
+const customerBillOnDemandRoutes = require("./eBill/smartBillSendRequest/routes/CustomerBillOnDemandRoutes.js");
+const eBillCheckUserExistRoutes = require("./eBill/eBillCheckUserExistV2/routes/eBillRoutes.js");
 
 //PEOVAS
 const productInventoryRoutes = require("./PEOVAS/CustomerValidation_malsha/productInventoryRoute");
