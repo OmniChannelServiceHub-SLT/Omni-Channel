@@ -1,4 +1,4 @@
-
+// TMF681 - Communication Management v4 - NotificationDetail
 exports.getNotificationDetails = async (req, res) => {
     try {
         const telephoneNo = req.query.telephoneNo;
@@ -6,43 +6,55 @@ exports.getNotificationDetails = async (req, res) => {
 
         console.log(`NotificationDetails request received: Tel=${telephoneNo}, Acc=${accountNo}`);
 
-        // Mock data logic
-        // If params are missing, we still return a success list as per requirement "screenshot shows params but unchecked/empty"
-
         const notifications = [
             {
+                "@type": "CommunicationMessage",
                 id: "notif-001",
+                href: "/tmf-api/communicationManagement/v4/communicationMessage/notif-001",
                 type: "Maintenance",
-                message: "Scheduled maintenance on 30th Jan",
-                date: new Date().toISOString(),
-                status: "Unread"
+                content: "Scheduled maintenance on 30th Jan",
+                sendDateTime: new Date().toISOString(),
+                state: "Unread",
+                receiver: [
+                    {
+                        "@type": "CommunicationMessageReceiver",
+                        telephoneNo: telephoneNo || null,
+                        accountNo: accountNo || null
+                    }
+                ]
             },
             {
+                "@type": "CommunicationMessage",
                 id: "notif-002",
+                href: "/tmf-api/communicationManagement/v4/communicationMessage/notif-002",
                 type: "Billing",
-                message: "Bill for Dec 2025 is ready",
-                date: new Date(Date.now() - 86400000).toISOString(),
-                status: "Read"
+                content: "Bill for Dec 2025 is ready",
+                sendDateTime: new Date(Date.now() - 86400000).toISOString(),
+                state: "Read",
+                receiver: [
+                    {
+                        "@type": "CommunicationMessageReceiver",
+                        telephoneNo: telephoneNo || null,
+                        accountNo: accountNo || null
+                    }
+                ]
             }
         ];
 
         res.status(200).json({
-            status: "success",
-            message: "Notifications retrieved successfully",
-            data: {
-                telephoneNo: telephoneNo || null,
-                accountNo: accountNo || null,
-                count: notifications.length,
-                notifications: notifications
-            }
+            "@type": "CommunicationMessageCollection",
+            "@schemaLocation": "/tmf-api/communicationManagement/v4/schema/communicationMessage",
+            totalCount: notifications.length,
+            communicationMessage: notifications
         });
 
     } catch (err) {
         console.error("Error in getNotificationDetails:", err);
         res.status(500).json({
-            status: "error",
-            message: "Internal Server Error",
-            error: err.message
+            "@type": "Error",
+            code: "ERR_INTERNAL",
+            reason: "Internal Server Error",
+            message: err.message
         });
     }
 };

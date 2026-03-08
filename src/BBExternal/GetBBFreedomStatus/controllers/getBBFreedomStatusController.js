@@ -1,37 +1,47 @@
-
+// TMF637 - Product Inventory Management v4 - GetBBFreedomStatus
 exports.getBBFreedomStatus = async (req, res) => {
     try {
         const tpNo = req.query.tpNo;
 
         if (!tpNo) {
             return res.status(400).json({
-                status: "error",
-                message: "tpNo is required"
+                "@type": "Error",
+                code: "ERR_MISSING_PARAMS",
+                reason: "tpNo is required"
             });
         }
-
-        // TODO: Add database logic here to fetch actual status
-        // For now, returning mock status
 
         console.log(`GetBBFreedomStatus request received: TP=${tpNo}`);
 
         res.status(200).json({
-            status: "success",
-            message: "BB Freedom status retrieved successfully",
-            data: {
-                tpNo,
-                freedomStatus: "Active",
-                registrationDate: "2026-01-15",
-                expiryDate: "2027-01-15"
-            }
+            "@type": "Product",
+            "@schemaLocation": "/tmf-api/productInventory/v4/schema/product",
+            id: `bbfreedom-${tpNo}`,
+            href: `/tmf-api/productInventory/v4/product/bbFreedomStatus?tpNo=${encodeURIComponent(tpNo)}`,
+            name: "BB Freedom",
+            status: "Active",
+            startDate: "2026-01-15",
+            terminationDate: "2027-01-15",
+            productCharacteristic: [
+                { name: "tpNo", value: tpNo },
+                { name: "freedomStatus", value: "Active" }
+            ],
+            relatedParty: [
+                {
+                    "@type": "RelatedParty",
+                    id: tpNo,
+                    role: "subscriber"
+                }
+            ]
         });
 
     } catch (err) {
         console.error("Error in getBBFreedomStatus:", err);
         res.status(500).json({
-            status: "error",
-            message: "Internal Server Error",
-            error: err.message
+            "@type": "Error",
+            code: "ERR_INTERNAL",
+            reason: "Internal Server Error",
+            message: err.message
         });
     }
 };
