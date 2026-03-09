@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require("uuid");
-const dataGiftService = require("../services/dataGiftEnroll.service");
+const dataGiftService = require("../../DataGiftEnrollPrepaidInit/services/dataGiftEnrollPrepaidInit.service");
 
 exports.addDataGiftEnroll = async (req, res) => {
   try {
