@@ -15,6 +15,8 @@ const changePasswordRoutes = require("./Account/ChangePassword/routes/changePass
 
 //BBVAS
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
+const dataGiftEnrollPrepaidInitRoutes = require("./BBVAS/DataGiftEnrollPrepaidInit/routes/dataGiftEnrollPrepaidInit.routes");
+const dataGiftEnrollPrepaidConfirmRoutes = require("./BBVAS/DataGiftEnrollPrepaidConfirm/routes/dataGiftEnrollPrepaidConfirm.routes");
 const customerRoutes = require("./BBVAS/ChangeBBPassword/routes/customerRoutes");
 const productOrderRoutes = require("./BBVAS/VASBundleUnsubscription/routes/productOrderRoutes");
 const dataGiftRoutes = require("./BBVAS/ValidateDataGiftSub/routes/dataGiftRoutes");
@@ -27,8 +29,7 @@ const reportTimePeriodRoutes = require("./BBVAS/GetReportTimePeriod/routes/repor
 const advancedReportingPackageRoutes = require("./BBVAS/GetAdvancedReportingPackage/routes/advancedReportingPackage.routes");
 const updateISPContactRoutes = require("./BBVAS/PUTUpdateISPContact/routes/customer.routes.js");
 const dailyUsageRoutes = require("./BBVAS/CurrentMonthsDailyUsage/routes/currentUsageRoutes");
-const dataGiftEnrollPrepaidInitRoutes = require("./BBVAS/DataGiftEnrollPrepaidInit/routes/dataGiftEnrollPrepaidInit.routes");
-const dataGiftEnrollPrepaidConfirmRoutes = require("./BBVAS/DataGiftEnrollPrepaidConfirm/routes/dataGiftEnrollPrepaidConfirm.routes");
+
 const vasConfirmRoutes = require("./BBVAS/AddVASDataBundlePrepaidConfirm/routes/vasRoutes.js");
 const validateDataGiftRoutes = require("./BBVAS/ValidateDataGiftSub/routes/dataGiftRoutes");
 const addVASRoutes = require('./BBVAS/AddVASDataBundlePrepaidConfirm/routes/vasRoutes');
@@ -84,6 +85,8 @@ const getBBPackageComparison = require('./BBExternal/GetBBPackageComparison/rout
 const getCurrentBBPackageV2 = require('./BBExternal/GetCurrentBBPackageV2/routes/getCurrentBBPackageV2.routes');
 
 //Prepaid 
+const dataGiftEnrollInit = require('./Prepaid/DataGiftEnrollInit/routes/dataGiftEnrollInit.routes.js');
+const dataGiftEnrolInitConfirm = require('./Prepaid/DataGiftEnrollPrepaid-confirm/routes/purchaseRoutes.js');
 const vasBundleConfirmRoutes = require(
   "./Prepaid/POSTAdd VAS Data Bundle - Prepaid Confirm/routes/vasBundleConfirm.routes"
 );
@@ -135,6 +138,8 @@ app.use("/tmf-api", changePasswordRoutes);
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
 app.use("/tmf-api/usageManagement/v4/usage", enhancedCurrentDailyUsageRoutes);
 app.use("/tmf-api/customerManagement/v5", customerRoutes);
+app.use('/tmf-api/productOrdering/v4', dataGiftEnrollPrepaidInitRoutes);   
+app.use('/tmf-api/productOrdering/v4', dataGiftEnrollPrepaidConfirmRoutes);
 app.use("/tmf-api/productOrdering/v4/productOrder", productOrderRoutes);
 app.use("/tmf-api/dataGift/v1", validateDataGiftRoutes);
 app.use("/", vasRoutes);
@@ -231,6 +236,7 @@ app.use('/tmf-api/BBExternal/GetBBPackageComparison', getBBPackageComparison);
 
 app.use('/tmf-api/productOrdering/v4', dataGiftEnrollPrepaidInitRoutes);
 app.use('/tmf-api/productOrdering/v4', dataGiftEnrollPrepaidConfirmRoutes);
+app.use('/tmf-api/productOrdering/v4', dataGiftEnrollInit);
 app.use("/tmf-api", vasBundleConfirmRoutes);
 app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
