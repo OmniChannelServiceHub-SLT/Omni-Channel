@@ -1,4 +1,4 @@
-
+// TMF653 - Service Test Management v4 - HealthCheckRequest
 exports.getHealthCheckStatus = async (req, res) => {
     try {
         const telephoneNo = req.query.telephoneNo;
@@ -6,32 +6,42 @@ exports.getHealthCheckStatus = async (req, res) => {
 
         if (!telephoneNo || !accountNo) {
             return res.status(400).json({
-                status: "error",
-                message: "telephoneNo and accountNo are required"
+                "@type": "Error",
+                code: "ERR_MISSING_PARAMS",
+                reason: "telephoneNo and accountNo are required"
             });
         }
 
-        // Mock response as per requirement
         console.log(`HealthCheckRequest received: Tel=${telephoneNo}, Acc=${accountNo}`);
-        console.log("HealthCheckRequest controller executing");
 
         res.status(200).json({
-            status: "success",
-            message: "System is healthy",
-            data: {
+            "@type": "ServiceTest",
+            "@schemaLocation": "/tmf-api/serviceTestManagement/v4/schema/serviceTest",
+            id: `healthcheck-${Date.now()}`,
+            href: `/tmf-api/serviceTestManagement/v4/serviceTest/healthCheck`,
+            name: "SystemHealthCheck",
+            description: "System health check for service monitoring",
+            state: "completed",
+            testResult: "passed",
+            startDateTime: new Date().toISOString(),
+            endDateTime: new Date().toISOString(),
+            relatedService: {
                 telephoneNo,
-                accountNo,
-                systemStatus: "Operational",
-                lastCheck: new Date().toISOString()
-            }
+                accountNo
+            },
+            characteristic: [
+                { name: "systemStatus", value: "Operational" },
+                { name: "lastCheck", value: new Date().toISOString() }
+            ]
         });
 
     } catch (err) {
         console.error("Error in getHealthCheckStatus:", err);
         res.status(500).json({
-            status: "error",
-            message: "Internal Server Error",
-            error: err.message
+            "@type": "Error",
+            code: "ERR_INTERNAL",
+            reason: "Internal Server Error",
+            message: err.message
         });
     }
 };
