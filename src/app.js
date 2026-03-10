@@ -60,6 +60,7 @@ const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultReq
 //Ebill
 const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
 const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
+const customerBillOnDemandRoutes = require("./EBill/smartBillSendRequest/routes/CustomerBillOnDemandRoutes.js");
 const eBillCheckUserExistRoutes = require("./EBill/eBillCheckUserExistV2/routes/eBillRoutes.js");
 
 //PEOVAS
@@ -98,6 +99,7 @@ const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prep
 //Dashboard
 const ftthRoutes = require('./Dashboard/GetFTTHFullData/routes/ftthRoutes');
 const ftthSpecificRoutes = require('./Dashboard/GetFTTHSpecificData/routes/ftthSpecificRoutes');
+const ftthLoginRoutes = require('./Dashboard/FTTHDashboardLogin/routes/ftthLoginRoutes');
 const ftthStatusRoutes = require('./Dashboard/GetFTTHRequestStatusCount/routes/ftthStatusRoutes');
 const ftthPermissionRoutes = require('./Dashboard/SetFTTHPermission/routes/ftthPermissionRoutes');
 const ftthChartRoutes = require('./Dashboard/GetFTTHRequestCharts/routes/ftthChartRoutes');
@@ -106,6 +108,9 @@ const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-C
 //HealthCheck
 const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
 const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/notificationDetailRoutes")
+
+//Ebill
+const ebillStatusRequest = require("./eBill/eBillStatusRequest/routes/eBillStatusRoute.js");
 
 
 // Middleware
@@ -172,6 +177,10 @@ app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRou
 // app.use("/tmf-api/usageManagement/v4/Vouchers", voucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackageRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
+app.use("/", serviceRequestRoutes);
+app.use('/api/v2', faultRequestRoutes);
+app.use('/tmf-api/customerBillManagement/v5', billRoutes);
+app.use("/tmf-api/Customer_Bill_Management/v5", customerBillOnDemandRoutes);
 app.use("/api/Dashboard", dashboardRoutes);
 // app.use('/api/Account', accountRoutes);
 
@@ -190,6 +199,11 @@ app.use('/api/v2', faultRequestRoutes);
 app.use("/tmf-api/customerBillManagement/v5", eBillCheckUserExistRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
+app.use("/tmf-api/customerBillManagement/v5", ebillStatusRequest);
+
+// New Connection (Catalog)
+const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
+const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
 
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
@@ -197,10 +211,13 @@ app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
 app.use("/tmf-api", getPurchasedProductsRoutes);
 app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 
+// New Connection (Catalog)
+app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
+app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
+
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
-
 
 //BB package Upgrade
 app.use('/tmf-api/productOfferingQualification/v4', getBBpackageList); //uses TMF620
@@ -209,7 +226,7 @@ app.use('/tmf-api/productOfferingQualification/v4', getBBpackageList); //uses TM
 //BBExternal
 // app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
 // app.use('/tmf-api/BBExternal/GetBBPackageDetails',getBBPackageDetails);
-app.use('/tmf-api/BBExternal/GetBBPackageComparison',getBBPackageComparison);
+app.use('/tmf-api/BBExternal/GetBBPackageComparison', getBBPackageComparison);
 
 //Prepaid 
 app.use("/tmf-api", dataGiftEnrolInitConfirm),
@@ -225,30 +242,15 @@ app.use("/tmf-api/productOrderingManagement/v4", require("./BBExternal/RegisterF
 //Dashboard - TMF622 Product Ordering / TMF672 User Roles & Permissions
 app.use('/api/dashboard/ftth-full-data', ftthRoutes);
 app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
-app.use('/tmf-api/productOrderingManagement/v4', ftthStatusRoutes); //uses TMF622
-app.use('/tmf-api/userRolesPermissions/v4', ftthPermissionRoutes); //uses TMF672
-app.use('/tmf-api/productOrderingManagement/v4', ftthChartRoutes); //uses TMF622
+app.use('/api/Dashboard/FTTHDashboardLogin', ftthLoginRoutes);
+app.use('/api/Dashboard/GetFTTHRequestStatusCount', ftthStatusRoutes);
+app.use('/api/Dashboard/SetFTTHPermission', ftthPermissionRoutes);
+app.use('/api/Dashboard/GetFTTHRequestCharts', ftthChartRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 
 // HealthCheck - TMF653 Service Test Management / TMF681 Communication Management
 app.use("/tmf-api/serviceTestManagement/v4", HealthCheck); //uses TMF653
 app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF681
-
-
-
-// app.use("/tmf-api/serviceOrder/v1/serviceOrder", authMiddleware, AddVASDataBundlePostPaid)
-// // Mock auth middleware for TMF ServiceOrder
-// function authMiddleware(req, res, next) {
-//   const authHeader = req.headers["authorization"];
-//   if (authHeader && authHeader === "Bearer mock-fake-token-12345") next();
-//   else res.status(401).json({ message: "Unauthorized" });
-// }
-
-// app.use(
-//   '/tmf-api/productOfferingQualification/v1/productOfferingQualification',
-//   authMiddleware,
-//   productOfferingQualificationRoutes
-// );
 
 
 
