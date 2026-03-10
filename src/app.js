@@ -242,7 +242,7 @@ app.use("/tmf-api/productOrderingManagement/v4", require("./BBExternal/RegisterF
 //Dashboard - TMF622 Product Ordering / TMF672 User Roles & Permissions
 app.use('/api/dashboard/ftth-full-data', ftthRoutes);
 app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
-app.use('/api/Dashboard/FTTHDashboardLogin', ftthLoginRoutes);
+app.use('/tmf-api/userRolesPermissions/v4', ftthLoginRoutes); //uses TMF672
 app.use('/api/Dashboard/GetFTTHRequestStatusCount', ftthStatusRoutes);
 app.use('/api/Dashboard/SetFTTHPermission', ftthPermissionRoutes);
 app.use('/api/Dashboard/GetFTTHRequestCharts', ftthChartRoutes);
