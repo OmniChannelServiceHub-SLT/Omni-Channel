@@ -1,3 +1,4 @@
+// TMF672 - User Roles & Permissions v4 - FTTHDashboardLogin
 const FTTHDashboardUser = require('../models/ftthLoginModel');
 
 exports.ftthDashboardLogin = async (req, res) => {
@@ -5,13 +6,21 @@ exports.ftthDashboardLogin = async (req, res) => {
     const { userName, privilege } = req.query;
 
     if (!userName || privilege === undefined) {
-      return res.status(400).json({ message: "userName and privilege are required as query parameters." });
+      return res.status(400).json({
+        "@type": "Error",
+        code: "ERR_MISSING_PARAMS",
+        reason: "userName and privilege are required as query parameters."
+      });
     }
 
     // Validate privilege value
     const privilegeNum = parseInt(privilege);
     if (isNaN(privilegeNum)) {
-      return res.status(400).json({ message: "privilege must be a valid number." });
+      return res.status(400).json({
+        "@type": "Error",
+        code: "ERR_INVALID_PRIVILEGE",
+        reason: "privilege must be a valid number."
+      });
     }
 
     // Find or create user
@@ -26,13 +35,15 @@ exports.ftthDashboardLogin = async (req, res) => {
       });
 
       return res.status(201).json({
-        message: "User created and logged in successfully",
-        data: {
-          userName: user.userName,
-          privilege: user.privilege,
-          isActive: user.isActive,
-          lastLogin: user.lastLogin
-        }
+        "@type": "UserRole",
+        "@schemaLocation": "/tmf-api/userRolesPermissions/v4/schema/userRole",
+        id: user._id,
+        href: `/tmf-api/userRolesPermissions/v4/permission/ftthLogin`,
+        userName: user.userName,
+        privilege: user.privilege,
+        state: "created",
+        isActive: user.isActive,
+        lastLogin: user.lastLogin
       });
     }
 
@@ -43,15 +54,22 @@ exports.ftthDashboardLogin = async (req, res) => {
     await user.save();
 
     res.status(200).json({
-      message: "Login successful",
-      data: {
-        userName: user.userName,
-        privilege: user.privilege,
-        isActive: user.isActive,
-        lastLogin: user.lastLogin
-      }
+      "@type": "UserRole",
+      "@schemaLocation": "/tmf-api/userRolesPermissions/v4/schema/userRole",
+      id: user._id,
+      href: `/tmf-api/userRolesPermissions/v4/permission/ftthLogin`,
+      userName: user.userName,
+      privilege: user.privilege,
+      state: "authenticated",
+      isActive: user.isActive,
+      lastLogin: user.lastLogin
     });
   } catch (err) {
-    res.status(500).json({ message: "Server Error", error: err.message });
+    res.status(500).json({
+      "@type": "Error",
+      code: "ERR_INTERNAL",
+      reason: "Server Error",
+      message: err.message
+    });
   }
 };
