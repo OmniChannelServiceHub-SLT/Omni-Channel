@@ -1,4 +1,4 @@
-const ProductOffering = require("../models/productOffering.model");
+const ProductOffering = require("../../../models/TMF620_ProductOffering");
 
 /**
  * GET GetBBPackagesV2

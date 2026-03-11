@@ -1,4 +1,4 @@
-const PopupMessage = require("../models/popupMessage.model");
+const PopupMessage = require("../../../models/popupMessage.model");
 
 const getPopupMessageBanner = async (req, res) => {
   try {
