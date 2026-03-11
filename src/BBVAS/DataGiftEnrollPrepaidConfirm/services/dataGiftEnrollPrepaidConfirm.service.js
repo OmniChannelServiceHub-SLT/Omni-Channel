@@ -1,4 +1,4 @@
-const DataGiftPrepaidOrder = require("../../../models/TMF622_DataGiftPrepaidOrder");
+const DataGiftPrepaidOrder = require("../../../models/TMF622_ProductOrder");
 
 const MOCK_VALID_OTP = "123456"; // TODO: replace with real SLT OTP gateway
 

@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require("uuid");
-const DataGiftPrepaidOrder = require("../../../models/TMF622_DataGiftPrepaidOrder");
+const DataGiftPrepaidOrder = require("../../../models/TMF622_ProductOrder");
 
 function buildOrderDocument(body) {
   const orderId = uuidv4();
