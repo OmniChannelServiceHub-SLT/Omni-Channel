@@ -45,6 +45,8 @@ const AdvancedReportPostpaidRoutes = require('./BBVAS/Advancedreport-Postpaid/ro
 const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/ProductOfferingQualification.js");
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
 const dashboardRoutes = require("./BBVAS/Dashboard/GetExtraGBDashboard/routes/dashboardRoutes.js");
+const DataTransferAmountRoute = require("./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js");
+const TransferDataRoutes = require("./BBVAS/PostTransferData/routes/transferDataRoutes.js");
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
 
@@ -186,6 +188,8 @@ app.use('/api/v2', faultRequestRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 app.use("/tmf-api/Customer_Bill_Management/v5", customerBillOnDemandRoutes);
 app.use("/api/Dashboard", dashboardRoutes);
+app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoute);
+app.use("/tmf-api/usageManagement/v4/TransferData", TransferDataRoutes);
 // app.use('/api/Account', accountRoutes);
 
 //Sales
