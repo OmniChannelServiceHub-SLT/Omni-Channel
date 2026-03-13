@@ -1,4 +1,4 @@
-
+// TMF622 - Product Ordering Management v4 - RegisterForBBFreedom
 const { successResponse, errorResponse, badRequestResponse } = require('../utils/responseHandler');
 
 exports.registerForBBFreedom = async (req, res) => {
@@ -8,7 +8,6 @@ exports.registerForBBFreedom = async (req, res) => {
         console.log('Incoming Body:', JSON.stringify(req.body, null, 2));
 
         // DETECT POSTMAN CONFIGURATION ERROR
-        // If content-type is urlencoded but body looks like JSON keys (typical Postman error)
         if (contentType && contentType.includes('application/x-www-form-urlencoded')) {
             const bodyKeys = Object.keys(req.body);
             if (bodyKeys.length > 0 && bodyKeys[0].trim().startsWith('{')) {
@@ -16,7 +15,6 @@ exports.registerForBBFreedom = async (req, res) => {
             }
         }
 
-        // Strict check for Content-Type
         if (!contentType || !contentType.includes('application/json')) {
             console.warn('Warning: Content-Type is not application/json. Postman might be misconfigured.');
         }
@@ -31,25 +29,41 @@ exports.registerForBBFreedom = async (req, res) => {
 
         console.log(`RegisterForBBFreedom request received: TP=${tpNo}, Desc=${description}, Contact=${contactMobile}`);
 
-        // Construct standard success response structure matching the previous one but wrapped in the utility
         const responseData = {
-            status: "success",
-            message: "Successfully registered for BB Freedom",
-            data: {
-                tpNo,
-                description,
-                contactMobile
-            }
+            "@type": "ProductOrder",
+            "@schemaLocation": "/tmf-api/productOrderingManagement/v4/schema/productOrder",
+            id: `order-bbfreedom-${Date.now()}`,
+            href: `/tmf-api/productOrderingManagement/v4/productOrder/bbFreedom`,
+            externalId: tpNo,
+            description: description || "BB Freedom Registration",
+            state: "acknowledged",
+            orderDate: new Date().toISOString(),
+            productOrderItem: [
+                {
+                    "@type": "ProductOrderItem",
+                    id: "1",
+                    action: "add",
+                    state: "acknowledged",
+                    product: {
+                        "@type": "Product",
+                        name: "BB Freedom",
+                        productCharacteristic: [
+                            { name: "tpNo", value: tpNo },
+                            { name: "contactMobile", value: contactMobile }
+                        ]
+                    }
+                }
+            ],
+            relatedParty: [
+                {
+                    "@type": "RelatedParty",
+                    id: tpNo,
+                    role: "subscriber"
+                }
+            ]
         };
 
-        // Note: The reference code returns `result` directly.
-        // If we want to strictly match the "proper display" mentioned by user which might be the *utility's* format:
-        // successResponse(res, data) -> res.json(data).
-        // My previous code returned { status, message, data }.
-        // The reference `ServiceOrderController.js` does `return successResponse(res, result, 201);`
-        // So I should pass my object as the `data` argument.
-
-        return successResponse(res, responseData);
+        return successResponse(res, responseData, 201);
 
     } catch (err) {
         console.error("Error in registerForBBFreedom:", err);
