@@ -1,4 +1,4 @@
-const Product = require("../../../models/TMF637_BBProduct");
+const Product = require("../../../models/TMF637_Product");
 const ProductOffering = require("../../../models/TMF620_ProductOffering");
 
 /**

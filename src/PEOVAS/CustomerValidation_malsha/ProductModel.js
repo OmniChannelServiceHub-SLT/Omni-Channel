@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+/*const mongoose = require("mongoose");
 
 const RelatedPartySchema = new mongoose.Schema({
   id: { type: String, required: true },
@@ -51,3 +51,4 @@ const ProductSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Product", ProductSchema);
+*/
