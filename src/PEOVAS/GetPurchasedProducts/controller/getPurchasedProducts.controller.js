@@ -1,4 +1,4 @@
-const PurchasedProduct = require('../../PostPurchasedProduct/model/purchasedProductmodel');
+const PurchasedProduct = require('../../../../src/models/PEOVAS_purchasedProductmodel');
 
 exports.getPurchasedProductsByTel = async (req, res, next) => {
   try {
