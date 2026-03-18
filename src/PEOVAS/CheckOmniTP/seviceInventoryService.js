@@ -1,4 +1,4 @@
-const Service = require("./serviceModel");
+const Service = require("../../../src/models/TMF638_ServiceModel.js");
 
 class ServiceInventoryService {
 
