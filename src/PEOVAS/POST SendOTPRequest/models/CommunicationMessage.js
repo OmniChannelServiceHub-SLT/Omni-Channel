@@ -46,4 +46,9 @@ const communicationMessageSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-*/
+
+<<<<<<< HEAD
+module.exports = mongoose.model('CommunicationMessage', communicationMessageSchema);*/
+=======
+module.exports = mongoose.model('CommunicationMessage', communicationMessageSchema);*/
+>>>>>>> dev

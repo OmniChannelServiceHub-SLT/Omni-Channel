@@ -1,4 +1,6 @@
-const CommunicationMessage = require('../../../../src/models/TMF681_CommunicationMessage.js');
+const CommunicationMessage = require(
+  '../../../Notifications/PostPushNotifications/models/communicationMessage.model.js'
+);
 
 exports.sendOTP = async (req, res) => {
   try {

@@ -1,4 +1,4 @@
-const DigitalIdentity = require('../../../../src/models/TMF720_DigitalIdentity.js');
+const DigitalIdentity = require('../models/DigitalIdentity');
 
 exports.verifyOTP = async (req, res) => {
   try {

@@ -1,4 +1,4 @@
-const Product = require("../../../src/models/TMF637_Product.js");
+const Product = require("./ProductModel");
 
 class ProductInventoryService {
 

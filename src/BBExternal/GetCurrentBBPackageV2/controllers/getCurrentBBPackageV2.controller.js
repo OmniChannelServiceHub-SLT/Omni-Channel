@@ -1,5 +1,5 @@
-const Product = require("../../../models/TMF637_Product");
-const ProductOffering = require("../../../models/TMF620_ProductOffering");
+const Product = require("../models/product.model");
+const ProductOffering = require("../../GetBBPackagesV2/models/productOffering.model");
 
 /**
  * GET GetCurrentBBPackageV2

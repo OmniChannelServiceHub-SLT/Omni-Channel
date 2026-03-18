@@ -1,4 +1,4 @@
-const PurchasedProduct = require('../../../../src/models/PEOVAS_purchasedProductmodel');
+const PurchasedProduct = require('../model/purchasedProductmodel');
 
 /**
  * Create a Purchased Product
