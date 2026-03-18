@@ -1,4 +1,4 @@
-//TMF699_SalesLead.js - Mongoose model for TMF699 SalesLead entity
+  //TMF699_SalesLead.js - Mongoose model for TMF699 SalesLead entity
 const mongoose = require('mongoose');
 
 const ProspectContactSchema = new mongoose.Schema({
