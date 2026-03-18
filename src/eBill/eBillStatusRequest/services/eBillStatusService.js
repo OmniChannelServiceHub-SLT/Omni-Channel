@@ -1,4 +1,4 @@
-const BillingAccount = require("../../../models/TMF666_BillingAccount");
+const BillingAccount = require("../../../models/TMF666_Account");
 const Customer = require("../../../models/TMF629_Customer");
 
 const checkEbillStatus = async (accountId, tpNo) => {
