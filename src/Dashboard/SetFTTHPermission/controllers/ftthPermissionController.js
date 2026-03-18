@@ -1,5 +1,5 @@
 // TMF672 - User Roles & Permissions v4 - SetFTTHPermission
-const FTTHPermission = require('../models/ftthPermissionModel');
+const FTTHPermission = require('../../../models/TMF672_DashboardLogin');
 
 exports.setFTTHPermission = async (req, res) => {
   try {

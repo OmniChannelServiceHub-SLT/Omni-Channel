@@ -1,5 +1,5 @@
 // TMF622 - Product Ordering Management v4 - FTTH Request Charts
-const FTTHRequestChart = require('../models/ftthChartModel');
+const FTTHRequestChart = require('../../../models/TMF622_ProductOrder');
 
 exports.getFTTHRequestCharts = async (req, res) => {
   try {
@@ -28,11 +28,18 @@ exports.getFTTHRequestCharts = async (req, res) => {
     // Set end date to end of day
     end.setHours(23, 59, 59, 999);
 
-    // Aggregate request data for charts - group by date and status
+    // Aggregate request data for charts from centralized TMF622 model.
+    // Keep fallback fields to support legacy records.
     const chartData = await FTTHRequestChart.aggregate([
       {
+        $addFields: {
+          effectiveDate: { $ifNull: ["$creationDate", "$requestDate"] },
+          effectiveState: { $ifNull: ["$state", "$status"] }
+        }
+      },
+      {
         $match: {
-          requestDate: {
+          effectiveDate: {
             $gte: start,
             $lte: end
           }
@@ -41,8 +48,8 @@ exports.getFTTHRequestCharts = async (req, res) => {
       {
         $group: {
           _id: {
-            date: { $dateToString: { format: "%Y-%m-%d", date: "$requestDate" } },
-            status: "$status"
+            date: { $dateToString: { format: "%Y-%m-%d", date: "$effectiveDate" } },
+            status: "$effectiveState"
           },
           count: { $sum: 1 }
         }

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 require('dotenv').config(); 
 
 const connectDB = require('../../config/db'); 
-const FTTHSpecificData = require('./models/ftthSpecificModel');
+const FTTHSpecificData = require('../../models/TMF638_FTTHSpecificData');
 
 connectDB();
 

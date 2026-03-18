@@ -1,5 +1,5 @@
 // TMF622 - Product Ordering Management v4 - FTTH Request Status Count
-const FTTHRequestStatus = require('../models/ftthStatusModel');
+const FTTHRequestStatus = require('../../../models/TMF622_ProductOrder');
 
 exports.getFTTHRequestStatusCount = async (req, res) => {
   try {
@@ -28,11 +28,18 @@ exports.getFTTHRequestStatusCount = async (req, res) => {
     // Set end date to end of day
     end.setHours(23, 59, 59, 999);
 
-    // Aggregate request status counts
+    // Aggregate request status counts from centralized TMF622 model.
+    // Keep fallback fields to support legacy records.
     const statusCounts = await FTTHRequestStatus.aggregate([
       {
+        $addFields: {
+          effectiveDate: { $ifNull: ["$creationDate", "$requestDate"] },
+          effectiveState: { $ifNull: ["$state", "$status"] }
+        }
+      },
+      {
         $match: {
-          requestDate: {
+          effectiveDate: {
             $gte: start,
             $lte: end
           }
@@ -40,7 +47,7 @@ exports.getFTTHRequestStatusCount = async (req, res) => {
       },
       {
         $group: {
-          _id: "$status",
+          _id: "$effectiveState",
           count: { $sum: 1 }
         }
       },

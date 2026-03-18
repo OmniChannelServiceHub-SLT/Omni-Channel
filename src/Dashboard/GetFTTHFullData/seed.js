@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 require('dotenv').config(); 
 
 const connectDB = require('../../config/db'); 
-const FTTHFullData = require('./models/ftthModel');
+const FTTHFullData = require('../../models/TMF638_FTTHFullData');
 
 async function seedFTTHData() {
     try {
