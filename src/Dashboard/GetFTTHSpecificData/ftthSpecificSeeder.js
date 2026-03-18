@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 require('dotenv').config(); 
 
 const connectDB = require('../../config/db'); 
-const FTTHSpecificData = require('../../models/TMF638_FTTHSpecificData');
+const FTTHSpecificData = require('../../models/TMF638_ServiceModel');
 
 connectDB();
 
@@ -10,7 +10,7 @@ async function seedFTTHSpecific() {
     try {
         console.log('--- Starting Database Seeding (TMF FTTH Specific Data Aggregation) ---');
         
-        await FTTHSpecificData.deleteMany({});
+        await FTTHSpecificData.deleteMany({ "service.id": "SPEC-SRV-001" });
         console.log('Cleared existing FTTHSpecificData documents.');
 
         const initialEntry = {

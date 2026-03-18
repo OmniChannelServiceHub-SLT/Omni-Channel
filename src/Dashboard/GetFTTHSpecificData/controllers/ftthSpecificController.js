@@ -1,4 +1,4 @@
-const FTTHSpecificData = require('../../../models/TMF638_FTTHSpecificData');
+const FTTHSpecificData = require('../../../models/TMF638_ServiceModel');
 
 exports.fetchSpecificFTTHData = async (req, res) => {
   try {

@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 require('dotenv').config(); 
 
 const connectDB = require('../../config/db'); 
-const FTTHFullData = require('../../models/TMF638_FTTHFullData');
+const FTTHFullData = require('../../models/TMF638_ServiceModel');
 
 async function seedFTTHData() {
     try {
         console.log('--- Starting Database Seeding (TMF FTTH Full Data) ---');
         await connectDB();
 
-        await FTTHFullData.deleteMany({});
+        await FTTHFullData.deleteMany({ "service.id": "SRV12345" });
         console.log('Cleared existing FTTHFullData documents.');
 
         const initialData = [

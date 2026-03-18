@@ -1,4 +1,4 @@
-const FTTHFullData = require('../../../models/TMF638_FTTHFullData');
+const FTTHFullData = require('../../../models/TMF638_ServiceModel');
 
 exports.getFTTHFullData = async (req, res) => {
   try {
