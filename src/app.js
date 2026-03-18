@@ -140,8 +140,8 @@ app.use("/tmf-api", changePasswordRoutes);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
-app.use("/tmf-api/productOrdering/v4", PurchaseAdvancedReportsPrepaidInitRoutes);
-app.use("/tmf-api/productOrdering/v4", PurchaseAdvancedReportsPrepaidConfirmRoutes);
+app.use("/tmf-api/usageManagement/v4", PurchaseAdvancedReportsPrepaidInitRoutes);
+app.use("/tmf-api/usageManagement/v4", PurchaseAdvancedReportsPrepaidConfirmRoutes);
 app.use("/tmf-api/usageManagement/v4/usage", enhancedCurrentDailyUsageRoutes);
 app.use("/tmf-api/customerManagement/v5", customerRoutes);
 app.use('/tmf-api/productOrdering/v4', dataGiftEnrollPrepaidInitRoutes);   

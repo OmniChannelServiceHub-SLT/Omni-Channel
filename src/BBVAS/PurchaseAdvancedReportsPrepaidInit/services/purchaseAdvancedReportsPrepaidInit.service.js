@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require("uuid");
-const PurchaseAdvancedReportsPrepaidInit = require("../../../models/TMF622_purchaseAdvancedReportsPrepaidInit");
+const PurchaseAdvancedReportsPrepaidInit = require("../models/purchaseAdvancedReportsPrepaidInit.model");
 
 /**
  * Create a new Prepaid Advanced Report Init request

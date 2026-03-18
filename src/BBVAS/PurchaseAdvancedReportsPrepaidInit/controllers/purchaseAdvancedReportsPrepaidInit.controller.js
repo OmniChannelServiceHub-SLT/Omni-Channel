@@ -1,47 +1,66 @@
-const initService = require("../services/purchaseAdvancedReportsPrepaidInit.service");
+const { v4: uuidv4 } = require("uuid");
+const DataGiftPrepaidOrder = require("../../../models/TMF622_ProductOrder");
 
 /**
  * POST /BBVAS/PurchaseAdvancedReportsPrepaidInit
- * Initiates a prepaid advanced report purchase (Phase 1 of 2-step flow)
+ * Original params: subscriberID, reporterPackage, activatedBy
+ * TMF reimplementation: params moved to request body
  */
 exports.purchaseAdvancedReportsPrepaidInit = async (req, res) => {
   try {
-    const { subscriberID, reportPackageID, requestedBy } = req.query;
+    const { subscriberID, reporterPackage, activatedBy } = req.body;
 
-    // Validate required parameters
-    if (!subscriberID || !reportPackageID || !requestedBy) {
+    // Validate required fields
+    if (!subscriberID || !reporterPackage || !activatedBy) {
       return res.status(400).json({
         error:
-          "Missing required parameters: subscriberID, reportPackageID, requestedBy",
+          "Missing required fields in request body: subscriberID, reporterPackage, activatedBy",
       });
     }
 
-    const initRecord = await initService.createInitRequest(
-      subscriberID,
-      Number(reportPackageID),
-      requestedBy
-    );
+    const orderId = uuidv4();
+
+    const newOrder = new DataGiftPrepaidOrder({
+      id: orderId,
+      href: `http://localhost:3000/tmf-api/usageManagement/v4/BBVAS/PurchaseAdvancedReportsPrepaidInit/${orderId}`,
+      description: "Prepaid Advanced Report Purchase Init",
+      category: "DataGift",
+      state: "acknowledged",
+      relatedParty: [
+        {
+          id: subscriberID,
+          role: "Customer",
+          name: activatedBy,
+          "@referredType": "Customer",
+        },
+      ],
+      productOrderItem: [
+        {
+          id: uuidv4(),
+          action: "add",
+          productOffering: {
+            id: String(reporterPackage),
+            name: `Advanced Report Package ${reporterPackage}`,
+            "@referredType": "ProductOffering",
+          },
+          quantity: 1,
+        },
+      ],
+      channel: {
+        name: "MySLT App",
+        "@referredType": "Channel",
+      },
+      orderDate: new Date(),
+    });
+
+    await newOrder.save();
 
     return res.status(201).json({
       message: "Prepaid Advanced Report Init successful",
-      data: initRecord.toTMF(),
+      data: newOrder,
     });
   } catch (error) {
     console.error("Error in PurchaseAdvancedReportsPrepaidInit:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-/**
- * GET /BBVAS/PurchaseAdvancedReportsPrepaidInit
- * Get all init requests (optional utility endpoint)
- */
-exports.getAllInitRequests = async (req, res) => {
-  try {
-    const records = await initService.getAllInitRequests();
-    return res.status(200).json(records);
-  } catch (error) {
-    console.error("Error fetching init records:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };

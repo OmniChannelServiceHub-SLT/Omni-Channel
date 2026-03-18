@@ -1,78 +1,54 @@
-const PurchaseAdvancedReportsPrepaidConfirm = require("../../../models/TMF622_purchaseAdvanceReportPrepaidConfirm");
-const PurchaseAdvancedReportsPrepaidInit = require("../../../models/TMF622_purchaseAdvancedReportsPrepaidInit");
+const DataGiftPrepaidOrder = require("../../../models/TMF622_ProductOrder");
 
 /**
  * POST /BBVAS/PurchaseAdvancedReportsPrepaidConfirm
- * Confirms a prepaid advanced report purchase (Phase 2 of 2-step flow)
- * Requires a valid transactionRef from the Init step
+ * Original params: subscriberID, paygatetransid, activatedBy, transID
+ * TMF reimplementation: params moved to request body
+ * transID = the order id returned from the Init step
  */
 exports.purchaseAdvancedReportsPrepaidConfirm = async (req, res) => {
   try {
-    const { subscriberID, reportPackageID, confirmedBy, transactionRef } =
-      req.query;
+    const { subscriberID, paygatetransid, activatedBy, transID } = req.body;
 
-    // Validate required parameters
-    if (!subscriberID || !reportPackageID || !confirmedBy || !transactionRef) {
+    // Validate required fields
+    if (!subscriberID || !paygatetransid || !activatedBy || !transID) {
       return res.status(400).json({
         error:
-          "Missing required parameters: subscriberID, reportPackageID, confirmedBy, transactionRef",
+          "Missing required fields in request body: subscriberID, paygatetransid, activatedBy, transID",
       });
     }
 
-    // Verify the transactionRef exists from the Init step
-    const initRecord = await PurchaseAdvancedReportsPrepaidInit.findOne({
-      transactionRef,
-      subscriberID,
+    // Find the Init record using transID (order id from Init step)
+    const initRecord = await DataGiftPrepaidOrder.findOne({
+      id: transID,
+      "relatedParty.id": subscriberID,
     });
 
     if (!initRecord) {
       return res.status(404).json({
         error:
-          "No matching Init request found for provided transactionRef and subscriberID",
+          "No matching Init request found for provided transID and subscriberID",
       });
     }
 
-    if (initRecord.status === "failed") {
+    if (initRecord.state === "failed" || initRecord.state === "cancelled") {
       return res.status(400).json({
-        error: "Init request has failed status. Cannot confirm.",
+        error: `Order is in '${initRecord.state}' state. Cannot confirm.`,
       });
     }
 
-    // Create Confirm record
-    const confirmRecord = new PurchaseAdvancedReportsPrepaidConfirm({
-      subscriberID,
-      reportPackageID: Number(reportPackageID),
-      confirmedBy,
-      transactionRef,
-      status: "confirmed",
-    });
-
-    await confirmRecord.save();
-
-    // Update Init record status to confirmed
-    initRecord.status = "initiated"; // kept as initiated; confirm step owns final status
+    // Update the order state to completed and store payment gateway transaction id
+    initRecord.state = "completed";
+    initRecord.completionDate = new Date();
+    initRecord.externalId = String(paygatetransid); // store paygatetransid
     await initRecord.save();
 
-    return res.status(201).json({
+    return res.status(200).json({
       message: "Prepaid Advanced Report Purchase Confirmed successfully",
-      data: confirmRecord.toTMF(),
+      data: initRecord,
     });
   } catch (error) {
     console.error("Error in PurchaseAdvancedReportsPrepaidConfirm:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-/**
- * GET /BBVAS/PurchaseAdvancedReportsPrepaidConfirm
- * Get all confirm records (utility / admin)
- */
-exports.getAllConfirmRecords = async (req, res) => {
-  try {
-    const records = await PurchaseAdvancedReportsPrepaidConfirm.find();
-    return res.status(200).json(records);
-  } catch (error) {
-    console.error("Error fetching confirm records:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 };
