@@ -40,7 +40,12 @@ exports.purchaseAdvancedReportsPrepaidConfirm = async (req, res) => {
     // Update the order state to completed and store payment gateway transaction id
     initRecord.state = "completed";
     initRecord.completionDate = new Date();
-    initRecord.externalId = String(paygatetransid); // store paygatetransid
+    initRecord.externalId.push({
+      id: String(paygatetransid),
+      owner: activatedBy,
+      externalIdentifierType: "paygatetransid",
+      "@type": "ExternalIdentifier",
+    });
     await initRecord.save();
 
     return res.status(200).json({
