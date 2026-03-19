@@ -14,6 +14,8 @@ const changePasswordRoutes = require("./Account/ChangePassword/routes/changePass
 
 
 //BBVAS
+const PurchaseAdvancedReportsPrepaidInitRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidInit/routes/purchaseAdvancedReportsPrepaidInit.routes");
+const PurchaseAdvancedReportsPrepaidConfirmRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidConfirm/routes/purchaseAdvancedReportsPrepaidConfirm.routes");
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
 const dataGiftEnrollPrepaidInitRoutes = require("./BBVAS/DataGiftEnrollPrepaidInit/routes/dataGiftEnrollPrepaidInit.routes");
 const dataGiftEnrollPrepaidConfirmRoutes = require("./BBVAS/DataGiftEnrollPrepaidConfirm/routes/dataGiftEnrollPrepaidConfirm.routes");
@@ -138,6 +140,8 @@ app.use("/tmf-api", changePasswordRoutes);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
+app.use("/tmf-api/usageManagement/v4", PurchaseAdvancedReportsPrepaidInitRoutes);
+app.use("/tmf-api/usageManagement/v4", PurchaseAdvancedReportsPrepaidConfirmRoutes);
 app.use("/tmf-api/usageManagement/v4/usage", enhancedCurrentDailyUsageRoutes);
 app.use("/tmf-api/customerManagement/v5", customerRoutes);
 app.use('/tmf-api/productOrdering/v4', dataGiftEnrollPrepaidInitRoutes);   
