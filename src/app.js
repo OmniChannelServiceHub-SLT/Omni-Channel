@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const authMiddleware = require("./middleware/authMiddleware"); // Import the middleware
+
 const app = express(); 
 
 // Import Routes
@@ -118,17 +120,12 @@ const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/not
 //Ebill
 const ebillStatusRequest = require("./eBill/eBillStatusRequest/routes/eBillStatusRoute.js");
 
-
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
-// Routes
-
-
+// Public routes (no authentication required)
 //Account
 app.use("/tmf-api", register);
 app.use("/tmf-api", OTPVerificationRoutes);
@@ -137,6 +134,10 @@ app.use("/tmf-api", refreshTokenRoutes);
 app.use("/tmf-api", loginRoutes);
 app.use("/tmf-api", changePasswordRoutes);
 
+// Apply authMiddleware globally
+app.use(authMiddleware);
+
+// Routes
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
