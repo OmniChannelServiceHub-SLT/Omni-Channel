@@ -18,39 +18,56 @@ exports.purchaseAdvancedReportsPrepaidConfirm = async (req, res) => {
       });
     }
 
-    // Find the Init record using transID (order id from Init step)
-    const initRecord = await DataGiftPrepaidOrder.findOne({
+    // Step 1 — Check if the order exists at all with this transID and subscriberID
+    const existingRecord = await DataGiftPrepaidOrder.findOne({
       id: transID,
       "relatedParty.id": subscriberID,
     });
 
-    if (!initRecord) {
+    if (!existingRecord) {
       return res.status(404).json({
-        error:
-          "No matching Init request found for provided transID and subscriberID",
+        error: "No order found for the provided transID and subscriberID.",
       });
     }
 
-    if (initRecord.state === "failed" || initRecord.state === "cancelled") {
+    // Step 2 — Check if already confirmed
+    if (existingRecord.state === "completed") {
+      return res.status(409).json({
+        error: "This order has already been confirmed and cannot be confirmed again.",
+      });
+    }
+
+    // Step 3 — Check if cancelled or failed
+    if (
+      existingRecord.state === "cancelled" ||
+      existingRecord.state === "failed"
+    ) {
       return res.status(400).json({
-        error: `Order is in '${initRecord.state}' state. Cannot confirm.`,
+        error: `This order is '${existingRecord.state}' and cannot be confirmed.`,
       });
     }
 
-    // Update the order state to completed and store payment gateway transaction id
-    initRecord.state = "completed";
-    initRecord.completionDate = new Date();
-    initRecord.externalId.push({
+    // Step 4 — Check if state is acknowledged (valid to confirm)
+    if (existingRecord.state !== "acknowledged") {
+      return res.status(400).json({
+        error: `This order is in '${existingRecord.state}' state and cannot be confirmed.`,
+      });
+    }
+
+    // Step 5 — All checks passed, update the order
+    existingRecord.state = "completed";
+    existingRecord.completionDate = new Date();
+    existingRecord.externalId.push({
       id: String(paygatetransid),
       owner: activatedBy,
       externalIdentifierType: "paygatetransid",
       "@type": "ExternalIdentifier",
     });
-    await initRecord.save();
+    await existingRecord.save();
 
     return res.status(200).json({
       message: "Prepaid Advanced Report Purchase Confirmed successfully",
-      data: initRecord,
+      data: existingRecord,
     });
   } catch (error) {
     console.error("Error in PurchaseAdvancedReportsPrepaidConfirm:", error);

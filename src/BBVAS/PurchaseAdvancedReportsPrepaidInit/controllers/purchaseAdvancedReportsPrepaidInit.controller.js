@@ -24,7 +24,7 @@ exports.purchaseAdvancedReportsPrepaidInit = async (req, res) => {
       id: orderId,
       href: `http://localhost:3000/tmf-api/usageManagement/v4/BBVAS/PurchaseAdvancedReportsPrepaidInit/${orderId}`,
       description: "Prepaid Advanced Report Purchase Init",
-      category: "DataGift",
+      category: "PurchaseAdvancedReportsPrepaid",
       state: "acknowledged",
       relatedParty: [
         {
@@ -46,10 +46,12 @@ exports.purchaseAdvancedReportsPrepaidInit = async (req, res) => {
           quantity: 1,
         },
       ],
-      channel: {
-        name: "MySLT App",
-        "@referredType": "Channel",
-      },
+      channel: [
+        {
+          name: "MySLT App",
+          "@referredType": "Channel",
+        },
+      ],
       orderDate: new Date(),
     });
 
