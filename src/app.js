@@ -53,6 +53,8 @@ const DataTransferAmountRoute = require("./BBVAS/DataTransferAmount/routes/dataT
 const TransferDataRoutes = require("./BBVAS/PostTransferData/routes/transferDataRoutes.js");
 const billStatusRoutes = require("./BBVAS/BillStatusRequest/routes/billStatusRoutes.js");
 const smsServiceStatusRoutes = require("./BBVAS/SMSServiceStatusRequest/routes/smsServiceStatusRoutes.js");
+const ValidateDataTransferRoutes = require("./BBVAS/GETValidateDataTransferSub/routes/validateDataTransferRoutes.js");
+const UpgradeLoyaltyRoutes = require("./BBVAS/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
 
@@ -199,6 +201,9 @@ app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRou
 app.use("/tmf-api/usageManagement/v4/TransferData", TransferDataRoutes);
 app.use("/tmf-api/customerBillManagement/v5/BillStatusRequest", billStatusRoutes);
 app.use("/tmf-api/customerBillManagement/v5/SMSServiceStatusRequest", smsServiceStatusRoutes);
+app.use("/tmf-api/usageManagement/v4", ValidateDataTransferRoutes);
+app.use("/tmf-api/productOrdering/v4", UpgradeLoyaltyRoutes);
+
 // app.use('/api/Account', accountRoutes);
 
 //Sales
