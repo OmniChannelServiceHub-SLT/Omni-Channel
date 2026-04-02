@@ -16,6 +16,8 @@ const changePasswordRoutes = require("./Account/ChangePassword/routes/changePass
 
 
 //BBVAS
+const smartBillRegistrationSourceRoutes = require("./BBVAS/SmartBillRegistration Source/routes/smartBillRegistrationSource.routes");
+const smartBillRegistrationRoutes = require("./BBVAS/SmartBillRegistration/routes/smartBillRegistration.routes");
 const PurchaseAdvancedReportsPrepaidInitRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidInit/routes/purchaseAdvancedReportsPrepaidInit.routes");
 const PurchaseAdvancedReportsPrepaidConfirmRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidConfirm/routes/purchaseAdvancedReportsPrepaidConfirm.routes");
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
@@ -141,6 +143,8 @@ app.use(authMiddleware);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
+app.use("/tmf-api/customerBill/v4", smartBillRegistrationSourceRoutes);
+app.use("/tmf-api/customerBill/v4", smartBillRegistrationRoutes);
 app.use("/tmf-api/usageManagement/v4", PurchaseAdvancedReportsPrepaidInitRoutes);
 app.use("/tmf-api/usageManagement/v4", PurchaseAdvancedReportsPrepaidConfirmRoutes);
 app.use("/tmf-api/usageManagement/v4/usage", enhancedCurrentDailyUsageRoutes);
