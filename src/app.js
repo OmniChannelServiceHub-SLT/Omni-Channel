@@ -16,6 +16,8 @@ const changePasswordRoutes = require("./Account/ChangePassword/routes/changePass
 
 
 //BBVAS
+const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
+const getVASDataBundlePackagesRoutes = require("./BBVAS/GetVASDataBundlePackages/routes/getVASDataBundlePackages.routes");
 const smartBillRegistrationSourceRoutes = require("./BBVAS/SmartBillRegistration Source/routes/smartBillRegistrationSource.routes");
 const smartBillRegistrationRoutes = require("./BBVAS/SmartBillRegistration/routes/smartBillRegistration.routes");
 const PurchaseAdvancedReportsPrepaidInitRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidInit/routes/purchaseAdvancedReportsPrepaidInit.routes");
@@ -144,6 +146,8 @@ app.use("/tmf-api", changePasswordRoutes);
 app.use(authMiddleware);
 
 // Routes
+app.use('/tmf-api/productOfferingQualification/v4', validateBBPurchaseRequestRoutes);
+app.use('/tmf-api/productCatalogManagement/v4', getVASDataBundlePackagesRoutes);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
