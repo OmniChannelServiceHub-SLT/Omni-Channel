@@ -1,45 +1,123 @@
-const CustomerBill = require('../models/Customerbill');
-const { v4: uuidv4 } = require('uuid');
+const Customer = require("../../../models/TMF629_Customer");
 
-exports.createCustomerBill = async (req, res) => {
+// Add utility function to detect circular references
+function hasCircularReference(obj, seen = new Set()) {
+  if (obj && typeof obj === "object") {
+    if (seen.has(obj)) return true;
+    seen.add(obj);
+    for (const key in obj) {
+      if (hasCircularReference(obj[key], seen)) return true;
+    }
+    seen.delete(obj);
+  }
+  return false;
+}
+
+/**
+ * PATCH /customer/:id
+ * Update customer for eBill registration / contact preferences
+ */
+exports.updateCustomerForEBill = async (req, res) => {
   try {
-    const body = req.body;
-    const id = body.id || `CB-${uuidv4().split('-')[0]}`;
-    body.id = id;
-    body.href = body.href || `${req.protocol}://${req.get('host')}/tmf/customerBill/${id}`;
+    const customerId = req.params.id;
+    const body = { ...req.body };
 
-    const bill = new CustomerBill(body);
-    await bill.save();
+    console.log("Request body:", body); // Log the incoming request body
 
-    res.status(201).json(bill);
+    // Check for circular references in the request body
+    if (hasCircularReference(body)) {
+      console.error("Circular reference detected in request body");
+      return res.status(400).json({ message: "Invalid input: Circular reference detected" });
+    }
+
+    // Fetch existing customer
+    const customer = await Customer.findOne({ id: customerId });
+    if (!customer) {
+      console.log("Customer not found for ID:", customerId); // Log if customer is not found
+      return res.status(404).json({ message: "Customer not found" });
+    }
+
+    // console.log("Customer before update:", customer); // Log the fetched customer object
+
+    // Create a plain JavaScript object to avoid direct mutation of the Mongoose document
+    const updatedCustomerData = customer.toObject();
+
+    // Ensure contactMedium exists and is an array
+    updatedCustomerData.contactMedium = Array.isArray(updatedCustomerData.contactMedium)
+      ? updatedCustomerData.contactMedium
+      : [];
+
+    // Update contactMedium (email & phone)
+    if (Array.isArray(body.contactMedium)) {
+      body.contactMedium.forEach((cm) => {
+        const index = updatedCustomerData.contactMedium.findIndex(
+          (c) => c.mediumType === cm.mediumType
+        );
+        if (index >= 0) {
+          updatedCustomerData.contactMedium[index] = {
+            ...updatedCustomerData.contactMedium[index],
+            ...cm,
+          };
+        } else {
+          updatedCustomerData.contactMedium.push(cm);
+        }
+      });
+    }
+
+    // Update other fields (e.g., account, notificationPreference)
+    updatedCustomerData.account = Array.isArray(updatedCustomerData.account)
+      ? updatedCustomerData.account
+      : [];
+    if (Array.isArray(body.account)) {
+      body.account.forEach((acct) => {
+        const index = updatedCustomerData.account.findIndex((a) => a.id === acct.id);
+        if (index >= 0) {
+          updatedCustomerData.account[index] = {
+            ...updatedCustomerData.account[index],
+            ...acct,
+          };
+        } else {
+          updatedCustomerData.account.push(acct);
+        }
+      });
+    }
+
+    if (body.notificationPreference) {
+      updatedCustomerData.notificationPreference = {
+        ...updatedCustomerData.notificationPreference,
+        ...body.notificationPreference,
+      };
+    }
+
+    // Update last modified timestamp
+    updatedCustomerData.lastUpdate = new Date();
+
+    // console.log("Customer before save:", updatedCustomerData); // Log the customer object before saving
+
+    // Save the updated data back to the Mongoose document
+    Object.assign(customer, updatedCustomerData);
+    const updatedCustomer = await customer.save();
+
+    console.log("Updated customer:", updatedCustomer); // Log the updated customer object
+
+    return res.status(200).json(updatedCustomer);
   } catch (e) {
-    console.error(e);
-    res.status(500).json({ message: e.message });
+    console.error("Error updating customer:", e); // Log the error
+    return res.status(500).json({ message: e.message });
   }
 };
 
-exports.getCustomerBill = async (req, res) => {
+/**
+ * GET /customer/:id
+ * Retrieve customer
+ */
+exports.getCustomer = async (req, res) => {
   try {
-    const bill = await CustomerBill.findOne({ id: req.params.id });
-    if (!bill) return res.status(404).json({ message: 'Not found' });
-    res.json(bill);
+    const customer = await Customer.findOne({ id: req.params.id });
+    if (!customer) return res.status(404).json({ message: "Customer not found" });
+    return res.status(200).json(customer);
   } catch (e) {
-    res.status(500).json({ message: e.message });
-  }
-};
-
-exports.createCustomerBillOnDemand = async (req, res) => {
-  try {
-    const body = req.body;
-    const id = body.id || `D-${uuidv4().split('-')[0]}`;
-    body.id = id;
-    body.lastUpdate = body.lastUpdate || new Date().toISOString();
-
-    const billOnDemand = new CustomerBill(body);
-    await billOnDemand.save();
-
-    res.status(201).json(billOnDemand);
-  } catch (e) {
-    res.status(500).json({ message: e.message });
+    console.error("Error fetching customer:", e);
+    return res.status(500).json({ message: e.message });
   }
 };

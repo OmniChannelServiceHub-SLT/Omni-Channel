@@ -1,9 +1,17 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const ctrl = require('../controllers/customerBillController');
+const customerController = require("../controllers/customerBillController");
 
-router.post('/customerBill', ctrl.createCustomerBill);
-router.get('/customerBill/:id', ctrl.getCustomerBill);
-router.post('/customerBillOnDemand', ctrl.createCustomerBillOnDemand);
+/**
+ * @route PATCH /customer/:id
+ * @desc Update customer eBill registration / notification preferences
+ */
+router.patch("/:id", customerController.updateCustomerForEBill);
+
+/**
+ * @route GET /customer/:id
+ * @desc Retrieve customer
+ */
+router.get("/:id", customerController.getCustomer);
 
 module.exports = router;
