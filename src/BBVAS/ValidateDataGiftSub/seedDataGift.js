@@ -1,13 +1,13 @@
-require("dotenv").config(); // load .env variables
+require("dotenv").config();
 const mongoose = require("mongoose");
-const connectDB = require("../../config/db"); 
-const Customer = require("./models/Customer");
-const Service = require("./models/Service");
+const connectDB = require("../../config/db");
+const Customer = require("../../models/TMF629_Customer");
+const Service = require("../../models/TMF638_ServiceModel");
 const PartyRole = require("./models/PartyRole");
 
 async function seed() {
-  try {
-    // Connect using shared db.js
+  try
+   {
     await connectDB();
 
     // Clear existing data
@@ -15,34 +15,54 @@ async function seed() {
     await Service.deleteMany({});
     await PartyRole.deleteMany({});
 
-    // Insert sample data
+    // Insert sample customer
     const customer = await Customer.create({
-      id: "CUST1001",
-      name: "Chamidu Perera",
+      id:     "CUST1001",
       status: "Approved",
-      engagedParty: { id: "P001", name: "Chamidu", type: "Individual" },
+      engagedParty: {
+        id:              "P001",
+        name:            "Chamidu Perera",
+        "@referredType": "Individual",
+        "@type":         "Individual"
+      },
       contactMedium: [
-        { contactType: "phone", phoneNumber: "0771234567" },
-        { contactType: "email", emailAddress: "chamidu@example.com" }
-      ]
+        {
+          mediumType: "phone",
+          preferred:  true,
+          characteristic: {
+            phoneNumber: "0771234567"
+          }
+        }
+      ],
+      "@type": "Customer"
     });
 
+    // Insert sample party role
     const sponsorRole = await PartyRole.create({
-      id: "PR2001",
+      id:   "PR2001",
       name: "Geeth Irosha",
       role: "Sponsor",
-      engagedParty: { id: "P002", name: "Geeth", type: "Individual" }
+      engagedParty: {
+        id:   "P002",
+        name: "Geeth",
+        "@type": "Individual"
+      }
     });
 
+    // Insert sample service
     const service = await Service.create({
-      id: "DG5001",
-      name: "DataGift 5GB",
+      id:    "DG5001",
       state: "active",
-      serviceSpecification: { id: "SPEC001", name: "DataGift", type: "MobileData" },
-      relatedParty: [
-        { id: customer.id, name: customer.name, role: "Customer" },
-        { id: sponsorRole.id, name: sponsorRole.name, role: "Sponsor" }
-      ]
+      serviceSpecification: {
+        id:    "SPEC001",
+        name:  "DataGift",
+        "@type": "MobileData"
+      },
+      serviceCharacteristic: [
+        { name: "dataVolume", value: "5GB" },
+        { name: "validity",   value: "7 Days" }
+      ],
+      "@type": "Service"
     });
 
     console.log("✅ Seeded Customer:", customer);
@@ -50,6 +70,7 @@ async function seed() {
     console.log("✅ Seeded Service:", service);
 
     mongoose.connection.close();
+
   } catch (err) {
     console.error("❌ Seeding error:", err.message);
     mongoose.connection.close();
