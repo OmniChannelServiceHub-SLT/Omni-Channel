@@ -55,6 +55,8 @@ const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferi
 const dashboardRoutes = require("./BBVAS/GetExtraGBDashboard/routes/dashboardRoutes.js");
 const DataTransferAmountRoute = require("./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js");
 const TransferDataRoutes = require("./BBVAS/PostTransferData/routes/transferDataRoutes.js");
+const exGBInitRoutes    = require("./BBVAS/ExGBPurchasePrepaidInit/routes/exGBPurchasePrepaidInit.routes.js");
+const exGBConfirmRoutes = require("./BBVAS/ExGBPurchasePrepaidConfirm/routes/exGBPurchasePrepaidConfirm.routes.js");
 const billStatusRoutes = require("./BBVAS/BillStatusRequest/routes/billStatusRoutes.js");
 const smsServiceStatusRoutes = require("./BBVAS/SMSServiceStatusRequest/routes/smsServiceStatusRoutes.js");
 const ValidateDataTransferRoutes = require("./BBVAS/GETValidateDataTransferSub/routes/validateDataTransferRoutes.js");
@@ -209,6 +211,8 @@ app.use("/tmf-api/Customer_Bill_Management/v5", customerBillOnDemandRoutes);
 app.use("/api/Dashboard", dashboardRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoute);
 app.use("/tmf-api/usageManagement/v4/TransferData", TransferDataRoutes);
+app.use("/tmf-api/productOrder/v5", exGBInitRoutes);
+app.use("/tmf-api/productOrder/v5", exGBConfirmRoutes);
 app.use("/tmf-api/customerBillManagement/v5/BillStatusRequest", billStatusRoutes);
 app.use("/tmf-api/customerBillManagement/v5/SMSServiceStatusRequest", smsServiceStatusRoutes);
 app.use("/tmf-api/usageManagement/v4", ValidateDataTransferRoutes);
