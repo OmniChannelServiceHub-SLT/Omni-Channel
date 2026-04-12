@@ -1,52 +1,76 @@
-const DataGiftPackage = require("../models/dataGiftPackage");
+const DataGiftPackage = require("../../../models/TMF620_ProductOffering");
 
 // Add new data gift package
 exports.addDataGiftPackage = async (req, res) => {
   try {
-    const { packageName, dataAmount, unit = "MB", price = 0, status = "available" } = req.body;
-    const subscriberID = "94112647459"; // Fixed subscriber ID
+    const { packageName, dataAmount, unit, price, status } = req.body;
+    const subscriberID = "94112647459";
 
     if (!packageName || !dataAmount) {
-      return res.status(400).json({ error: "packageName and dataAmount are required" });
+      return res.status(400).json({
+        code:    "400",
+        reason:  "Validation Error",
+        message: "packageName and dataAmount are required",
+        status:  "400",
+        "@type": "Error",
+      });
     }
 
     const newPackage = new DataGiftPackage({
-      packageName,
-      dataAmount,
-      unit,
-      price,
-      status,
-      subscriberID  // Adding subscriber ID to the package
+      name:        packageName,
+      description: `${dataAmount} ${unit || "MB"} Data Gift Package`,
+      lifecycleStatus: status || "Active",
+      offeringType: "DataGift",
+      category:    "DataGift",
     });
 
     const savedPackage = await newPackage.save();
-    res.status(201).json(savedPackage.toTMF());
+    res.status(201).json(savedPackage);
+
   } catch (error) {
     console.error("Error adding Data Gift Package:", error);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({
+      code:    "500",
+      reason:  "Internal Server Error",
+      message: error.message,
+      status:  "500",
+      "@type": "Error",
+    });
   }
 };
 
 exports.listDataGiftPackages = async (req, res) => {
   try {
     const { subscriberID } = req.params;
+
     if (!subscriberID) {
-      return res.status(400).json({ error: "subscriberID is required" });
+      return res.status(400).json({
+        code:    "400",
+        reason:  "Validation Error",
+        message: "subscriberID is required",
+        status:  "400",
+        "@type": "Error",
+      });
     }
 
-    const packages = await DataGiftPackage.find({ 
-      status: "available",
-      subscriberID: subscriberID
+    const packages = await DataGiftPackage.find({
+      category: { $regex: /DataGift/i },
+      lifecycleStatus: "Active"
     });
 
-    const response = packages.map((pkg) => pkg.toTMF());
-
-    res.json({
+    res.status(200).json({
       subscriberID,
-      packages: response,
+      packages: packages,
     });
+
   } catch (error) {
     console.error("Error fetching Data Gift Packages:", error);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({
+      code:    "500",
+      reason:  "Internal Server Error",
+      message: error.message,
+      status:  "500",
+      "@type": "Error",
+    });
   }
 };
