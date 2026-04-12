@@ -59,6 +59,7 @@ const billStatusRoutes = require("./BBVAS/BillStatusRequest/routes/billStatusRou
 const smsServiceStatusRoutes = require("./BBVAS/SMSServiceStatusRequest/routes/smsServiceStatusRoutes.js");
 const ValidateDataTransferRoutes = require("./BBVAS/GETValidateDataTransferSub/routes/validateDataTransferRoutes.js");
 const UpgradeLoyaltyRoutes = require("./BBVAS/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
+const changeBBPasswordRoutes = require("./BBVAS/PUTChangeBBPassword/routes/customerRoutes");
 const UnsubscriptionRoutes = require("./BBVAS/POSTVASBundleUnsubscription/routes/UnsubscriptionRoutes.js");
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
@@ -212,6 +213,7 @@ app.use("/tmf-api/customerBillManagement/v5/BillStatusRequest", billStatusRoutes
 app.use("/tmf-api/customerBillManagement/v5/SMSServiceStatusRequest", smsServiceStatusRoutes);
 app.use("/tmf-api/usageManagement/v4", ValidateDataTransferRoutes);
 app.use("/tmf-api/productOrdering/v4", UpgradeLoyaltyRoutes);
+app.use("/tmf-api/customerManagement/v5/ChangeBBPassword", changeBBPasswordRoutes);
 app.use("/tmf-api/productOrdering/v4/Unsubscription", UnsubscriptionRoutes);
 
 
