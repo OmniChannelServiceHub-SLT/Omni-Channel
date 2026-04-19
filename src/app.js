@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const authMiddleware = require("./middleware/authMiddleware"); // Import the middleware
+
 const app = express(); 
 
 // Import Routes
@@ -14,6 +16,12 @@ const changePasswordRoutes = require("./Account/ChangePassword/routes/changePass
 
 
 //BBVAS
+const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
+const getVASDataBundlePackagesRoutes = require("./BBVAS/GetVASDataBundlePackages/routes/getVASDataBundlePackages.routes");
+const smartBillRegistrationSourceRoutes = require("./BBVAS/SmartBillRegistration Source/routes/smartBillRegistrationSource.routes");
+const smartBillRegistrationRoutes = require("./BBVAS/SmartBillRegistration/routes/smartBillRegistration.routes");
+const PurchaseAdvancedReportsPrepaidInitRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidInit/routes/purchaseAdvancedReportsPrepaidInit.routes");
+const PurchaseAdvancedReportsPrepaidConfirmRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidConfirm/routes/purchaseAdvancedReportsPrepaidConfirm.routes");
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
 const dataGiftEnrollPrepaidInitRoutes = require("./BBVAS/DataGiftEnrollPrepaidInit/routes/dataGiftEnrollPrepaidInit.routes");
 const dataGiftEnrollPrepaidConfirmRoutes = require("./BBVAS/DataGiftEnrollPrepaidConfirm/routes/dataGiftEnrollPrepaidConfirm.routes");
@@ -44,9 +52,17 @@ const GiftPackageRoutes = require('./BBVAS/DatagiftPackages/routes/dataGiftRoute
 const AdvancedReportPostpaidRoutes = require('./BBVAS/Advancedreport-Postpaid/routes/advancedReportRoutes.js');
 const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/ProductOfferingQualification.js");
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
-const dashboardRoutes = require("./BBVAS/Dashboard/GetExtraGBDashboard/routes/dashboardRoutes.js");
+const dashboardRoutes = require("./BBVAS/GetExtraGBDashboard/routes/dashboardRoutes.js");
 const DataTransferAmountRoute = require("./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js");
 const TransferDataRoutes = require("./BBVAS/PostTransferData/routes/transferDataRoutes.js");
+const exGBInitRoutes    = require("./BBVAS/ExGBPurchasePrepaidInit/routes/exGBPurchasePrepaidInit.routes.js");
+const exGBConfirmRoutes = require("./BBVAS/ExGBPurchasePrepaidConfirm/routes/exGBPurchasePrepaidConfirm.routes.js");
+const billStatusRoutes = require("./BBVAS/BillStatusRequest/routes/billStatusRoutes.js");
+const smsServiceStatusRoutes = require("./BBVAS/SMSServiceStatusRequest/routes/smsServiceStatusRoutes.js");
+const ValidateDataTransferRoutes = require("./BBVAS/GETValidateDataTransferSub/routes/validateDataTransferRoutes.js");
+const UpgradeLoyaltyRoutes = require("./BBVAS/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
+const changeBBPasswordRoutes = require("./BBVAS/PUTChangeBBPassword/routes/customerRoutes");
+const UnsubscriptionRoutes = require("./BBVAS/POSTVASBundleUnsubscription/routes/UnsubscriptionRoutes.js");
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
 
@@ -116,17 +132,12 @@ const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/not
 //Ebill
 const ebillStatusRequest = require("./eBill/eBillStatusRequest/routes/eBillStatusRoute.js");
 
-
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
-// Routes
-
-
+// Public routes (no authentication required)
 //Account
 app.use("/tmf-api", register);
 app.use("/tmf-api", OTPVerificationRoutes);
@@ -135,9 +146,19 @@ app.use("/tmf-api", refreshTokenRoutes);
 app.use("/tmf-api", loginRoutes);
 app.use("/tmf-api", changePasswordRoutes);
 
+// Apply authMiddleware globally
+app.use(authMiddleware);
+
+// Routes
+app.use('/tmf-api/productOfferingQualification/v4', validateBBPurchaseRequestRoutes);
+app.use('/tmf-api/productCatalogManagement/v4', getVASDataBundlePackagesRoutes);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
+app.use("/tmf-api/customerBill/v4", smartBillRegistrationSourceRoutes);
+app.use("/tmf-api/customerBill/v4", smartBillRegistrationRoutes);
+app.use("/tmf-api/usageManagement/v4", PurchaseAdvancedReportsPrepaidInitRoutes);
+app.use("/tmf-api/usageManagement/v4", PurchaseAdvancedReportsPrepaidConfirmRoutes);
 app.use("/tmf-api/usageManagement/v4/usage", enhancedCurrentDailyUsageRoutes);
 app.use("/tmf-api/customerManagement/v5", customerRoutes);
 app.use('/tmf-api/productOrdering/v4', dataGiftEnrollPrepaidInitRoutes);   
@@ -190,6 +211,16 @@ app.use("/tmf-api/Customer_Bill_Management/v5", customerBillOnDemandRoutes);
 app.use("/api/Dashboard", dashboardRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoute);
 app.use("/tmf-api/usageManagement/v4/TransferData", TransferDataRoutes);
+app.use("/tmf-api/productOrder/v5", exGBInitRoutes);
+app.use("/tmf-api/productOrder/v5", exGBConfirmRoutes);
+app.use("/tmf-api/customerBillManagement/v5/BillStatusRequest", billStatusRoutes);
+app.use("/tmf-api/customerBillManagement/v5/SMSServiceStatusRequest", smsServiceStatusRoutes);
+app.use("/tmf-api/usageManagement/v4", ValidateDataTransferRoutes);
+app.use("/tmf-api/productOrdering/v4", UpgradeLoyaltyRoutes);
+app.use("/tmf-api/customerManagement/v5/ChangeBBPassword", changeBBPasswordRoutes);
+app.use("/tmf-api/productOrdering/v4/Unsubscription", UnsubscriptionRoutes);
+
+
 // app.use('/api/Account', accountRoutes);
 
 //Sales

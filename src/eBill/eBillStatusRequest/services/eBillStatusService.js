@@ -1,9 +1,10 @@
-const BillingAccount = require("../models/billingAccountModel");
-const Customer = require("../models/customerModel");
+const BillingAccount = require("../../../models/TMF666_Account");
+const Customer = require("../../../models/TMF629_Customer");
 
 const checkEbillStatus = async (accountId, tpNo) => {
   // 1. Find BillingAccount
   const billingAccount = await BillingAccount.findOne({ id: accountId });
+  // console.log(billingAccount);
   if (!billingAccount) {
     return {
       isSuccess: false,
@@ -13,7 +14,8 @@ const checkEbillStatus = async (accountId, tpNo) => {
   }
 
   // 2. Find related Customer
-  const relatedPartyId = billingAccount.relatedParty?.[0]?.id;
+  const relatedPartyId = billingAccount.relatedParty?.[0]?.partyOrPartyRole?.id;
+  // console.log(relatedPartyId);
   const customer = await Customer.findOne({ id: relatedPartyId }).lean();
 
   if (!customer) {
@@ -27,9 +29,9 @@ const checkEbillStatus = async (accountId, tpNo) => {
 
   // 3. Validate tpNo
   const mobileContact = customer.contactMedium?.find(
-    (cm) => cm.type === "mobile"
+    (cm) => cm.mediumType === "mobile"
   );
-  const customerPhone = mobileContact?.characteristic?.number?.replace(/\D/g, "").trim();
+  const customerPhone = mobileContact?.characteristic?.phoneNumber?.replace(/\D/g, "").trim();
   const normalizedTpNo = tpNo?.replace(/\D/g, "").trim();
 
   // console.log("Normalized DB phone:", customerPhone, "Normalized Request phone:", normalizedTpNo);
