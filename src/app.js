@@ -50,6 +50,10 @@ const PreviousMonthUsageRoutes = require('./BBVAS/PreviousMonthDailyUsage/routes
 const RedeemVoucherRoutes = require('./BBVAS/RedeemVoucher/routes/voucherRoutes.js');
 const GiftPackageRoutes = require('./BBVAS/DatagiftPackages/routes/dataGiftRoutes.js');
 const AdvancedReportPostpaidRoutes = require('./BBVAS/Advancedreport-Postpaid/routes/advancedReportRoutes.js');
+const bonusDataRoutes = require('./BBVAS/BonusData/routes/bonusDataRoutes.js');
+const freeDataRoutes = require('./BBVAS/FreeData/routes/freeDataRoutes.js');
+const myPackageRoutes = require('./BBVAS/MyPackage/routes/myPackageRoutes.js');
+const getPurchaseHistoryRoutes = require('./BBVAS/GetPurchaseHistory/routes/getPurchaseHistoryRoutes.js');
 const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/ProductOfferingQualification.js");
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
 const dashboardRoutes = require("./BBVAS/GetExtraGBDashboard/routes/dashboardRoutes.js");
@@ -141,6 +145,12 @@ app.use("/tmf-api", resendOTPRoutes);
 app.use("/tmf-api", refreshTokenRoutes);
 app.use("/tmf-api", loginRoutes);
 app.use("/tmf-api", changePasswordRoutes);
+
+// BBVAS Public Routes
+app.use('/tmf-api/productCatalogManagement/v4/bonusData', bonusDataRoutes);
+app.use('/tmf-api/productInventory/v4/myPackage', myPackageRoutes);
+app.use('/tmf-api/productCatalogManagement/v4/freeData', freeDataRoutes);
+app.use('/api/BBVAS/GetPurchaseHistory', getPurchaseHistoryRoutes);
 
 // Apply authMiddleware globally
 app.use(authMiddleware);
