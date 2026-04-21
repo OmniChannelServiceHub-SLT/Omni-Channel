@@ -178,12 +178,12 @@ app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use("/", updateISPContactRoutes);
 app.use('/tmf-api/usageManagement/v4/daily', dailyUsageRoutes);
 app.use("/tmf-api/dataGift/v1", dataGiftRoutes);
-app.use("/tmf-api/productOrdering/v4", vasConfirmRoutes);
+app.use("/tmf-api/productOrdering/v4/AddVASDataBundlePrepaidConfirm", vasConfirmRoutes);
 app.use('/tmf-api/usage/v4', purchasedHistoryRoutes);
 app.use('/tmf-api/serviceActivation/v4.0.0', dataGiftPackagesRoutes);
 app.use('/tmf-api/productOrderingManagement/v4', DataBundlePostpaidRoutes);
 // app.use('/api/Account', accountRoutes);
-app.use("/", vasRoutes);
+app.use("/tmf-api/productOrdering/v4/AddVASDataBundlePrepaidInit", vasRoutes);
 app.use("/tmf-api/ServiceActivationAndConfiguration/v4", serviceRoutes);
 app.use(
   "/tmf-api/productOrdering/v4",
@@ -197,7 +197,7 @@ app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use("/tmf-api/sales/v4/", salesLeadRoutes);
-app.use("/tmf-api/productOrderingManagement/v4", DataBundlePostpaidRoutes);
+//app.use("/tmf-api/productOrderingManagement/v4", DataBundlePostpaidRoutes);
 app.use("/tmf-api/productOfferingQualification/v5", poqRoutes);
 app.use("/tmf-api/usageManagement/v4/Vouchers", RedeemVoucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoutes);
