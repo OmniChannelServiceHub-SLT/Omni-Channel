@@ -203,7 +203,6 @@ app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRou
 app.use("/", serviceRequestRoutes);
 app.use('/api/v2', faultRequestRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
-app.use("/tmf-api/Customer_Bill_Management/v5", customerBillOnDemandRoutes);
 app.use("/api/Dashboard", dashboardRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoute);
 app.use("/tmf-api/usageManagement/v4/TransferData", TransferDataRoutes);
@@ -230,6 +229,7 @@ app.use("/tmf-api/customerBillManagement/v5", eBillCheckUserExistRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 app.use("/tmf-api/customerBillManagement/v5", ebillStatusRequest);
+app.use("/tmf-api/Customer_Bill_Management/v5", customerBillOnDemandRoutes);
 
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
