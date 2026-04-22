@@ -22,6 +22,4 @@ const ServiceInventorySchema = new mongoose.Schema(
   { collection: 'serviceInventory' }
 );
 
-module.exports =
-  mongoose.models.ServiceInventory ||
-  mongoose.model('ServiceInventory', ServiceInventorySchema);
+module.exports =  mongoose.model('ServiceInventory', ServiceInventorySchema);
