@@ -1,53 +1,76 @@
-const Customer = require("../models/Customer");   
-const Service = require("../../UnsubscribeAdvancedReports/models/ServiceModel");     
+const Customer = require("../../../models/TMF629_Customer");
+const Service = require("../../../models/TMF638_ServiceModel");
 const PartyRole = require("../models/PartyRole");
 
 exports.validateDataGiftSub = async (req, res) => {
   try {
-    // Support both route params and query params
     const subscriberId = req.params.subscriberId || req.query.subscriberId;
     const giftId = req.params.giftId || req.query.giftId;
     const sponsorId = req.params.sponsorId || req.query.sponsorId;
 
-    console.log(req.params);
-
     if (!subscriberId || !giftId || !sponsorId) {
-      return res.status(400).json({ message: "Missing subscriberId, giftId, or sponsorId" });
+      return res.status(400).json({
+        code:    "400",
+        reason:  "Validation Error",
+        message: "Missing subscriberId, giftId, or sponsorId",
+        status:  "400",
+        "@type": "Error",
+      });
     }
 
-    console.log("flag");
-    // Step 1: Validate customer
+    // Step 1: Validate customer using TMF629
     const customer = await Customer.findOne({ id: subscriberId }).lean();
-    console.log("customer"+customer);
-    console.log(customer.status);
-    console.log(customer.status !== "Approved");
-    console.log(customer.status != "Approved");
-  
+
     if (!customer || customer.status !== "Approved") {
-      return res.status(404).json({ message: "Invalid or inactive subscriber" });
+      return res.status(404).json({
+        code:    "404",
+        reason:  "Not Found",
+        message: "Invalid or inactive subscriber",
+        status:  "404",
+        "@type": "Error",
+      });
     }
 
     // Step 2: Validate service
     const service = await Service.findOne({ id: giftId });
     if (!service || service.state !== "active") {
-      return res.status(400).json({ message: "Invalid or inactive DataGift service" });
+      return res.status(400).json({
+        code:    "400",
+        reason:  "Bad Request",
+        message: "Invalid or inactive DataGift service",
+        status:  "400",
+        "@type": "Error",
+      });
     }
 
     // Step 3: Validate sponsor role
     const sponsor = await PartyRole.findOne({ id: sponsorId, role: "Sponsor" });
     if (!sponsor) {
-      return res.status(400).json({ message: "Invalid sponsor role" });
+      return res.status(400).json({
+        code:    "400",
+        reason:  "Bad Request",
+        message: "Invalid sponsor role",
+        status:  "400",
+        "@type": "Error",
+      });
     }
 
     // Success
-    return res.json({
-      status: "success",
+    return res.status(200).json({
+      status:     "success",
       subscriber: customer,
       service,
-      sponsor
+      sponsor,
+      "@type":    "ValidateDataGiftSub",
     });
 
   } catch (err) {
-    return res.status(500).json({ message: "Validation failed", error: err.message });
+    return res.status(500).json({
+      code:    "500",
+      reason:  "Internal Server Error",
+      message: err.message,
+      status:  "500",
+      "@type": "Error",
+    });
   }
 };
