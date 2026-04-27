@@ -22,6 +22,6 @@ const TMF679_ProductOfferingSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model(
-  "TMF679_ProductOffering",
+  "TMF679_ProductOffering", 
   TMF679_ProductOfferingSchema
 );

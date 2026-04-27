@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler');
-const DataGiftPackage = require('../models/DataGiftPackageModel');
+const DataGiftPackage = require('../../../models/TMF620_ProductOffering');
 
 const getDataGiftPackagesMobile = asyncHandler(async (req, res) => {
   try {
