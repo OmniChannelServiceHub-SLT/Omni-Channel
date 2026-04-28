@@ -4,7 +4,7 @@ const vasController = require("../controllers/vasController");
 
 // Define relative path only (let app.js handle the prefix)
 router.post(
-  "/AddVASDataBundlePrepaidConfirm",
+  "/",
   vasController.addVASDataBundlePrepaidConfirm
 );
 
