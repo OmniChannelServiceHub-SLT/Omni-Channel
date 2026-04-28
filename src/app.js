@@ -184,7 +184,6 @@ app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRou
 app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackageRoutes);
 app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRoutes);
 app.use("/", serviceRequestRoutes);
-app.use('/api/v2', faultRequestRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 app.use("/tmf-api/Customer_Bill_Management/v5", customerBillOnDemandRoutes);
 app.use("/api/Dashboard", dashboardRoutes);
@@ -201,7 +200,8 @@ app.use('/tmf-api/communicationManagement/v4', bannerRoutes); //uses TMF681
 //Faults
 app.use("/", serviceRequestRoutes);
 app.use("/tmf-api/troubleTicket/v5", troubleTicketRoutes);
-app.use('/api/v2', faultRequestRoutes);
+app.use("/tmf-api/troubleTicket/v5", faultRequestRoutes);
+app.use("/api/v2/troubleTicket", faultRequestRoutes);
 
 //Ebill
 app.use("/tmf-api/customerBillManagement/v5", eBillCheckUserExistRoutes);
