@@ -1,4 +1,4 @@
-const ProductOrder = require("../../BBVAS/VASBundleUnsubscription/models/ProductOrder");
+const ProductOrder = require("../../models/TMF622_ProductOrder");
 
 /**
  * TMF622 – POST /productOrder
@@ -29,11 +29,27 @@ exports.createProductOrder = async (req, res) => {
       });
     }
 
-    const order = await ProductOrder.create({
+    const orderId = `EXGB-${Date.now()}`;
+    const normalizedOrderItems = orderItem.map((item, index) => ({
+      id: item.id || `${orderId}-${index + 1}`,
+      action: item.action || "add",
+      quantity: item.quantity || 1,
       state: "acknowledged",
-      orderItem,
+      productOffering: item.productOffering,
+      product: item.product,
+      "@type": "ProductOrderItem",
+    }));
+
+    const order = await ProductOrder.create({
+      id: orderId,
+      href: `/tmf-api/productOrder/v5/productOrder/${orderId}`,
+      state: "acknowledged",
+      productOrderItem: normalizedOrderItems,
       relatedParty,
-      channel
+      channel,
+      category: "ExtraGB",
+      "@type": "ProductOrder",
+      "@baseType": "ProductOrder",
     });
 
     res.status(201).json(order);
@@ -56,7 +72,10 @@ exports.updateProductOrder = async (req, res) => {
     const { id } = req.params;
     const { pgResponseCode, payId } = req.body;
 
-    const order = await ProductOrder.findById(id);
+    let order = await ProductOrder.findOne({ id });
+    if (!order) {
+      order = await ProductOrder.findById(id);
+    }
 
     if (!order) {
       return res.status(404).json({
@@ -68,11 +87,13 @@ exports.updateProductOrder = async (req, res) => {
     const paymentSuccess = pgResponseCode === "1";
 
     order.state = paymentSuccess ? "completed" : "failed";
-    order.orderItem[0].state = order.state;
+    if (order.productOrderItem && order.productOrderItem.length > 0) {
+      order.productOrderItem[0].state = order.state;
+    }
 
-    order.externalReference = [
-      { name: "payId", value: payId },
-      { name: "pgResponseCode", value: pgResponseCode }
+    order.externalId = [
+      { id: String(payId || ""), owner: "payment", externalIdentifierType: "payId" },
+      { id: String(pgResponseCode || ""), owner: "payment", externalIdentifierType: "pgResponseCode" },
     ];
 
     await order.save();

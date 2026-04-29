@@ -1,5 +1,38 @@
-const Purchase = require("../model/purchaseModel");
+const Purchase = require("../../../models/TMF622_ProductOrder");
 const { v4: uuidv4 } = require('uuid');
+
+function getExternalIdentifier(order, type) {
+  const ext = (order.externalId || []).find(
+    (item) => item.externalIdentifierType === type
+  );
+  return ext ? ext.id : undefined;
+}
+
+function getCharacteristicValue(order, name) {
+  const item = (order.productOrderItem || [])[0];
+  const chars = item && item.product ? item.product.productCharacteristic || [] : [];
+  const c = chars.find((entry) => entry.name === name);
+  return c ? c.value : undefined;
+}
+
+function toLegacyResponse(order) {
+  return {
+    id: order.id,
+    href: order.href,
+    state: order.state,
+    orderDate: order.creationDate || order.createdAt,
+    completionDate: order.completionDate,
+    relatedParty: order.relatedParty,
+    purchaseID: getCharacteristicValue(order, "purchaseID"),
+    payId: getExternalIdentifier(order, "payId"),
+    pgResponseCode: getExternalIdentifier(order, "pgResponseCode"),
+    data: getCharacteristicValue(order, "data") || {},
+    channel: order.channel,
+    note: order.note,
+    "@type": order["@type"],
+    "@baseType": order["@baseType"]
+  };
+}
 
 
 exports.createPurchase = async (req, res) => {
@@ -61,43 +94,65 @@ exports.createPurchase = async (req, res) => {
     const newPurchase = new Purchase({
       id: orderId,
       href: orderHref,
-      relatedParty: {
-        id: subscriberId,
-        role: "Customer",
-        "@referredType": "Individual"
-      },
-      purchaseID,
-      payId,
-      pgResponseCode,
-      data: data || {},
+      relatedParty: [
+        {
+          id: subscriberId,
+          role: "Customer",
+          "@referredType": "Individual",
+          "@type": "RelatedParty",
+        },
+      ],
+      externalId: [
+        {
+          id: String(payId),
+          owner: "payment",
+          externalIdentifierType: "payId",
+          "@type": "ExternalIdentifier",
+        },
+        {
+          id: String(pgResponseCode),
+          owner: "payment",
+          externalIdentifierType: "pgResponseCode",
+          "@type": "ExternalIdentifier",
+        },
+      ],
       state: orderState,
-      orderDate: new Date(),
-      channel: {
-        id: "OMNI-CHANNEL",
-        name: "Omni Channel Portal",
-        "@type": "Channel"
-      },
+      creationDate: new Date(),
+      channel: [
+        {
+          id: "OMNI-CHANNEL",
+          name: "Omni Channel Portal",
+          "@type": "RelatedChannel",
+        },
+      ],
+      productOrderItem: [
+        {
+          id: `${orderId}-1`,
+          action: "add",
+          state: orderState,
+          productOffering: {
+            id: "DataGiftEnrollPrepaidConfirm",
+            name: "DataGift Enroll Prepaid Confirm",
+            "@type": "ProductOfferingRef",
+          },
+          product: {
+            isBundle: false,
+            productCharacteristic: [
+              { name: "purchaseID", value: purchaseID, "@type": "StringCharacteristic" },
+              { name: "data", value: data || {}, "@type": "StringCharacteristic" },
+            ],
+            "@type": "Product",
+          },
+          "@type": "ProductOrderItem",
+        },
+      ],
       note: notes,
       "@type": "ProductOrder",
-      "@baseType": "Order"
+      "@baseType": "ProductOrder"
     });
 
     await newPurchase.save();
-    return res.status(201).json({
-      id: newPurchase.id,
-      href: newPurchase.href,
-      state: newPurchase.state,
-      orderDate: newPurchase.orderDate,
-      relatedParty: newPurchase.relatedParty,
-      purchaseID: newPurchase.purchaseID,
-      payId: newPurchase.payId,
-      pgResponseCode: newPurchase.pgResponseCode,
-      data: newPurchase.data,
-      channel: newPurchase.channel,
-      note: newPurchase.note,
-      "@type": newPurchase["@type"],
-      "@baseType": newPurchase["@baseType"]
-    });
+    return res.status(201).json(toLegacyResponse(newPurchase));
 
   } catch (err) {
     console.error("Error creating purchase order:", err.message);
@@ -122,22 +177,7 @@ exports.getPurchaseById = async (req, res) => {
       });
     }
 
-    return res.status(200).json({
-      id: purchase.id,
-      href: purchase.href,
-      state: purchase.state,
-      orderDate: purchase.orderDate,
-      completionDate: purchase.completionDate,
-      relatedParty: purchase.relatedParty,
-      purchaseID: purchase.purchaseID,
-      payId: purchase.payId,
-      pgResponseCode: purchase.pgResponseCode,
-      data: purchase.data,
-      channel: purchase.channel,
-      note: purchase.note,
-      "@type": purchase["@type"],
-      "@baseType": purchase["@baseType"]
-    });
+    return res.status(200).json(toLegacyResponse(purchase));
 
   } catch (err) {
     console.error("Error retrieving purchase order:", err.message);
@@ -161,7 +201,7 @@ exports.getPurchasesBySubscriber = async (req, res) => {
       });
     }
 
-    const purchases = await Purchase.find({ "relatedParty.id": subscriberId }).sort({ orderDate: -1 });
+    const purchases = await Purchase.find({ "relatedParty.id": subscriberId }).sort({ creationDate: -1 });
 
     return res.status(200).json({
       total: purchases.length,
@@ -169,11 +209,11 @@ exports.getPurchasesBySubscriber = async (req, res) => {
         id: p.id,
         href: p.href,
         state: p.state,
-        orderDate: p.orderDate,
+        orderDate: p.creationDate || p.createdAt,
         completionDate: p.completionDate,
-        purchaseID: p.purchaseID,
-        payId: p.payId,
-        pgResponseCode: p.pgResponseCode,
+        purchaseID: getCharacteristicValue(p, "purchaseID"),
+        payId: getExternalIdentifier(p, "payId"),
+        pgResponseCode: getExternalIdentifier(p, "pgResponseCode"),
         "@type": p["@type"]
       }))
     });
