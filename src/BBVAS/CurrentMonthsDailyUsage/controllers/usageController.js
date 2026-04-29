@@ -1,17 +1,40 @@
-const DailyUsage = require('../models/dailyUsage'); 
+const DailyUsage = require("../../../models/TMF635_UsageManagement");
 
 exports.getUsageById = async (req, res) => {
   try {
     const { id } = req.params;
-    const usage = await DailyUsage.findOne({ id: id });
+    const usage = await DailyUsage.findOne({ subscriberID: id });
 
     if (!usage) {
-      return res.status(404).json({ error: 'Usage not found', id: id });
+      return res.status(404).json({
+        code:    "404",
+        reason:  "Not Found",
+        message: `Usage not found for id: ${id}`,
+        status:  "404",
+        "@type": "Error",
+      });
     }
 
-    res.status(200).json(usage);
+    return res.status(200).json({
+      id:           usage._id,
+      subscriberID: usage.subscriberID,
+      volume:       usage.volume,
+      unit:         usage.unit,
+      status:       usage.status,
+      category:     usage.category,
+      channel:      usage.channel,
+      createdAt:    usage.createdAt,
+      "@type":      "Usage",
+    });
+
   } catch (error) {
-    res.status(500).json({ message: 'Error retrieving usage data', error: error.message });
+    return res.status(500).json({
+      code:    "500",
+      reason:  "Internal Server Error",
+      message: error.message,
+      status:  "500",
+      "@type": "Error",
+    });
   }
 };
 
@@ -20,31 +43,46 @@ exports.getUsageFiltered = async (req, res) => {
     const { id, 'usageDate.gte': startDate, 'usageDate.lte': endDate } = req.query;
 
     if (!id) {
-        return res.status(400).json({ message: "Missing required parameter 'id'." });
+      return res.status(400).json({
+        code:    "400",
+        reason:  "Validation Error",
+        message: "Missing required parameter 'id'",
+        status:  "400",
+        "@type": "Error",
+      });
     }
 
-    // Corrected MongoDB query for the 'relatedParty' array
-    const query = {
-      'relatedParty.id': id
-    };
+    const query = { subscriberID: id };
 
     if (startDate && endDate) {
-      query.usageDate = { $gte: new Date(startDate), $lte: new Date(endDate) };
+      query.createdAt = { $gte: new Date(startDate), $lte: new Date(endDate) };
     } else if (startDate) {
-      query.usageDate = { $gte: new Date(startDate) };
+      query.createdAt = { $gte: new Date(startDate) };
     } else if (endDate) {
-      query.usageDate = { $lte: new Date(endDate) };
+      query.createdAt = { $lte: new Date(endDate) };
     }
 
     const usages = await DailyUsage.find(query);
 
     if (!usages || usages.length === 0) {
-      return res.status(404).json({ error: 'Usage not found', id: id });
+      return res.status(404).json({
+        code:    "404",
+        reason:  "Not Found",
+        message: `Usage not found for id: ${id}`,
+        status:  "404",
+        "@type": "Error",
+      });
     }
 
-    res.status(200).json(usages);
+    return res.status(200).json(usages);
 
   } catch (error) {
-    res.status(500).json({ message: 'Error retrieving usage data', error: error.message });
+    return res.status(500).json({
+      code:    "500",
+      reason:  "Internal Server Error",
+      message: error.message,
+      status:  "500",
+      "@type": "Error",
+    });
   }
 };

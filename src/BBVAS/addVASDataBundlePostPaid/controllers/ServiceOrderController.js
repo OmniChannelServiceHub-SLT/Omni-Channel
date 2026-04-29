@@ -1,7 +1,12 @@
-import { createExtraGBPrepaidOrder, createVASDataBundleOrder, createLoyaltyUpgradeOrder } from "../services/ServiceOrderService.js";
-import { successResponse, errorResponse } from "../utils/responseHandler.js";
+const {
+  createExtraGBPrepaidOrder,
+  createVASDataBundleOrder,
+  createLoyaltyUpgradeOrder,
+} = require("../services/ServiceOrderService.js");
 
-export const purchaseExtraGBPrepaidInit = async (req, res) => {
+const { successResponse, errorResponse } = require("../utils/responseHandler.js");
+
+const purchaseExtraGBPrepaidInit = async (req, res) => {
   try {
     const result = await createExtraGBPrepaidOrder(req.body);
     return successResponse(res, result, 201);
@@ -10,7 +15,7 @@ export const purchaseExtraGBPrepaidInit = async (req, res) => {
   }
 };
 
-export const purchaseVASPostpaidInit = async (req, res) => {
+const purchaseVASPostpaidInit = async (req, res) => {
   try {
     const result = await createVASDataBundleOrder(req.body);
     return successResponse(res, result, 201);
@@ -19,11 +24,17 @@ export const purchaseVASPostpaidInit = async (req, res) => {
   }
 };
 
-export const upgradeLoyaltyInit = async (req, res) => {
+const upgradeLoyaltyInit = async (req, res) => {
   try {
     const result = await createLoyaltyUpgradeOrder(req.body);
     return successResponse(res, result, 201);
   } catch (err) {
     return errorResponse(res, err.message, 400);
   }
+};
+
+module.exports = {
+  purchaseExtraGBPrepaidInit,
+  purchaseVASPostpaidInit,
+  upgradeLoyaltyInit,
 };
