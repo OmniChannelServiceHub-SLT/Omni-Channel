@@ -157,6 +157,16 @@ app.use('/tmf-api/productInventory/v4/myPackage', myPackageRoutes);
 app.use('/tmf-api/productCatalogManagement/v4/freeData', freeDataRoutes);
 app.use('/api/BBVAS/GetPurchaseHistory', getPurchaseHistoryRoutes);
 
+// Public TMF NewCon VOICE interim endpoint (no auth)
+app.use('/tmf-api/productCatalogManagement/v4', require('./NewCon/GetVOICEPackageInterim/routes/productOfferingRoutes.js'));
+
+// Public NewCon VOICE interim endpoint
+app.use('/api/NewCon', require('./NewCon/GetVOICEPackageInterim/routes/publicProductOfferingRoutes.js'));
+// Public NewCon OSSLoopReservation endpoint
+app.use('/api/NewCon', require('./NewCon/OSSLoopReservation/routes/ossLoopReservationRoutes.js'));
+// Public NewCon CheckExistCustomer endpoint
+app.use('/api/NewCon', require('./NewCon/CheckExistCustomer/routes/checkExistCustomerRoutes.js'));
+
 // Apply authMiddleware globally
 app.use(authMiddleware);
 
@@ -256,6 +266,7 @@ app.use("/tmf-api/customerBillManagement/v5", ebillResendRequestRoutes);
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
 const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
+const voiceProductOfferingRoutes = require("./NewCon/GetVOICEPackageInterim/routes/productOfferingRoutes.js");
 
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
@@ -266,6 +277,7 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 // New Connection (Catalog)
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
+app.use("/tmf-api/productCatalogManagement/v4", voiceProductOfferingRoutes);
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
