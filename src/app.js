@@ -61,6 +61,7 @@ const exGBInitRoutes    = require("./BBVAS/ExGBPurchasePrepaidInit/routes/exGBPu
 const exGBConfirmRoutes = require("./BBVAS/ExGBPurchasePrepaidConfirm/routes/exGBPurchasePrepaidConfirm.routes.js");
 const ValidateDataTransferRoutes = require("./BBVAS/GETValidateDataTransferSub/routes/validateDataTransferRoutes.js");
 const UpgradeLoyaltyRoutes = require("./BBVAS/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
+const getDashboardVASBundlesRoutes = require("./BBVAS/GetDashboardVASBundles/routes/dashboardVASBundlesRoutes");
 const changeBBPasswordRoutes = require("./BBVAS/PUTChangeBBPassword/routes/customerRoutes");
 const UnsubscriptionRoutes = require("./BBVAS/POSTVASBundleUnsubscription/routes/UnsubscriptionRoutes.js");
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
@@ -162,6 +163,7 @@ app.use(authMiddleware);
 // Routes
 app.use('/tmf-api/productOfferingQualification/v4', validateBBPurchaseRequestRoutes);
 app.use('/tmf-api/productCatalogManagement/v4', getVASDataBundlePackagesRoutes);
+app.use('/tmf-api/productCatalogManagement/v4', getDashboardVASBundlesRoutes);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
