@@ -87,6 +87,7 @@ const smartBillRegistrationSourceRoutes = require("./ebill/SmartBillRegistration
 const smartBillRegistrationRoutes = require("./eBill/SmartBillRegistration/routes/smartBillRegistration.routes.js");
 const billStatusRoutes = require("./eBill/BillStatusRequest/routes/billStatusRoutes.js");
 const smsServiceStatusRoutes = require("./eBill/SMSServiceStatusRequest/routes/smsServiceStatusRoutes.js");
+const ebillResendRequestRoutes = require("./eBill/eBillResendRequest/route/EbillResendRequestRoute.js");
 
 //PEOVAS
 const productInventoryRoutes = require("./PEOVAS/CustomerValidation_malsha/productInventoryRoute");
@@ -248,6 +249,7 @@ app.use("/tmf-api/customerBill/v4", smartBillRegistrationSourceRoutes);
 app.use("/tmf-api/customerBill/v4", smartBillRegistrationRoutes);
 app.use("/tmf-api/customerBillManagement/v5/BillStatusRequest", billStatusRoutes);
 app.use("/tmf-api/customerBillManagement/v5/SMSServiceStatusRequest", smsServiceStatusRoutes);
+app.use("/tmf-api/customerBillManagement/v5", ebillResendRequestRoutes);
 
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
