@@ -1,4 +1,60 @@
-const vasDataBundle = require('../models/vasDataBundle');
+const ProductOrder = require('../../../../src/models/TMF622_ProductOrder.js');
+
+
+exports.addVASDataBundlePrepaidConfirm = async (req, res) => {
+  const { subscriberId, packageId, payId, pgResponseCode, date } = req.body;
+
+  if (!subscriberId || !packageId || !payId || !pgResponseCode || !date) {
+    return res.status(400).json({
+      error: "Missing required request body attributes."
+    });
+  }
+
+  const orderState = pgResponseCode === "00" ? "completed" : "failed";
+  const orderDate = new Date(Number(date));
+  const completionDate = new Date(Number(date));
+
+  try {
+    // Find existing TMF ProductOrder (created in endpoint1/2)
+    const order = await ProductOrder.findOne({
+      "externalId.id": payId
+    });
+
+    if (!order) {
+      return res.status(404).json({
+        error: "ProductOrder not found"
+      });
+    }
+
+    // Update ONLY TMF fields (no new model)
+    order.state = orderState;
+    order.completionDate = completionDate;
+
+    await order.save();
+
+    const responseBody = {
+      id: order.id,
+      href: order.href,
+      externalId: order.externalId,
+      state: order.state,
+      orderDate: order.creationDate,
+      completionDate: order.completionDate,
+      relatedParty: order.relatedParty,
+      productOrderItem: order.productOrderItem
+    };
+
+    res.status(200).json(responseBody);
+
+  } catch (error) {
+    console.error("❌ Error updating ProductOrder:", error);
+    res.status(500).json({
+      error: "Failed to update Product Order",
+      details: error.message
+    });
+  }
+};
+
+/*const vasDataBundle = require('../models/vasDataBundle');
 
 exports.addVASDataBundlePrepaidConfirm = async (req, res) => {
   const { subscriberId, packageId, payId, pgResponseCode, date } = req.body;
@@ -81,4 +137,4 @@ exports.addVASDataBundlePrepaidConfirm = async (req, res) => {
     console.error("❌ Error creating VAS Data Bundle:", error);
     res.status(500).json({ error: "Failed to create VAS Data Bundle." });
   }
-};
+};*/
