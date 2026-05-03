@@ -266,6 +266,8 @@ app.use("/tmf-api/customerBillManagement/v5", ebillResendRequestRoutes);
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
 const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
+POSTSaveInvoice_Tharindu
+const SaveInvoiceRoutes = require("./NewCon/POSTSaveInvoice/routes/saveInvoiceRoutes.js");
 const voiceProductOfferingRoutes = require("./NewCon/GetVOICEPackageInterim/routes/productOfferingRoutes.js");
 
 //PEOVAS
@@ -277,6 +279,8 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 // New Connection (Catalog)
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
+POSTSaveInvoice_Tharindu
+app.use("/tmf-api/customerBillManagement/v5/SaveInvoice", SaveInvoiceRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", voiceProductOfferingRoutes);
 
 //Notifications
