@@ -61,6 +61,7 @@ const exGBInitRoutes    = require("./BBVAS/ExGBPurchasePrepaidInit/routes/exGBPu
 const exGBConfirmRoutes = require("./BBVAS/ExGBPurchasePrepaidConfirm/routes/exGBPurchasePrepaidConfirm.routes.js");
 const ValidateDataTransferRoutes = require("./BBVAS/GETValidateDataTransferSub/routes/validateDataTransferRoutes.js");
 const UpgradeLoyaltyRoutes = require("./BBVAS/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
+const getDashboardVASBundlesRoutes = require("./BBVAS/GetDashboardVASBundles/routes/dashboardVASBundlesRoutes");
 const changeBBPasswordRoutes = require("./BBVAS/PUTChangeBBPassword/routes/customerRoutes");
 const UnsubscriptionRoutes = require("./BBVAS/POSTVASBundleUnsubscription/routes/UnsubscriptionRoutes.js");
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
@@ -156,12 +157,23 @@ app.use('/tmf-api/productInventory/v4/myPackage', myPackageRoutes);
 app.use('/tmf-api/productCatalogManagement/v4/freeData', freeDataRoutes);
 app.use('/api/BBVAS/GetPurchaseHistory', getPurchaseHistoryRoutes);
 
+// Public TMF NewCon VOICE interim endpoint (no auth)
+app.use('/tmf-api/productCatalogManagement/v4', require('./NewCon/GetVOICEPackageInterim/routes/productOfferingRoutes.js'));
+
+// Public NewCon VOICE interim endpoint
+app.use('/api/NewCon', require('./NewCon/GetVOICEPackageInterim/routes/publicProductOfferingRoutes.js'));
+// Public NewCon OSSLoopReservation endpoint
+app.use('/api/NewCon', require('./NewCon/OSSLoopReservation/routes/ossLoopReservationRoutes.js'));
+// Public NewCon CheckExistCustomer endpoint
+app.use('/api/NewCon', require('./NewCon/CheckExistCustomer/routes/checkExistCustomerRoutes.js'));
+
 // Apply authMiddleware globally
 app.use(authMiddleware);
 
 // Routes
 app.use('/tmf-api/productOfferingQualification/v4', validateBBPurchaseRequestRoutes);
 app.use('/tmf-api/productCatalogManagement/v4', getVASDataBundlePackagesRoutes);
+app.use('/tmf-api/productCatalogManagement/v4', getDashboardVASBundlesRoutes);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
@@ -254,7 +266,17 @@ app.use("/tmf-api/customerBillManagement/v5", ebillResendRequestRoutes);
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
 const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
+GETGetInvoiceData-_Tharindu
 const GetInvoiceDataRoutes = require("./NewCon/GETInvoiceData/routes/getInvoiceDataRoutes.js");
+POSTBulkUpdateInvoiceData_Tharindu
+const BulkUpdateInvoiceDataRoutes = require("./NewCon/POSTBulkUpdateInvoiceData/routes/bulkUpdateInvoiceDataRoutes.js");
+POSTUpdateSaveInvoice_Tharindu
+const UpdateSaveInvoiceRoutes = require("./NewCon/PostUpdateSaveInvoice/routes/updateSaveInvoiceRoutes.js");
+
+POSTSaveInvoice_Tharindu
+const SaveInvoiceRoutes = require("./NewCon/POSTSaveInvoice/routes/saveInvoiceRoutes.js");
+const voiceProductOfferingRoutes = require("./NewCon/GetVOICEPackageInterim/routes/productOfferingRoutes.js");
+
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
 app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
@@ -264,7 +286,16 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 // New Connection (Catalog)
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
+GETGetInvoiceData-_Tharindu
 app.use("/tmf-api/customerBillManagement/v5/GetInvoiceData", GetInvoiceDataRoutes);
+POSTBulkUpdateInvoiceData_Tharindu
+app.use("/tmf-api/customerBillManagement/v5/BulkUpdateInvoiceData", BulkUpdateInvoiceDataRoutes);
+POSTUpdateSaveInvoice_Tharindu
+app.use("/tmf-api/customerBillManagement/v5/UpdateSaveInvoice", UpdateSaveInvoiceRoutes);
+
+POSTSaveInvoice_Tharindu
+app.use("/tmf-api/customerBillManagement/v5/SaveInvoice", SaveInvoiceRoutes);
+app.use("/tmf-api/productCatalogManagement/v4", voiceProductOfferingRoutes);
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
