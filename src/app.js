@@ -266,6 +266,8 @@ app.use("/tmf-api/customerBillManagement/v5", ebillResendRequestRoutes);
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
 const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
+GETGetInvoiceData-_Tharindu
+const GetInvoiceDataRoutes = require("./NewCon/GETInvoiceData/routes/getInvoiceDataRoutes.js");
 POSTBulkUpdateInvoiceData_Tharindu
 const BulkUpdateInvoiceDataRoutes = require("./NewCon/POSTBulkUpdateInvoiceData/routes/bulkUpdateInvoiceDataRoutes.js");
 POSTUpdateSaveInvoice_Tharindu
@@ -284,6 +286,8 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 // New Connection (Catalog)
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
+GETGetInvoiceData-_Tharindu
+app.use("/tmf-api/customerBillManagement/v5/GetInvoiceData", GetInvoiceDataRoutes);
 POSTBulkUpdateInvoiceData_Tharindu
 app.use("/tmf-api/customerBillManagement/v5/BulkUpdateInvoiceData", BulkUpdateInvoiceDataRoutes);
 POSTUpdateSaveInvoice_Tharindu
@@ -292,7 +296,6 @@ app.use("/tmf-api/customerBillManagement/v5/UpdateSaveInvoice", UpdateSaveInvoic
 POSTSaveInvoice_Tharindu
 app.use("/tmf-api/customerBillManagement/v5/SaveInvoice", SaveInvoiceRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", voiceProductOfferingRoutes);
-
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
