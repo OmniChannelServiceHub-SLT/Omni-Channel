@@ -1,4 +1,4 @@
-const PurchasedProduct = require('../../../../src/models/PEOVAS_purchasedProductmodel');
+const Product = require('../../../../src/models/TMF637_Product');
 
 exports.getPurchasedProductsByTel = async (req, res, next) => {
   try {
@@ -8,7 +8,7 @@ exports.getPurchasedProductsByTel = async (req, res, next) => {
       return res.status(400).json({ error: "telephoneNo param is required" });
     }
 
-    const results = await PurchasedProduct.find({ telephoneNo });
+    const results = await Product.find({ publicIdentifier: telephoneNo }).lean();
 
     res.status(200).json({
       count: results.length,
