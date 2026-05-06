@@ -1,6 +1,6 @@
 // controllers/uploadMultipart.controller.js
 
-const Document = require('../models/document.model');
+const Document = require("../../../../src/models/TMF663_DocumentManagement.js");
 const fs = require('fs');
 
 const toBase64 = (filePath) => {

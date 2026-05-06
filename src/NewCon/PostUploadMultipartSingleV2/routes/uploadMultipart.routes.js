@@ -17,7 +17,7 @@ const upload = multer({ storage });
 
 // Route
 router.post(
-  '/UploadMultipartSingle',
+  '/',
   upload.fields([
     { name: 'nicfront_file' },
     { name: 'nicback_file' },
