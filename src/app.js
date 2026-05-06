@@ -1,10 +1,10 @@
-const express = require("express");
+  const express = require("express");
 const cors = require("cors");
 const authMiddleware = require("./middleware/authMiddleware"); // Import the middleware
 
 const app = express(); 
 
-// Import Routes
+// Import Routes           
 // const promotionRoutes = require('./BBVAS/BonusData/routes/promotionRoutes');
 //Account
 const register = require("./Account/RegisterV2/routes/registerroutes");
@@ -18,6 +18,8 @@ const changePasswordRoutes = require("./Account/ChangePassword/routes/changePass
 //BBVAS
 const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
 const getVASDataBundlePackagesRoutes = require("./BBVAS/GetVASDataBundlePackages/routes/getVASDataBundlePackages.routes");
+
+
 const PurchaseAdvancedReportsPrepaidInitRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidInit/routes/purchaseAdvancedReportsPrepaidInit.routes");
 const PurchaseAdvancedReportsPrepaidConfirmRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidConfirm/routes/purchaseAdvancedReportsPrepaidConfirm.routes");
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
@@ -48,22 +50,16 @@ const PreviousMonthUsageRoutes = require('./BBVAS/PreviousMonthDailyUsage/routes
 const RedeemVoucherRoutes = require('./BBVAS/RedeemVoucher/routes/voucherRoutes.js');
 const GiftPackageRoutes = require('./BBVAS/DatagiftPackages/routes/dataGiftRoutes.js');
 const AdvancedReportPostpaidRoutes = require('./BBVAS/Advancedreport-Postpaid/routes/advancedReportRoutes.js');
-const bonusDataRoutes = require('./BBVAS/BonusData/routes/bonusDataRoutes.js');
-const freeDataRoutes = require('./BBVAS/FreeData/routes/freeDataRoutes.js');
-const myPackageRoutes = require('./BBVAS/MyPackage/routes/myPackageRoutes.js');
-const getPurchaseHistoryRoutes = require('./BBVAS/GetPurchaseHistory/routes/getPurchaseHistoryRoutes.js');
 const productOfferingQualificationRoutes = require("./BBVAS/getBonusData/routes/ProductOfferingQualification.js");
 const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferingQualificationRoutes");
 const dashboardRoutes = require("./BBVAS/GetExtraGBDashboard/routes/dashboardRoutes.js");
 const DataTransferAmountRoute = require("./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js");
 const TransferDataRoutes = require("./BBVAS/PostTransferData/routes/transferDataRoutes.js");
-const exGBInitRoutes    = require("./BBVAS/ExGBPurchasePrepaidInit/routes/exGBPurchasePrepaidInit.routes.js");
-const exGBConfirmRoutes = require("./BBVAS/ExGBPurchasePrepaidConfirm/routes/exGBPurchasePrepaidConfirm.routes.js");
+
+
 const ValidateDataTransferRoutes = require("./BBVAS/GETValidateDataTransferSub/routes/validateDataTransferRoutes.js");
 const UpgradeLoyaltyRoutes = require("./BBVAS/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
 const getDashboardVASBundlesRoutes = require("./BBVAS/GetDashboardVASBundles/routes/dashboardVASBundlesRoutes");
-const changeBBPasswordRoutes = require("./BBVAS/PUTChangeBBPassword/routes/customerRoutes");
-const UnsubscriptionRoutes = require("./BBVAS/POSTVASBundleUnsubscription/routes/UnsubscriptionRoutes.js");
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
 // const accountRoutes = require('./routes/account.routes');
 
@@ -79,17 +75,15 @@ const troubleTicketRoutes = require("./Fault/GetTroubleTicket/routes/troubleTick
 const faultRequestRoutes = require('./Fault/CreateFaultRequestV2/routes/faultRequestRoutes');
 
 //Ebill
+
 const eBillRegisetrationRoutes = require("./eBill/eBill_Registration/routes/CustomerBill.js");
 const billRoutes = require('./EBill/BillDownloadRequest/routes/billDownloadRoutes');
 const customerBillOnDemandRoutes = require("./EBill/smartBillSendRequest/routes/CustomerBillOnDemandRoutes.js");
 const eBillCheckUserExistRoutes = require("./EBill/eBillCheckUserExistV2/routes/eBillRoutes.js");
-const ebillStatusRequest = require("./eBill/eBillStatusRequest/routes/eBillStatusRoute.js");
-const smartBillRegistrationSourceRoutes = require("./ebill/SmartBillRegistration Source/routes/smartBillRegistrationSource.routes.js");
-const smartBillRegistrationRoutes = require("./eBill/SmartBillRegistration/routes/smartBillRegistration.routes.js");
-const billStatusRoutes = require("./eBill/BillStatusRequest/routes/billStatusRoutes.js");
-const smsServiceStatusRoutes = require("./eBill/SMSServiceStatusRequest/routes/smsServiceStatusRoutes.js");
-const ebillResendRequestRoutes = require("./eBill/eBillResendRequest/route/EbillResendRequestRoute.js");
-
+const smartBillRegistrationSourceRoutes = require("./EBill/SmartBillRegistrationSource/routes/smartBillRegistrationSource.routes");
+const smartBillRegistrationRoutes = require("./EBill/SmartBillRegistration/routes/smartBillRegistration.routes");
+const billStatusRoutes = require("./EBill/BillStatusRequest/routes/billStatusRoutes.js");
+const smsServiceStatusRoutes = require("./Ebill/SMSServiceStatusRequest/routes/smsServiceStatusRoutes.js");
 //PEOVAS
 const productInventoryRoutes = require("./PEOVAS/CustomerValidation_malsha/productInventoryRoute");
 const purchasedProductRoutes = require("./PEOVAS/PostPurchasedProduct/route/purchasedProductroutes.js");
@@ -136,6 +130,8 @@ const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-C
 const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
 const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/notificationDetailRoutes")
 
+//Ebill
+const ebillStatusRequest = require("./eBill/eBillStatusRequest/routes/eBillStatusRoute.js");
 
 // Middleware
 app.use(cors());
@@ -151,22 +147,6 @@ app.use("/tmf-api", refreshTokenRoutes);
 app.use("/tmf-api", loginRoutes);
 app.use("/tmf-api", changePasswordRoutes);
 
-// BBVAS Public Routes
-app.use('/tmf-api/productCatalogManagement/v4/bonusData', bonusDataRoutes);
-app.use('/tmf-api/productInventory/v4/myPackage', myPackageRoutes);
-app.use('/tmf-api/productCatalogManagement/v4/freeData', freeDataRoutes);
-app.use('/api/BBVAS/GetPurchaseHistory', getPurchaseHistoryRoutes);
-
-// Public TMF NewCon VOICE interim endpoint (no auth)
-app.use('/tmf-api/productCatalogManagement/v4', require('./NewCon/GetVOICEPackageInterim/routes/productOfferingRoutes.js'));
-
-// Public NewCon VOICE interim endpoint
-app.use('/api/NewCon', require('./NewCon/GetVOICEPackageInterim/routes/publicProductOfferingRoutes.js'));
-// Public NewCon OSSLoopReservation endpoint
-app.use('/api/NewCon', require('./NewCon/OSSLoopReservation/routes/ossLoopReservationRoutes.js'));
-// Public NewCon CheckExistCustomer endpoint
-app.use('/api/NewCon', require('./NewCon/CheckExistCustomer/routes/checkExistCustomerRoutes.js'));
-
 // Apply authMiddleware globally
 app.use(authMiddleware);
 
@@ -177,6 +157,8 @@ app.use('/tmf-api/productCatalogManagement/v4', getDashboardVASBundlesRoutes);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
+app.use("/tmf-api/customerBill/v4", smartBillRegistrationSourceRoutes);
+app.use("/tmf-api/customerBill/v4", smartBillRegistrationRoutes);
 app.use("/tmf-api/usageManagement/v4", PurchaseAdvancedReportsPrepaidInitRoutes);
 app.use("/tmf-api/usageManagement/v4", PurchaseAdvancedReportsPrepaidConfirmRoutes);
 app.use("/tmf-api/usageManagement/v4/usage", enhancedCurrentDailyUsageRoutes);
@@ -198,12 +180,12 @@ app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use("/", updateISPContactRoutes);
 app.use('/tmf-api/usageManagement/v4/daily', dailyUsageRoutes);
 app.use("/tmf-api/dataGift/v1", dataGiftRoutes);
-app.use("/tmf-api/productOrdering/v4/AddVASDataBundlePrepaidConfirm", vasConfirmRoutes);
+app.use("/tmf-api/productOrdering/v4", vasConfirmRoutes);
 app.use('/tmf-api/usage/v4', purchasedHistoryRoutes);
 app.use('/tmf-api/serviceActivation/v4.0.0', dataGiftPackagesRoutes);
 app.use('/tmf-api/productOrderingManagement/v4', DataBundlePostpaidRoutes);
 // app.use('/api/Account', accountRoutes);
-app.use("/tmf-api/productOrdering/v4/AddVASDataBundlePrepaidInit", vasRoutes);
+app.use("/", vasRoutes);
 app.use("/tmf-api/ServiceActivationAndConfiguration/v4", serviceRoutes);
 app.use(
   "/tmf-api/productOrdering/v4",
@@ -217,7 +199,7 @@ app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use("/tmf-api/sales/v4/", salesLeadRoutes);
-//app.use("/tmf-api/productOrderingManagement/v4", DataBundlePostpaidRoutes);
+app.use("/tmf-api/productOrderingManagement/v4", DataBundlePostpaidRoutes);
 app.use("/tmf-api/productOfferingQualification/v5", poqRoutes);
 app.use("/tmf-api/usageManagement/v4/Vouchers", RedeemVoucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoutes);
@@ -227,16 +209,14 @@ app.use("/tmf-api/usageManagement/v4/AdvancedReports", AdvancedReportPostpaidRou
 app.use("/", serviceRequestRoutes);
 app.use('/api/v2', faultRequestRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
+app.use("/tmf-api/Customer_Bill_Management/v5", customerBillOnDemandRoutes);
 app.use("/api/Dashboard", dashboardRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoute);
 app.use("/tmf-api/usageManagement/v4/TransferData", TransferDataRoutes);
-app.use("/tmf-api/productOrder/v5", exGBInitRoutes);
-app.use("/tmf-api/productOrder/v5", exGBConfirmRoutes);
+app.use("/tmf-api/customerBillManagement/v5/BillStatusRequest", billStatusRoutes);
+app.use("/tmf-api/customerBillManagement/v5/SMSServiceStatusRequest", smsServiceStatusRoutes);
 app.use("/tmf-api/usageManagement/v4", ValidateDataTransferRoutes);
 app.use("/tmf-api/productOrdering/v4", UpgradeLoyaltyRoutes);
-app.use("/tmf-api/customerManagement/v5/ChangeBBPassword", changeBBPasswordRoutes);
-app.use("/tmf-api/productOrdering/v4/Unsubscription", UnsubscriptionRoutes);
-
 
 // app.use('/api/Account', accountRoutes);
 
@@ -256,23 +236,15 @@ app.use("/tmf-api/customerBillManagement/v5", eBillCheckUserExistRoutes);
 app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 app.use("/tmf-api/customerBillManagement/v5", ebillStatusRequest);
-app.use("/tmf-api/Customer_Bill_Management/v5", customerBillOnDemandRoutes);
-app.use("/tmf-api/customerBill/v4", smartBillRegistrationSourceRoutes);
-app.use("/tmf-api/customerBill/v4", smartBillRegistrationRoutes);
-app.use("/tmf-api/customerBillManagement/v5/BillStatusRequest", billStatusRoutes);
-app.use("/tmf-api/customerBillManagement/v5/SMSServiceStatusRequest", smsServiceStatusRoutes);
-app.use("/tmf-api/customerBillManagement/v5", ebillResendRequestRoutes);
 
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
 const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
-const GetInvoiceDataRoutes = require("./NewCon/GETInvoiceData/routes/getInvoiceDataRoutes.js");
-const BulkUpdateInvoiceDataRoutes = require("./NewCon/POSTBulkUpdateInvoiceData/routes/bulkUpdateInvoiceDataRoutes.js");
-const UpdateSaveInvoiceRoutes = require("./NewCon/PostUpdateSaveInvoice/routes/updateSaveInvoiceRoutes.js");
-const ApplicationGeneratorRoutes = require("./NewCon/POSTApplicationGenerator/routes/applicationGeneratorRoutes.js");
-const SaveInvoiceRoutes = require("./NewCon/POSTSaveInvoice/routes/saveInvoiceRoutes.js");
-const voiceProductOfferingRoutes = require("./NewCon/GetVOICEPackageInterim/routes/productOfferingRoutes.js");
-
+const locationCheckRoutes = require("./NewCon/LocationCheckNewProduction/routes/locationCheckRoutes");
+const getFacilityCheckRoutes = require("./NewCon/GetFacilityCheckV2/routes/getFacilityCheckRoutes");
+const getCityListRoutes = require("./NewCon/GetCityList/routes/getCityListRoutes");
+const reserveFacilityRoutes = require("./NewCon/ReserveFacility/routes/reserveFacilityRoutes");
+const reserveFacilityOfflineRoutes = require("./NewCon/ReserveFacilityOfflineV2/routes/reserveFacilityOfflineRoutes");
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
 app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
@@ -282,13 +254,11 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 // New Connection (Catalog)
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
-app.use("/tmf-api/customerBillManagement/v5/GetInvoiceData", GetInvoiceDataRoutes);
-app.use("/tmf-api/customerBillManagement/v5/BulkUpdateInvoiceData", BulkUpdateInvoiceDataRoutes);
-app.use("/tmf-api/customerBillManagement/v5/UpdateSaveInvoice", UpdateSaveInvoiceRoutes);
-app.use("/tmf-api/customerBillManagement/v5/SaveInvoice", SaveInvoiceRoutes);
-app.use("/tmf-api/productCatalogManagement/v4", voiceProductOfferingRoutes);
-app.use("/tmf-api/productOrdering/v4/ApplicationGenerator", ApplicationGeneratorRoutes);
-
+app.use('/tmf-api/serviceReservation/v4', locationCheckRoutes);
+app.use('/tmf-api/serviceReservation/v4', getFacilityCheckRoutes);
+app.use('/tmf-api/productCatalogManagement/v4', getCityListRoutes);
+app.use('/tmf-api/serviceReservation/v4', reserveFacilityRoutes);
+app.use('/tmf-api/serviceReservation/v4', reserveFacilityOfflineRoutes);
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
