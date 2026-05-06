@@ -133,6 +133,9 @@ const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/not
 //Ebill
 const ebillStatusRequest = require("./eBill/eBillStatusRequest/routes/eBillStatusRoute.js");
 
+//NewCon
+const uploadMultipartSinglev2 = require("./NewCon/PostUploadMultipartSingleV2/routes/uploadMultipart.routes.js")
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -297,7 +300,8 @@ app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 app.use("/tmf-api/serviceTestManagement/v4", HealthCheck); //uses TMF653
 app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF681
 
-
+//NewCon
+app.use("/tmf-api/UploadMultipartSingle", uploadMultipartSinglev2) // TMF663
 
 // Health check
 app.get('/', (req, res) => {
