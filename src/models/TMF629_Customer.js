@@ -42,7 +42,7 @@ const customerSchema = new mongoose.Schema(
   status: String,
   statusReason: String,
 
-  // 🔹 CRITICAL: engagedParty instead of direct name
+  // 🔹 engagedParty (unchanged)
   engagedParty: {
     id: String,
     href: String,
@@ -51,29 +51,56 @@ const customerSchema = new mongoose.Schema(
     "@type": String
   },
 
-  // 🔹 Contact Medium (FIXED)
+  // 🔹 Contact Medium (kept compatible, slightly improved)
   contactMedium: [
     {
-      mediumType: String, // NOT "type"
+      mediumType: String,
       preferred: Boolean,
+
+      // ✅ OPTIONAL TMF alignment (non-breaking additions)
+      contactType: String,
+      validFor: {
+        startDateTime: Date,
+        endDateTime: Date
+      },
+
       characteristic: {
         phoneNumber: String,
         emailAddress: String
-      }
+      },
+
+      "@type": String
     }
   ],
+
+  // 🔹 ✅ NEW: AccountRef (TMF629 compliant, minimal structure)
+  account: [
+    {
+      id: String,
+      href: String,
+      name: String,
+      "@referredType": String, // e.g. "BillingAccount"
+      "@type": { type: String, default: "AccountRef" }
+    }
+  ],
+
+  // 🔹 ✅ NEW: Notification Preference (extension for eBill)
+  notificationPreference: {
+    smsEnabled: Boolean,
+    emailEnabled: Boolean
+  },
 
   validFor: {
     startDateTime: Date,
     endDateTime: Date
   },
 
-  // 🔹 TMF metadata
+  // 🔹 TMF metadata (unchanged)
   "@type": { type: String, default: "Customer" },
   "@baseType": String,
   "@schemaLocation": String
 },
-{ strict: false }
+{ strict: false } // keep for backward compatibility
 );
 
-module.exports = mongoose.models.Customer || mongoose.model("Customer", customerSchema);
+module.exports = mongoose.model("Customer", customerSchema);
