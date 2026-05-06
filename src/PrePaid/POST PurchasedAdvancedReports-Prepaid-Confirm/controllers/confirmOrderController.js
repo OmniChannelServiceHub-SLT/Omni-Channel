@@ -1,14 +1,24 @@
-const ConfirmedProductOrder = require('../models/confirmOrderModel');
+const ConfirmedProductOrder = require('../../../models/TMF622_ProductOrder');
 
 exports.confirmProductOrder = async (req, res) => {
   try {
     const { reporterPackage, activatedBy, transactionId } = req.body;
     const subscriberId = req.headers['subscriberid'];
+    const orderId = `APR-${Date.now()}`;
 
     // Constructing TMF-compliant object for a COMPLETED order
     const confirmData = {
+      id: orderId,
+      href: `/tmf-api/productOrdering/v4/productOrder/${orderId}`,
       state: "completed",
-      externalId: transactionId || "TXN-" + Date.now(),
+      externalId: [
+        {
+          id: transactionId || `TXN-${Date.now()}`,
+          owner: "payment",
+          externalIdentifierType: "transactionId",
+          "@type": "ExternalIdentifier",
+        },
+      ],
       relatedParty: [
         {
           id: subscriberId,
@@ -37,8 +47,8 @@ exports.confirmProductOrder = async (req, res) => {
     const confirmedOrder = await ConfirmedProductOrder.create(confirmData);
 
     res.status(201).json({
-      id: confirmedOrder._id,
-      href: `/tmf-api/productOrdering/v4/productOrder/${confirmedOrder._id}`,
+      id: confirmedOrder.id,
+      href: confirmedOrder.href,
       ...confirmData
     });
   } catch (err) {

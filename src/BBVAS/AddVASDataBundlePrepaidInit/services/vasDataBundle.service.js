@@ -1,93 +1,48 @@
-// src/services/vasDataBundle.service.js
-const ProductOrder = require("../../../../src/models/TMF622_ProductOrder.js");
-const { v4: uuidv4 } = require("uuid");
+//src/services/vasDataBundle.service.js
+const TMF622ProductOrder = require("../../../models/TMF622_ProductOrder");
 
 exports.createVASBundle = async (data) => {
-  const id = uuidv4();
-
-  const tmfOrder = new ProductOrder({
-    id,
-    href: `/productOrder/${id}`,
-
-    description: `VAS Data Bundle - ${data.bundleName}`,
-    category: "VAS",
-    priority: "1",
-
+  const orderId = data.id || `VAS-${Date.now()}`;
+  const vasBundle = new TMF622ProductOrder({
+    id: orderId,
+    href: `/tmf-api/productOrdering/v4/productOrder/${orderId}`,
+    category: "VASDataBundlePrepaid",
     state: "acknowledged",
-
-    // 🔥 FIX: add externalId mapping
-    externalId: data.payId
-      ? [
-          {
-            id: data.payId,
-            owner: "BBVAS",
-            externalIdentifierType: "PAYMENT_ID"
-          }
-        ]
-      : [],
-
     relatedParty: [
       {
-        id: data.customerId,
-        role: "Customer"
-      }
+        id: data.customerId || "unknown",
+        role: "customer",
+        "@type": "RelatedParty",
+      },
     ],
-
     productOrderItem: [
       {
-        id: "1",
+        id: `${orderId}-1`,
         action: "add",
-
+        state: "acknowledged",
         productOffering: {
-          name: data.bundleName
+          id: data.bundleId || data.bundleName || "VAS_DATA_BUNDLE",
+          name: data.bundleName || "VAS Data Bundle",
+          "@type": "ProductOfferingRef",
         },
-
         product: {
+          isBundle: false,
           productCharacteristic: [
-            {
-              name: "dataVolume",
-              value: data.dataVolume
-            },
-            {
-              name: "validity",
-              value: data.validity
-            }
-          ]
-        }
-      }
+            { name: "dataVolume", value: data.dataVolume || "", "@type": "StringCharacteristic" },
+            { name: "validity", value: data.validity || "", "@type": "StringCharacteristic" },
+            { name: "price", value: data.price ?? null, "@type": "StringCharacteristic" },
+          ],
+          "@type": "Product",
+        },
+        "@type": "ProductOrderItem",
+      },
     ],
-
-    orderTotalPrice: [
-      {
-        price: {
-          taxIncludedAmount: data.price
-        }
-      }
-    ],
-
-    creationDate: new Date()
-  });
-
-  return await tmfOrder.save();
-};
-
-/*//src/services/vasDataBundle.service.js
-const VASDataBundle = require("../models/addVASDataBundlePrepaidInit.model");
-
-exports.createVASBundle = async (data) => {
-  const vasBundle = new VASDataBundle({
-    id: data.id,
-    customerId: data.customerId,
-    bundleName: data.bundleName,
-    dataVolume: data.dataVolume,
-    validity: data.validity,
-    price: data.price,
-    status: "initiated",
+    "@type": "ProductOrder",
+    "@baseType": "ProductOrder",
   });
   return await vasBundle.save();
 };
 
 exports.getVASBundles = async () => {
-  return await VASDataBundle.find();
+  return await TMF622ProductOrder.find({ category: "VASDataBundlePrepaid" });
 };
-*/

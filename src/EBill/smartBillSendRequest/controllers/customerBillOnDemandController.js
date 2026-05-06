@@ -1,6 +1,6 @@
 // controllers/customerBillOnDemandController.js
 const { v4: uuidv4 } = require("uuid");
-const CustomerBillOnDemand = require("../models/CustomerBillOnDemand");
+const { CustomerBillOnDemand } = require("../../../models/TMF678_CustomerBill"); // Updated import to destructure CustomerBillOnDemand
 
 /**
  * @desc Create CustomerBillOnDemand (TMF678 POST /customerBillOnDemand)
