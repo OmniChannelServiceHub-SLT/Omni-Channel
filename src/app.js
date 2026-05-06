@@ -141,6 +141,8 @@ const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/not
 const uploadMultipartSinglev2 = require("./NewCon/PostUploadMultipartSingleV2/routes/uploadMultipart.routes.js")
 const uploadSingle = require("./NewCon/PostUploadSingle/routes/uploadSingle.routes.js")
 
+const generateFTTHSecreatCode = require("./NewCon/PostGenerateFTTHSecreatCode/routes/ftthOrder.routes.js")
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -335,6 +337,7 @@ app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF68
 app.use("/tmf-api/UploadMultipartSingle", uploadMultipartSinglev2) // TMF663
 app.use("/tmf-api/UploadSingle", uploadSingle) // TMF663
 
+app.use("/tmf-api/GenerateFTTHSecreatCode", generateFTTHSecreatCode)// tmf 622
 // Health check
 app.get('/', (req, res) => {
   res.send('Omini API Server is running ✅');
