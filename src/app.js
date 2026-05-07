@@ -254,6 +254,11 @@ app.use("/tmf-api/customerBillManagement/v5", ebillResendRequestRoutes);
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
 const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
+const saveDraftDataRoutes = require('./NewCon/SaveDraftData/routes/saveDraftDataRoutes');
+const saveDraftDataLTERoutes = require('./NewCon/SaveDraftDataLTE/routes/saveDraftDataLTERoutes');
+const updateDraftDataV2Routes = require('./NewCon/UpdateDraftDataV2/routes/updateDraftDataV2Routes');
+const updateDraftDataLTERoutes = require('./NewCon/UpdateDraftDataLTE/routes/updateDraftDataLTERoutes');
+const getDraftDataV2Routes = require('./NewCon/GetDraftDataV2/routes/getDraftDataV2Routes');
 
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
@@ -264,6 +269,11 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 // New Connection (Catalog)
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
+app.use('/api', saveDraftDataRoutes);
+app.use('/api', saveDraftDataLTERoutes);
+app.use('/api', updateDraftDataV2Routes);
+app.use('/api', updateDraftDataLTERoutes);
+app.use('/api', getDraftDataV2Routes);
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
