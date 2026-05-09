@@ -61,6 +61,7 @@ const exGBInitRoutes    = require("./BBVAS/ExGBPurchasePrepaidInit/routes/exGBPu
 const exGBConfirmRoutes = require("./BBVAS/ExGBPurchasePrepaidConfirm/routes/exGBPurchasePrepaidConfirm.routes.js");
 const ValidateDataTransferRoutes = require("./BBVAS/GETValidateDataTransferSub/routes/validateDataTransferRoutes.js");
 const UpgradeLoyaltyRoutes = require("./BBVAS/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
+const getDashboardVASBundlesRoutes = require("./BBVAS/GetDashboardVASBundles/routes/dashboardVASBundlesRoutes");
 const changeBBPasswordRoutes = require("./BBVAS/PUTChangeBBPassword/routes/customerRoutes");
 const UnsubscriptionRoutes = require("./BBVAS/POSTVASBundleUnsubscription/routes/UnsubscriptionRoutes.js");
 //const promotionRoutesFreeData = require("./BBVAS/FreeData/routes/promotionRoutes.js");
@@ -136,6 +137,12 @@ const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheck
 const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/notificationDetailRoutes")
 
 
+//NewCon
+const uploadMultipartSinglev2 = require("./NewCon/PostUploadMultipartSingleV2/routes/uploadMultipart.routes.js")
+const uploadSingle = require("./NewCon/PostUploadSingle/routes/uploadSingle.routes.js")
+
+const generateFTTHSecreatCode = require("./NewCon/PostGenerateFTTHSecreatCode/routes/ftthOrder.routes.js")
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -156,12 +163,23 @@ app.use('/tmf-api/productInventory/v4/myPackage', myPackageRoutes);
 app.use('/tmf-api/productCatalogManagement/v4/freeData', freeDataRoutes);
 app.use('/api/BBVAS/GetPurchaseHistory', getPurchaseHistoryRoutes);
 
+// Public TMF NewCon VOICE interim endpoint (no auth)
+app.use('/tmf-api/productCatalogManagement/v4', require('./NewCon/GetVOICEPackageInterim/routes/productOfferingRoutes.js'));
+
+// Public NewCon VOICE interim endpoint
+app.use('/api/NewCon', require('./NewCon/GetVOICEPackageInterim/routes/publicProductOfferingRoutes.js'));
+// Public NewCon OSSLoopReservation endpoint
+app.use('/api/NewCon', require('./NewCon/OSSLoopReservation/routes/ossLoopReservationRoutes.js'));
+// Public NewCon CheckExistCustomer endpoint
+app.use('/api/NewCon', require('./NewCon/CheckExistCustomer/routes/checkExistCustomerRoutes.js'));
+
 // Apply authMiddleware globally
 app.use(authMiddleware);
 
 // Routes
 app.use('/tmf-api/productOfferingQualification/v4', validateBBPurchaseRequestRoutes);
 app.use('/tmf-api/productCatalogManagement/v4', getVASDataBundlePackagesRoutes);
+app.use('/tmf-api/productCatalogManagement/v4', getDashboardVASBundlesRoutes);
 
 //BBVAS
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutesFreeData);
@@ -254,11 +272,20 @@ app.use("/tmf-api/customerBillManagement/v5", ebillResendRequestRoutes);
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
 const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
+<<<<<<< HEAD
 const saveDraftDataRoutes = require('./NewCon/SaveDraftData/routes/saveDraftDataRoutes');
 const saveDraftDataLTERoutes = require('./NewCon/SaveDraftDataLTE/routes/saveDraftDataLTERoutes');
 const updateDraftDataV2Routes = require('./NewCon/UpdateDraftDataV2/routes/updateDraftDataV2Routes');
 const updateDraftDataLTERoutes = require('./NewCon/UpdateDraftDataLTE/routes/updateDraftDataLTERoutes');
 const getDraftDataV2Routes = require('./NewCon/GetDraftDataV2/routes/getDraftDataV2Routes');
+=======
+const GetInvoiceDataRoutes = require("./NewCon/GETInvoiceData/routes/getInvoiceDataRoutes.js");
+const BulkUpdateInvoiceDataRoutes = require("./NewCon/POSTBulkUpdateInvoiceData/routes/bulkUpdateInvoiceDataRoutes.js");
+const UpdateSaveInvoiceRoutes = require("./NewCon/PostUpdateSaveInvoice/routes/updateSaveInvoiceRoutes.js");
+const ApplicationGeneratorRoutes = require("./NewCon/POSTApplicationGenerator/routes/applicationGeneratorRoutes.js");
+const SaveInvoiceRoutes = require("./NewCon/POSTSaveInvoice/routes/saveInvoiceRoutes.js");
+const voiceProductOfferingRoutes = require("./NewCon/GetVOICEPackageInterim/routes/productOfferingRoutes.js");
+>>>>>>> dev
 
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
@@ -269,11 +296,20 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 // New Connection (Catalog)
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
+<<<<<<< HEAD
 app.use('/api', saveDraftDataRoutes);
 app.use('/api', saveDraftDataLTERoutes);
 app.use('/api', updateDraftDataV2Routes);
 app.use('/api', updateDraftDataLTERoutes);
 app.use('/api', getDraftDataV2Routes);
+=======
+app.use("/tmf-api/customerBillManagement/v5/GetInvoiceData", GetInvoiceDataRoutes);
+app.use("/tmf-api/customerBillManagement/v5/BulkUpdateInvoiceData", BulkUpdateInvoiceDataRoutes);
+app.use("/tmf-api/customerBillManagement/v5/UpdateSaveInvoice", UpdateSaveInvoiceRoutes);
+app.use("/tmf-api/customerBillManagement/v5/SaveInvoice", SaveInvoiceRoutes);
+app.use("/tmf-api/productCatalogManagement/v4", voiceProductOfferingRoutes);
+app.use("/tmf-api/productOrdering/v4/ApplicationGenerator", ApplicationGeneratorRoutes);
+>>>>>>> dev
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
@@ -313,8 +349,11 @@ app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 app.use("/tmf-api/serviceTestManagement/v4", HealthCheck); //uses TMF653
 app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF681
 
+//NewCon
+app.use("/tmf-api/UploadMultipartSingle", uploadMultipartSinglev2) // TMF663
+app.use("/tmf-api/UploadSingle", uploadSingle) // TMF663
 
-
+app.use("/tmf-api/GenerateFTTHSecreatCode", generateFTTHSecreatCode)// tmf 622
 // Health check
 app.get('/', (req, res) => {
   res.send('Omini API Server is running ✅');
