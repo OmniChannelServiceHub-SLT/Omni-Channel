@@ -1,5 +1,5 @@
 // TMF622 - Product Ordering Management v4 - FTTH Request Charts
-const FTTHRequestChart = require('../models/ftthChartModel');
+const FTTHRequestChart = require('../../../models/TMF622_ProductOrder');
 
 exports.getFTTHRequestCharts = async (req, res) => {
   try {

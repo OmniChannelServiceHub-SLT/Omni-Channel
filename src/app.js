@@ -332,16 +332,16 @@ app.use("/tmf-api", unsubscribeAdvancedReportsRoutes);
 app.use("/tmf-api/productOrder/v5", ExtraGBPurchasePrepaidRoutes);
 
 // BBExternal - TMF637 Product Inventory / TMF622 Product Ordering
-app.use("/tmf-api/productInventory/v4", require("./BBExternal/GetBBFreedomStatus/routes/getBBFreedomStatusRoutes")); //uses TMF637
+app.use("/api/BBExternal", require("./BBExternal/GetBBFreedomStatus/routes/getBBFreedomStatusRoutes"));
 app.use("/tmf-api/productOrderingManagement/v4", require("./BBExternal/RegisterForBBFreedom_Nethmi/routes/registerForBBFreedomRoutes")); //uses TMF622
 
 //Dashboard - TMF622 Product Ordering / TMF672 User Roles & Permissions
 app.use('/api/dashboard/ftth-full-data', ftthRoutes);
 app.use('/tmf-api/dashboard/ftth-specific', ftthSpecificRoutes);
-app.use('/tmf-api/userRolesPermissions/v4', ftthLoginRoutes); //uses TMF672
+app.use('/api/dashboard', ftthLoginRoutes);
 app.use('/api/Dashboard/GetFTTHRequestStatusCount', ftthStatusRoutes);
-app.use('/api/Dashboard/SetFTTHPermission', ftthPermissionRoutes);
-app.use('/api/Dashboard/GetFTTHRequestCharts', ftthChartRoutes);
+app.use('/api/dashboard', ftthPermissionRoutes);
+app.use('/api/dashboard', ftthChartRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 
 // HealthCheck - TMF653 Service Test Management / TMF681 Communication Management
