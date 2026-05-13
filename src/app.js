@@ -272,20 +272,20 @@ app.use("/tmf-api/customerBillManagement/v5", ebillResendRequestRoutes);
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
 const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
-<<<<<<< HEAD
+
 const saveDraftDataRoutes = require('./NewCon/SaveDraftData/routes/saveDraftDataRoutes');
 const saveDraftDataLTERoutes = require('./NewCon/SaveDraftDataLTE/routes/saveDraftDataLTERoutes');
 const updateDraftDataV2Routes = require('./NewCon/UpdateDraftDataV2/routes/updateDraftDataV2Routes');
 const updateDraftDataLTERoutes = require('./NewCon/UpdateDraftDataLTE/routes/updateDraftDataLTERoutes');
 const getDraftDataV2Routes = require('./NewCon/GetDraftDataV2/routes/getDraftDataV2Routes');
-=======
+
 const GetInvoiceDataRoutes = require("./NewCon/GETInvoiceData/routes/getInvoiceDataRoutes.js");
 const BulkUpdateInvoiceDataRoutes = require("./NewCon/POSTBulkUpdateInvoiceData/routes/bulkUpdateInvoiceDataRoutes.js");
 const UpdateSaveInvoiceRoutes = require("./NewCon/PostUpdateSaveInvoice/routes/updateSaveInvoiceRoutes.js");
 const ApplicationGeneratorRoutes = require("./NewCon/POSTApplicationGenerator/routes/applicationGeneratorRoutes.js");
 const SaveInvoiceRoutes = require("./NewCon/POSTSaveInvoice/routes/saveInvoiceRoutes.js");
 const voiceProductOfferingRoutes = require("./NewCon/GetVOICEPackageInterim/routes/productOfferingRoutes.js");
->>>>>>> dev
+
 
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
@@ -296,20 +296,19 @@ app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 // New Connection (Catalog)
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
-<<<<<<< HEAD
+
 app.use('/api', saveDraftDataRoutes);
 app.use('/api', saveDraftDataLTERoutes);
 app.use('/api', updateDraftDataV2Routes);
 app.use('/api', updateDraftDataLTERoutes);
 app.use('/api', getDraftDataV2Routes);
-=======
+
 app.use("/tmf-api/customerBillManagement/v5/GetInvoiceData", GetInvoiceDataRoutes);
 app.use("/tmf-api/customerBillManagement/v5/BulkUpdateInvoiceData", BulkUpdateInvoiceDataRoutes);
 app.use("/tmf-api/customerBillManagement/v5/UpdateSaveInvoice", UpdateSaveInvoiceRoutes);
 app.use("/tmf-api/customerBillManagement/v5/SaveInvoice", SaveInvoiceRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", voiceProductOfferingRoutes);
 app.use("/tmf-api/productOrdering/v4/ApplicationGenerator", ApplicationGeneratorRoutes);
->>>>>>> dev
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
