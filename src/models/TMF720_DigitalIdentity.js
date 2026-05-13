@@ -1,34 +1,30 @@
 const mongoose = require('mongoose');
+const { v4: uuidv4 } = require('uuid');
 
-// TMF720: Digital Identity Resource
-// Mandatory attributes: id, status
 const digitalIdentitySchema = new mongoose.Schema({
-  // TMF ID (often UUID)
   id: {
-    type: String,
+    type:     String,
     required: true,
-    unique: true
+    unique:   true,
+    default:  uuidv4
   },
-  // Mandatory: Active, Inactive, Suspended
   status: {
-    type: String,
+    type:     String,
     required: true,
-    default: 'Active'
+    default:  'Active'
   },
-  // Linking to the user/party
   party: [{
-    id: String,
+    id:   String,
     name: String,
     href: String
   }],
-  // Credentials (OTPs, Passwords)
   credential: [{
-    token: String, // The OTP Code
+    token:    String,
     validFor: {
       startDateTime: Date,
-      endDateTime: Date
+      endDateTime:   Date
     },
-    status: String // 'active', 'expired'
+    status: String
   }]
 });
 

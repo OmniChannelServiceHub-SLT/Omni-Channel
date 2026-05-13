@@ -1,5 +1,5 @@
-// TMF672 - User Roles & Permissions v4 - FTTHDashboardLogin
-const FTTHDashboardUser = require('../models/ftthLoginModel');
+const FTTHDashboardUser = require('../../../models/TMF720_DigitalIdentity');
+const { v4: uuidv4 } = require('uuid');
 
 exports.ftthDashboardLogin = async (req, res) => {
   try {
@@ -8,68 +8,74 @@ exports.ftthDashboardLogin = async (req, res) => {
     if (!userName || privilege === undefined) {
       return res.status(400).json({
         "@type": "Error",
-        code: "ERR_MISSING_PARAMS",
-        reason: "userName and privilege are required as query parameters."
+        code:    "ERR_MISSING_PARAMS",
+        reason:  "userName and privilege are required as query parameters."
       });
     }
 
-    // Validate privilege value
     const privilegeNum = parseInt(privilege);
     if (isNaN(privilegeNum)) {
       return res.status(400).json({
         "@type": "Error",
-        code: "ERR_INVALID_PRIVILEGE",
-        reason: "privilege must be a valid number."
+        code:    "ERR_INVALID_PRIVILEGE",
+        reason:  "privilege must be a valid number."
       });
     }
 
-    // Find or create user
-    let user = await FTTHDashboardUser.findOne({ userName });
+    let user = await FTTHDashboardUser.findOne({ "party.id": userName });
 
     if (!user) {
-      // Create new user if not exists
       user = await FTTHDashboardUser.create({
-        userName,
-        privilege: privilegeNum,
-        lastLogin: new Date()
+        id:     uuidv4(),
+        status: "Active",
+        party:  [{ id: userName, name: userName }],
+        credential: [{
+          token:    `token-${Date.now()}`,
+          validFor: {
+            startDateTime: new Date(),
+            endDateTime:   new Date(Date.now() + 24 * 60 * 60 * 1000)
+          },
+          status: "active"
+        }]
       });
 
       return res.status(201).json({
-        "@type": "UserRole",
-        "@schemaLocation": "/tmf-api/userRolesPermissions/v4/schema/userRole",
-        id: user._id,
-        href: `/tmf-api/userRolesPermissions/v4/permission/ftthLogin`,
-        userName: user.userName,
-        privilege: user.privilege,
-        state: "created",
-        isActive: user.isActive,
-        lastLogin: user.lastLogin
+        "@type":   "UserRole",
+        id:        user.id,
+        href:      `/tmf-api/userRolesPermissions/v4/permission/ftthLogin`,
+        userName:  userName,
+        privilege: privilegeNum,
+        state:     "created",
+        lastLogin: new Date()
       });
     }
 
-    // Update existing user
-    user.privilege = privilegeNum;
-    user.lastLogin = new Date();
-    user.updatedAt = new Date();
+    user.credential.push({
+      token:    `token-${Date.now()}`,
+      validFor: {
+        startDateTime: new Date(),
+        endDateTime:   new Date(Date.now() + 24 * 60 * 60 * 1000)
+      },
+      status: "active"
+    });
     await user.save();
 
-    res.status(200).json({
-      "@type": "UserRole",
-      "@schemaLocation": "/tmf-api/userRolesPermissions/v4/schema/userRole",
-      id: user._id,
-      href: `/tmf-api/userRolesPermissions/v4/permission/ftthLogin`,
-      userName: user.userName,
-      privilege: user.privilege,
-      state: "authenticated",
-      isActive: user.isActive,
-      lastLogin: user.lastLogin
+    return res.status(200).json({
+      "@type":   "UserRole",
+      id:        user.id,
+      href:      `/tmf-api/userRolesPermissions/v4/permission/ftthLogin`,
+      userName:  userName,
+      privilege: privilegeNum,
+      state:     "authenticated",
+      lastLogin: new Date()
     });
+
   } catch (err) {
-    res.status(500).json({
-      "@type": "Error",
-      code: "ERR_INTERNAL",
-      reason: "Server Error",
-      message: err.message
+    return res.status(500).json({
+      "@type":  "Error",
+      code:     "ERR_INTERNAL",
+      reason:   "Server Error",
+      message:  err.message
     });
   }
 };
