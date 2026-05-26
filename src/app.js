@@ -251,6 +251,7 @@ const getFacilityCheckRoutes = require("./NewCon/GetFacilityCheckV2/routes/getFa
 const getCityListRoutes = require("./NewCon/GetCityList/routes/getCityListRoutes");
 const reserveFacilityRoutes = require("./NewCon/ReserveFacility/routes/reserveFacilityRoutes");
 const reserveFacilityOfflineRoutes = require("./NewCon/ReserveFacilityOfflineV2/routes/reserveFacilityOfflineRoutes");
+const newConSalesLeadRoutes = require("./NewCon/POSTNewConSalesLeadCreation/routes/newConSalesLeadRoutes");
 
 // NewCon - Draft Data Management
 const SaveDraftDataRoutes = require("./NewCon/SaveDraftData/routes/saveDraftDataRoutes.js");
@@ -273,6 +274,7 @@ app.use('/tmf-api/serviceReservation/v4', getFacilityCheckRoutes);
 app.use('/tmf-api/productCatalogManagement/v4', getCityListRoutes);
 app.use('/tmf-api/serviceReservation/v4', reserveFacilityRoutes);
 app.use('/tmf-api/serviceReservation/v4', reserveFacilityOfflineRoutes);
+app.use("/tmf-api/productOrdering/v4/NewConSalesLeadCreation",newConSalesLeadRoutes);
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
@@ -318,6 +320,7 @@ app.use("/tmf-api/customerBillManagement/v5/SaveDraftDataLTE", SaveDraftDataLTER
 app.use("/tmf-api/customerBillManagement/v5/UpdateDraftDataV2", UpdateDraftDataV2Routes);
 app.use("/tmf-api/customerBillManagement/v5/UpdateDraftDataLTE", UpdateDraftDataLTERoutes);
 app.use("/tmf-api/customerBillManagement/v5/GetDraftDataV2", GetDraftDataV2Routes);
+
 
 app.use("/tmf-api/UploadMultipartSingle", uploadMultipartSinglev2) // TMF663
 app.use("/tmf-api/UploadSingle", uploadSingle) // TMF663
