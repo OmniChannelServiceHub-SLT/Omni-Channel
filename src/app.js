@@ -254,6 +254,7 @@ const reserveFacilityOfflineRoutes = require("./NewCon/ReserveFacilityOfflineV2/
 const getPaymentLogsRoutes = require("./NewCon/GETGetPaymentLogs/routes/getPaymentLogsRoutes");
 const newConSalesLeadRoutes = require("./NewCon/POSTNewConSalesLeadCreation/routes/newConSalesLeadRoutes");
 const updatePaymentLogsRoutes = require("./NewCon/POSTUpdatePaymentLogs/routes/updatePaymentLogsRoutes");
+const getTokenStatusRoutes = require("./NewCon/POSTGetTokenToCheckStatus/routes/getTokenStatusRoutes");
 
 // NewCon - Draft Data Management
 const SaveDraftDataRoutes = require("./NewCon/SaveDraftData/routes/saveDraftDataRoutes.js");
@@ -279,6 +280,7 @@ app.use('/tmf-api/serviceReservation/v4', reserveFacilityOfflineRoutes);
 app.use("/tmf-api/customerBillManagement/v5/GetPaymentLogs",getPaymentLogsRoutes);
 app.use("/tmf-api/productOrdering/v4/NewConSalesLeadCreation",newConSalesLeadRoutes);
 app.use("/tmf-api/customerBillManagement/v5/UpdatePaymentLogs",updatePaymentLogsRoutes);
+app.use("/tmf-api/customerManagement/v5/GetTokenToCheckStatus",getTokenStatusRoutes);
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
