@@ -136,6 +136,7 @@ const ebillStatusRequest = require("./eBill/eBillStatusRequest/routes/eBillStatu
 //NewCon
 const uploadMultipartSinglev2 = require("./NewCon/PostUploadMultipartSingleV2/routes/uploadMultipart.routes.js")
 const uploadSingle = require("./NewCon/PostUploadSingle/routes/uploadSingle.routes.js")
+const voicePackageRoutes = require("./NewCon/GETGetVOICEPackageInterim/routes/voicePackageRoutes");
 
 const generateFTTHSecreatCode = require("./NewCon/PostGenerateFTTHSecreatCode/routes/ftthOrder.routes.js")
 
@@ -281,6 +282,7 @@ app.use("/tmf-api/customerBillManagement/v5/GetPaymentLogs",getPaymentLogsRoutes
 app.use("/tmf-api/productOrdering/v4/NewConSalesLeadCreation",newConSalesLeadRoutes);
 app.use("/tmf-api/customerBillManagement/v5/UpdatePaymentLogs",updatePaymentLogsRoutes);
 app.use("/tmf-api/customerManagement/v5/GetTokenToCheckStatus",getTokenStatusRoutes);
+app.use("/tmf-api/productCatalogManagement/v4",voicePackageRoutes);
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
