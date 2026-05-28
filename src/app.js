@@ -139,6 +139,7 @@ const uploadSingle = require("./NewCon/PostUploadSingle/routes/uploadSingle.rout
 const voicePackageRoutes = require("./NewCon/GETGetVOICEPackageInterim/routes/voicePackageRoutes");
 
 const generateFTTHSecreatCode = require("./NewCon/PostGenerateFTTHSecreatCode/routes/ftthOrder.routes.js")
+const ossLoopReservationRoutes = require("./NewCon/POSTOSSLoopReservation/routes/ossLoopReservationRoutes");
 
 // Middleware
 app.use(cors());
@@ -283,6 +284,7 @@ app.use("/tmf-api/productOrdering/v4/NewConSalesLeadCreation",newConSalesLeadRou
 app.use("/tmf-api/customerBillManagement/v5/UpdatePaymentLogs",updatePaymentLogsRoutes);
 app.use("/tmf-api/customerManagement/v5/GetTokenToCheckStatus",getTokenStatusRoutes);
 app.use("/tmf-api/productCatalogManagement/v4",voicePackageRoutes);
+app.use("/api/NewCon",ossLoopReservationRoutes);
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
