@@ -253,6 +253,7 @@ const reserveFacilityRoutes = require("./NewCon/ReserveFacility/routes/reserveFa
 const reserveFacilityOfflineRoutes = require("./NewCon/ReserveFacilityOfflineV2/routes/reserveFacilityOfflineRoutes");
 const getPaymentLogsRoutes = require("./NewCon/GETGetPaymentLogs/routes/getPaymentLogsRoutes");
 const newConSalesLeadRoutes = require("./NewCon/POSTNewConSalesLeadCreation/routes/newConSalesLeadRoutes");
+const applicationGeneratorRoutes = require("./NewCon/POSTApplicationGenerator/routes/applicationGeneratorRoutes");
 
 // NewCon - Draft Data Management
 const SaveDraftDataRoutes = require("./NewCon/SaveDraftData/routes/saveDraftDataRoutes.js");
@@ -260,6 +261,13 @@ const SaveDraftDataLTERoutes = require("./NewCon/SaveDraftDataLTE/routes/saveDra
 const UpdateDraftDataV2Routes = require("./NewCon/UpdateDraftDataV2/routes/updateDraftDataV2Routes.js");
 const UpdateDraftDataLTERoutes = require("./NewCon/UpdateDraftDataLTE/routes/updateDraftDataLTERoutes.js");
 const GetDraftDataV2Routes = require("./NewCon/GetDraftDataV2/routes/getDraftDataV2Routes.js");
+
+// NewCon - Agent & Order Status
+const SendFTTHSecCodeRoutes = require("./NewCon/POSTSendFTTHSecCode/routes/sendFTTHSecCodeRoutes.js");
+const GetAgentCodeRoutes = require("./NewCon/GETAgentCode/routes/getAgentCodeRoutes.js");
+const UpdateAgentCodeRoutes = require("./NewCon/POSTUpdateAgentCode/routes/updateAgentCodeRoutes.js");
+const GetOrderStatusRoutes = require("./NewCon/GETOrderStatus/routes/getOrderStatusRoutes.js");
+const CheckCRMLeadStatusRoutes = require("./NewCon/GETCheckCRMLeadStatus/routes/checkCRMLeadStatusRoutes.js");
 
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
@@ -277,6 +285,15 @@ app.use('/tmf-api/serviceReservation/v4', reserveFacilityRoutes);
 app.use('/tmf-api/serviceReservation/v4', reserveFacilityOfflineRoutes);
 app.use("/tmf-api/customerBillManagement/v5/GetPaymentLogs",getPaymentLogsRoutes);
 app.use("/tmf-api/productOrdering/v4/NewConSalesLeadCreation",newConSalesLeadRoutes);
+app.use("/tmf-api/productOrdering/v4/ApplicationGenerator", applicationGeneratorRoutes);
+
+// NewCon - Agent & Order Status
+app.use("/tmf-api/NewCon/v1/SendFTTHSecCode", SendFTTHSecCodeRoutes);
+app.use("/tmf-api/NewCon/v1/GetAgentCode", GetAgentCodeRoutes);
+app.use("/tmf-api/NewCon/v1/UpdateAgentCode", UpdateAgentCodeRoutes);
+app.use("/tmf-api/NewCon/v1/GetOrderStatus", GetOrderStatusRoutes);
+app.use("/tmf-api/NewCon/v1/CheckCRMLeadStatus", CheckCRMLeadStatusRoutes);
+
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
