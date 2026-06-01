@@ -13,7 +13,9 @@ const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js"
 const refreshTokenRoutes = require("./Account/RefreshToken/routes/refreshTokenRoute.js");
 const loginRoutes = require("./Account/Login/routes/loginRoute.js");
 const changePasswordRoutes = require("./Account/ChangePassword/routes/changePasswordRoutes.js");
-
+const authOpenFTTHLoginRoutes = require("./Account/AuthenticationOpenFTTHLogin/routes/authOpenFTTHLoginRoutes");
+const authFTTHAdminRoutes     = require("./Account/AuthenticationFTTHAdmin/routes/authFTTHAdminRoutes");
+const createFTTHAdminRoutes   = require("./Account/CreateFTTHAdmin/routes/createFTTHAdminRoutes");
 
 //BBVAS
 const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
@@ -155,6 +157,9 @@ app.use("/tmf-api", resendOTPRoutes);
 app.use("/tmf-api", refreshTokenRoutes);
 app.use("/tmf-api", loginRoutes);
 app.use("/tmf-api", changePasswordRoutes);
+app.use("/api/Account", authOpenFTTHLoginRoutes);
+app.use("/api/Account", authFTTHAdminRoutes);
+app.use("/api/Account", createFTTHAdminRoutes);
 
 // Apply authMiddleware globally
 app.use(authMiddleware);
