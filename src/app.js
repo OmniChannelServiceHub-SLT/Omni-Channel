@@ -13,7 +13,9 @@ const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js"
 const refreshTokenRoutes = require("./Account/RefreshToken/routes/refreshTokenRoute.js");
 const loginRoutes = require("./Account/Login/routes/loginRoute.js");
 const changePasswordRoutes = require("./Account/ChangePassword/routes/changePasswordRoutes.js");
-
+const authOpenFTTHLoginRoutes = require("./Account/AuthenticationOpenFTTHLogin/routes/authOpenFTTHLoginRoutes");
+const authFTTHAdminRoutes     = require("./Account/AuthenticationFTTHAdmin/routes/authFTTHAdminRoutes");
+const createFTTHAdminRoutes   = require("./Account/CreateFTTHAdmin/routes/createFTTHAdminRoutes");
 
 //BBVAS
 const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
@@ -136,8 +138,11 @@ const ebillStatusRequest = require("./eBill/eBillStatusRequest/routes/eBillStatu
 //NewCon
 const uploadMultipartSinglev2 = require("./NewCon/PostUploadMultipartSingleV2/routes/uploadMultipart.routes.js")
 const uploadSingle = require("./NewCon/PostUploadSingle/routes/uploadSingle.routes.js")
+const voicePackageRoutes = require("./NewCon/GETGetVOICEPackageInterim/routes/voicePackageRoutes");
 
 const generateFTTHSecreatCode = require("./NewCon/PostGenerateFTTHSecreatCode/routes/ftthOrder.routes.js")
+const ossLoopReservationRoutes = require("./NewCon/POSTOSSLoopReservation/routes/ossLoopReservationRoutes");
+const checkExistCustomerRoutes = require("./NewCon/GETCheckExistCustomer/routes/checkExistCustomerRoutes");
 
 // Middleware
 app.use(cors());
@@ -152,6 +157,9 @@ app.use("/tmf-api", resendOTPRoutes);
 app.use("/tmf-api", refreshTokenRoutes);
 app.use("/tmf-api", loginRoutes);
 app.use("/tmf-api", changePasswordRoutes);
+app.use("/api/Account", authOpenFTTHLoginRoutes);
+app.use("/api/Account", authFTTHAdminRoutes);
+app.use("/api/Account", createFTTHAdminRoutes);
 
 // Apply authMiddleware globally
 app.use(authMiddleware);
@@ -251,6 +259,18 @@ const getFacilityCheckRoutes = require("./NewCon/GetFacilityCheckV2/routes/getFa
 const getCityListRoutes = require("./NewCon/GetCityList/routes/getCityListRoutes");
 const reserveFacilityRoutes = require("./NewCon/ReserveFacility/routes/reserveFacilityRoutes");
 const reserveFacilityOfflineRoutes = require("./NewCon/ReserveFacilityOfflineV2/routes/reserveFacilityOfflineRoutes");
+const getPaymentLogsRoutes = require("./NewCon/GETGetPaymentLogs/routes/getPaymentLogsRoutes");
+const newConSalesLeadRoutes = require("./NewCon/POSTNewConSalesLeadCreation/routes/newConSalesLeadRoutes");
+const updatePaymentLogsRoutes = require("./NewCon/POSTUpdatePaymentLogs/routes/updatePaymentLogsRoutes");
+const getTokenStatusRoutes = require("./NewCon/POSTGetTokenToCheckStatus/routes/getTokenStatusRoutes");
+
+// NewCon - Draft Data Management
+const SaveDraftDataRoutes = require("./NewCon/SaveDraftData/routes/saveDraftDataRoutes.js");
+const SaveDraftDataLTERoutes = require("./NewCon/SaveDraftDataLTE/routes/saveDraftDataLTERoutes.js");
+const UpdateDraftDataV2Routes = require("./NewCon/UpdateDraftDataV2/routes/updateDraftDataV2Routes.js");
+const UpdateDraftDataLTERoutes = require("./NewCon/UpdateDraftDataLTE/routes/updateDraftDataLTERoutes.js");
+const GetDraftDataV2Routes = require("./NewCon/GetDraftDataV2/routes/getDraftDataV2Routes.js");
+
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
 app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
@@ -265,6 +285,13 @@ app.use('/tmf-api/serviceReservation/v4', getFacilityCheckRoutes);
 app.use('/tmf-api/productCatalogManagement/v4', getCityListRoutes);
 app.use('/tmf-api/serviceReservation/v4', reserveFacilityRoutes);
 app.use('/tmf-api/serviceReservation/v4', reserveFacilityOfflineRoutes);
+app.use("/tmf-api/customerBillManagement/v5/GetPaymentLogs",getPaymentLogsRoutes);
+app.use("/tmf-api/productOrdering/v4/NewConSalesLeadCreation",newConSalesLeadRoutes);
+app.use("/tmf-api/customerBillManagement/v5/UpdatePaymentLogs",updatePaymentLogsRoutes);
+app.use("/tmf-api/customerManagement/v5/GetTokenToCheckStatus",getTokenStatusRoutes);
+app.use("/tmf-api/productCatalogManagement/v4",voicePackageRoutes);
+app.use("/api/NewCon",ossLoopReservationRoutes);
+app.use("/tmf-api/productCatalogManagement/v4",checkExistCustomerRoutes);
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
@@ -304,6 +331,14 @@ app.use("/tmf-api/serviceTestManagement/v4", HealthCheck); //uses TMF653
 app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF681
 
 //NewCon
+// NewCon - Draft Data Management
+app.use("/tmf-api/customerBillManagement/v5/SaveDraftData", SaveDraftDataRoutes);
+app.use("/tmf-api/customerBillManagement/v5/SaveDraftDataLTE", SaveDraftDataLTERoutes);
+app.use("/tmf-api/customerBillManagement/v5/UpdateDraftDataV2", UpdateDraftDataV2Routes);
+app.use("/tmf-api/customerBillManagement/v5/UpdateDraftDataLTE", UpdateDraftDataLTERoutes);
+app.use("/tmf-api/customerBillManagement/v5/GetDraftDataV2", GetDraftDataV2Routes);
+
+
 app.use("/tmf-api/UploadMultipartSingle", uploadMultipartSinglev2) // TMF663
 app.use("/tmf-api/UploadSingle", uploadSingle) // TMF663
 
