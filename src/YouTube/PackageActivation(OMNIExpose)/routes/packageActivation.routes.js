@@ -1,14 +1,7 @@
-// ============================================================
-//  routes/packageActivation.routes.js
-//  TMF638 Service Inventory – Package Activation Route
-//  (validation logic included directly — no middleware folder)
-// ============================================================
-
 const express = require('express');
 const router = express.Router();
 const packageActivationController = require('../controllers/packageActivation.controller');
 
-// ── Inline Validation Middleware ─────────────────────────────
 const validateActivationRequest = (req, res, next) => {
   const { telephoneno, packageid } = req.query;
 
@@ -38,8 +31,7 @@ const validateActivationRequest = (req, res, next) => {
   next();
 };
 
-// ── Route ─────────────────────────────────────────────────────
-// POST /omniexpose/packageActivation?telephoneno=&packageid=
+
 router.post(
   '/packageActivation',
   validateActivationRequest,
