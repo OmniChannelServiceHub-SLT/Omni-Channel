@@ -1,18 +1,9 @@
-// ============================================================
-//  controllers/packageActivation.controller.js
-//  Handles POST /omniexpose/packageActivation
-//  (service/business logic included directly — no services folder)
-// ============================================================
-
 const axios = require('axios');
 const { buildTMF638ServiceResponse } = require('../models/packageActivation.model');
-
-// ── Config (from .env) ────────────────────────────────────────
 const OMNI_BASE_URL      = process.env.OMNI_BASE_URL      || 'https://omni-backend.slt.lk';
 const OMNI_API_KEY       = process.env.OMNI_API_KEY       || '';
 const REQUEST_TIMEOUT_MS = parseInt(process.env.REQUEST_TIMEOUT_MS || '10000', 10);
 
-// ── Helper: create structured error ──────────────────────────
 const createError = (statusCode, status, message, details = null) => {
   const err = new Error(message);
   err.statusCode = statusCode;
@@ -21,7 +12,6 @@ const createError = (statusCode, status, message, details = null) => {
   return err;
 };
 
-// ── Business Logic (merged from service layer) ────────────────
 const processActivation = async (telephoneNo, packageId) => {
   let downstreamResponse;
 
@@ -59,7 +49,6 @@ const processActivation = async (telephoneNo, packageId) => {
   return buildTMF638ServiceResponse(telephoneNo, packageId, 'active', extraData);
 };
 
-// ── Controller ────────────────────────────────────────────────
 const activatePackage = async (req, res) => {
   const { telephoneno, packageid } = req.query;
 
