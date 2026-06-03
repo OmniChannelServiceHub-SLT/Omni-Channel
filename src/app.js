@@ -145,10 +145,8 @@ const generateFTTHSecreatCode = require("./NewCon/PostGenerateFTTHSecreatCode/ro
 const ossLoopReservationRoutes = require("./NewCon/POSTOSSLoopReservation/routes/ossLoopReservationRoutes");
 const checkExistCustomerRoutes = require("./NewCon/GETCheckExistCustomer/routes/checkExistCustomerRoutes");
 
-
-//YouTube
-
-
+// YouTube 
+const packageActivationRoutes = require("./YouTube/PackageActivation(OMNIExpose)/routes/packageActivation.routes");
 
 // Middleware
 app.use(cors());
@@ -214,7 +212,7 @@ app.use(
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
 app.use("/tmf-api/usageManagement/v4/PreviousMonth", PreviousMonthUsageRoutes);
-app.use("/tmf-api/usageManagement/v5", summeryRoutes);
+app.use("/tmf-api/usageManagement/v4/5", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
@@ -257,8 +255,8 @@ app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 app.use("/tmf-api/customerBillManagement/v5", ebillStatusRequest);
 
-//YouTube
-
+// YouTube
+app.use("/omniexpose", packageActivationRoutes);
 
 
 // New Connection (Catalog)
