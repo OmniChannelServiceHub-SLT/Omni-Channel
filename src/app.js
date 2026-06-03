@@ -127,7 +127,9 @@ const ftthStatusRoutes = require('./Dashboard/GetFTTHRequestStatusCount/routes/f
 const ftthPermissionRoutes = require('./Dashboard/SetFTTHPermission/routes/ftthPermissionRoutes');
 const ftthChartRoutes = require('./Dashboard/GetFTTHRequestCharts/routes/ftthChartRoutes');
 const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
+const ftthSpecificDataFilterRoutes = require("./Dashboard/GETFTTHSpecificDataFilter/routes/ftthSpecificDataFilterRoutes");
 const ftthMapDataRoutes = require("./Dashboard/GETFTTHMapData/routes/ftthMapDataRoutes");
+
 
 //HealthCheck
 const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
@@ -335,6 +337,7 @@ app.use('/api/Dashboard/GetFTTHRequestStatusCount', ftthStatusRoutes);
 app.use('/api/dashboard', ftthPermissionRoutes);
 app.use('/api/dashboard', ftthChartRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
+app.use("/api/Dashboard", ftthSpecificDataFilterRoutes);
 app.use("/api/Dashboard", ftthMapDataRoutes);
 
 // HealthCheck - TMF653 Service Test Management / TMF681 Communication Management
