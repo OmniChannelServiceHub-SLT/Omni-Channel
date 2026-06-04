@@ -13,7 +13,9 @@ const resendOTPRoutes = require("./Account/Resend OTP/routes/resendOTPRoutes.js"
 const refreshTokenRoutes = require("./Account/RefreshToken/routes/refreshTokenRoute.js");
 const loginRoutes = require("./Account/Login/routes/loginRoute.js");
 const changePasswordRoutes = require("./Account/ChangePassword/routes/changePasswordRoutes.js");
-
+const authOpenFTTHLoginRoutes = require("./Account/AuthenticationOpenFTTHLogin/routes/authOpenFTTHLoginRoutes");
+const authFTTHAdminRoutes     = require("./Account/AuthenticationFTTHAdmin/routes/authFTTHAdminRoutes");
+const createFTTHAdminRoutes   = require("./Account/CreateFTTHAdmin/routes/createFTTHAdminRoutes");
 
 //BBVAS
 const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
@@ -125,6 +127,9 @@ const ftthStatusRoutes = require('./Dashboard/GetFTTHRequestStatusCount/routes/f
 const ftthPermissionRoutes = require('./Dashboard/SetFTTHPermission/routes/ftthPermissionRoutes');
 const ftthChartRoutes = require('./Dashboard/GetFTTHRequestCharts/routes/ftthChartRoutes');
 const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
+const ftthDashboard =require('./Dashboard/GetFTTHNCDashboard/routes/dashboardRoutes');
+const ftthSpecificDataFilterRoutes = require("./Dashboard/GETFTTHSpecificDataFilter/routes/ftthSpecificDataFilterRoutes");
+const ftthMapDataRoutes = require("./Dashboard/GETFTTHMapData/routes/ftthMapDataRoutes");
 
 //HealthCheck
 const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
@@ -136,8 +141,14 @@ const ebillStatusRequest = require("./eBill/eBillStatusRequest/routes/eBillStatu
 //NewCon
 const uploadMultipartSinglev2 = require("./NewCon/PostUploadMultipartSingleV2/routes/uploadMultipart.routes.js")
 const uploadSingle = require("./NewCon/PostUploadSingle/routes/uploadSingle.routes.js")
+const voicePackageRoutes = require("./NewCon/GETGetVOICEPackageInterim/routes/voicePackageRoutes");
 
 const generateFTTHSecreatCode = require("./NewCon/PostGenerateFTTHSecreatCode/routes/ftthOrder.routes.js")
+const ossLoopReservationRoutes = require("./NewCon/POSTOSSLoopReservation/routes/ossLoopReservationRoutes");
+const checkExistCustomerRoutes = require("./NewCon/GETCheckExistCustomer/routes/checkExistCustomerRoutes");
+
+// YouTube 
+const packageActivationRoutes = require("./YouTube/PackageActivation(OMNIExpose)/routes/packageActivation.routes");
 
 // Middleware
 app.use(cors());
@@ -152,6 +163,9 @@ app.use("/tmf-api", resendOTPRoutes);
 app.use("/tmf-api", refreshTokenRoutes);
 app.use("/tmf-api", loginRoutes);
 app.use("/tmf-api", changePasswordRoutes);
+app.use("/api/Account", authOpenFTTHLoginRoutes);
+app.use("/api/Account", authFTTHAdminRoutes);
+app.use("/api/Account", createFTTHAdminRoutes);
 
 // Apply authMiddleware globally
 app.use(authMiddleware);
@@ -200,7 +214,7 @@ app.use(
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
 app.use("/tmf-api/usageManagement/v4/PreviousMonth", PreviousMonthUsageRoutes);
-app.use("/tmf-api/usageManagement/v5", summeryRoutes);
+app.use("/tmf-api/usageManagement/v4/5", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
@@ -243,6 +257,10 @@ app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 app.use("/tmf-api/customerBillManagement/v5", ebillStatusRequest);
 
+// YouTube
+app.use("/omniexpose", packageActivationRoutes);
+
+
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
 const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
@@ -253,7 +271,11 @@ const reserveFacilityRoutes = require("./NewCon/ReserveFacility/routes/reserveFa
 const reserveFacilityOfflineRoutes = require("./NewCon/ReserveFacilityOfflineV2/routes/reserveFacilityOfflineRoutes");
 const getPaymentLogsRoutes = require("./NewCon/GETGetPaymentLogs/routes/getPaymentLogsRoutes");
 const newConSalesLeadRoutes = require("./NewCon/POSTNewConSalesLeadCreation/routes/newConSalesLeadRoutes");
+
 const applicationGeneratorRoutes = require("./NewCon/POSTApplicationGenerator/routes/applicationGeneratorRoutes");
+
+const updatePaymentLogsRoutes = require("./NewCon/POSTUpdatePaymentLogs/routes/updatePaymentLogsRoutes");
+const getTokenStatusRoutes = require("./NewCon/POSTGetTokenToCheckStatus/routes/getTokenStatusRoutes");
 
 // NewCon - Draft Data Management
 const SaveDraftDataRoutes = require("./NewCon/SaveDraftData/routes/saveDraftDataRoutes.js");
@@ -285,6 +307,7 @@ app.use('/tmf-api/serviceReservation/v4', reserveFacilityRoutes);
 app.use('/tmf-api/serviceReservation/v4', reserveFacilityOfflineRoutes);
 app.use("/tmf-api/customerBillManagement/v5/GetPaymentLogs",getPaymentLogsRoutes);
 app.use("/tmf-api/productOrdering/v4/NewConSalesLeadCreation",newConSalesLeadRoutes);
+
 app.use("/tmf-api/productOrdering/v4/ApplicationGenerator", applicationGeneratorRoutes);
 
 // NewCon - Agent & Order Status
@@ -293,6 +316,12 @@ app.use("/tmf-api/NewCon/v1/GetAgentCode", GetAgentCodeRoutes);
 app.use("/tmf-api/NewCon/v1/UpdateAgentCode", UpdateAgentCodeRoutes);
 app.use("/tmf-api/NewCon/v1/GetOrderStatus", GetOrderStatusRoutes);
 app.use("/tmf-api/NewCon/v1/CheckCRMLeadStatus", CheckCRMLeadStatusRoutes);
+
+app.use("/tmf-api/customerBillManagement/v5/UpdatePaymentLogs",updatePaymentLogsRoutes);
+app.use("/tmf-api/customerManagement/v5/GetTokenToCheckStatus",getTokenStatusRoutes);
+app.use("/tmf-api/productCatalogManagement/v4",voicePackageRoutes);
+app.use("/api/NewCon",ossLoopReservationRoutes);
+app.use("/tmf-api/productCatalogManagement/v4",checkExistCustomerRoutes);
 
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
@@ -327,6 +356,9 @@ app.use('/api/Dashboard/GetFTTHRequestStatusCount', ftthStatusRoutes);
 app.use('/api/dashboard', ftthPermissionRoutes);
 app.use('/api/dashboard', ftthChartRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
+app.use('/api/Dashboard', ftthDashboard);
+app.use("/api/Dashboard", ftthSpecificDataFilterRoutes);
+app.use("/api/Dashboard", ftthMapDataRoutes);
 
 // HealthCheck - TMF653 Service Test Management / TMF681 Communication Management
 app.use("/tmf-api/serviceTestManagement/v4", HealthCheck); //uses TMF653
