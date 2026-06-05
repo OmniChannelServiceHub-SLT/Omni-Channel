@@ -2,6 +2,7 @@
 const cors = require("cors");
 const authMiddleware = require("./middleware/authMiddleware"); // Import the middleware
 
+
 const app = express(); 
 
 // Import Routes           
@@ -150,6 +151,9 @@ const checkExistCustomerRoutes = require("./NewCon/GETCheckExistCustomer/routes/
 // YouTube 
 const packageActivationRoutes = require("./YouTube/PackageActivation(OMNIExpose)/routes/packageActivation.routes");
 
+// Kumudu - YouTube Offer
+const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRoutes");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -169,6 +173,8 @@ app.use("/api/Account", createFTTHAdminRoutes);
 
 // Apply authMiddleware globally
 app.use(authMiddleware);
+// Kumudu - TimelyPay YouTube Offer Module
+app.use("/api/mySltBss", youtubeOfferRoutes);
 
 // Routes
 app.use('/tmf-api/productOfferingQualification/v4', validateBBPurchaseRequestRoutes);
@@ -360,6 +366,5 @@ app.use("/tmf-api/GenerateFTTHSecreatCode", generateFTTHSecreatCode)// tmf 622
 app.get('/', (req, res) => {
   res.send('Omini API Server is running ✅');
 });
-
 
 module.exports = app; // Export the Express app
