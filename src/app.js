@@ -151,7 +151,7 @@ const checkExistCustomerRoutes = require("./NewCon/GETCheckExistCustomer/routes/
 // YouTube 
 const packageActivationRoutes = require("./YouTube/PackageActivation(OMNIExpose)/routes/packageActivation.routes");
 
-// Kumudu - YouTube Offer
+// YouTube Offer
 const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRoutes");
 
 // Middleware
@@ -173,8 +173,9 @@ app.use("/api/Account", createFTTHAdminRoutes);
 
 // Apply authMiddleware globally
 app.use(authMiddleware);
-// Kumudu - TimelyPay YouTube Offer Module
-app.use("/api/mySltBss", youtubeOfferRoutes);
+
+// TMF640 style Service Activation endpoint
+app.use("/tmf-api/ServiceActivationAndConfiguration/v4", youtubeOfferRoutes);
 
 // Routes
 app.use('/tmf-api/productOfferingQualification/v4', validateBBPurchaseRequestRoutes);
