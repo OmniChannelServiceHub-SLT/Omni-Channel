@@ -126,6 +126,8 @@ const ftthLoginRoutes = require('./Dashboard/FTTHDashboardLogin/routes/ftthLogin
 const ftthStatusRoutes = require('./Dashboard/GetFTTHRequestStatusCount/routes/ftthStatusRoutes');
 const ftthPermissionRoutes = require('./Dashboard/SetFTTHPermission/routes/ftthPermissionRoutes');
 const ftthChartRoutes = require('./Dashboard/GetFTTHRequestCharts/routes/ftthChartRoutes');
+const getFaultDashboardRoutes = require('./Dashboard/GetFaultDashboard/routes/getFaultDashboardRoutes');
+const getSelectLOVRoutes = require('./Dashboard/GetSelectLOV/routes/getSelectLOVRoutes');
 const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
 const ftthDashboard =require('./Dashboard/GetFTTHNCDashboard/routes/dashboardRoutes');
 const ftthSpecificDataFilterRoutes = require("./Dashboard/GETFTTHSpecificDataFilter/routes/ftthSpecificDataFilterRoutes");
@@ -355,6 +357,8 @@ app.use('/api/dashboard', ftthLoginRoutes);
 app.use('/api/Dashboard/GetFTTHRequestStatusCount', ftthStatusRoutes);
 app.use('/api/dashboard', ftthPermissionRoutes);
 app.use('/api/dashboard', ftthChartRoutes);
+app.use('/api/Dashboard/GetFaultDashboard', getFaultDashboardRoutes);
+app.use('/api/Dashboard/GetSelectLOV', getSelectLOVRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 app.use('/api/Dashboard', ftthDashboard);
 app.use("/api/Dashboard", ftthSpecificDataFilterRoutes);
