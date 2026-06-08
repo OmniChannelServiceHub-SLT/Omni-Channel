@@ -129,6 +129,7 @@ const ftthChartRoutes = require('./Dashboard/GetFTTHRequestCharts/routes/ftthCha
 const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
 const ftthSpecificDataFilterRoutes = require("./Dashboard/GETFTTHSpecificDataFilter/routes/ftthSpecificDataFilterRoutes");
 const ftthMapDataRoutes = require("./Dashboard/GETFTTHMapData/routes/ftthMapDataRoutes");
+const ebillDashboardRoutes = require("./Dashboard/GetEbillDashboard/routes/ebillDashboardRoutes");
 
 
 //HealthCheck
@@ -337,6 +338,7 @@ app.use('/api/dashboard', ftthChartRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 app.use("/api/Dashboard", ftthSpecificDataFilterRoutes);
 app.use("/api/Dashboard", ftthMapDataRoutes);
+app.use("/api/Dashboard", ebillDashboardRoutes); //uses TMF678
 
 // HealthCheck - TMF653 Service Test Management / TMF681 Communication Management
 app.use("/tmf-api/serviceTestManagement/v4", HealthCheck); //uses TMF653
