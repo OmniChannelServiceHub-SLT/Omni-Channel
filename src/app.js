@@ -2,6 +2,7 @@
 const cors = require("cors");
 const authMiddleware = require("./middleware/authMiddleware"); // Import the middleware
 
+
 const app = express(); 
 
 // Import Routes           
@@ -126,7 +127,13 @@ const ftthLoginRoutes = require('./Dashboard/FTTHDashboardLogin/routes/ftthLogin
 const ftthStatusRoutes = require('./Dashboard/GetFTTHRequestStatusCount/routes/ftthStatusRoutes');
 const ftthPermissionRoutes = require('./Dashboard/SetFTTHPermission/routes/ftthPermissionRoutes');
 const ftthChartRoutes = require('./Dashboard/GetFTTHRequestCharts/routes/ftthChartRoutes');
+const getFaultDashboardRoutes = require('./Dashboard/GetFaultDashboard/routes/getFaultDashboardRoutes');
+const getSelectLOVRoutes = require('./Dashboard/GetSelectLOV/routes/getSelectLOVRoutes');
 const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
+const ftthDashboard =require('./Dashboard/GetFTTHNCDashboard/routes/dashboardRoutes');
+const ftthSpecificDataFilterRoutes = require("./Dashboard/GETFTTHSpecificDataFilter/routes/ftthSpecificDataFilterRoutes");
+const ftthMapDataRoutes = require("./Dashboard/GETFTTHMapData/routes/ftthMapDataRoutes");
+const ebillDashboardRoutes = require("./Dashboard/GetEbillDashboard/routes/ebillDashboardRoutes");
 
 //HealthCheck
 const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
@@ -143,6 +150,12 @@ const voicePackageRoutes = require("./NewCon/GETGetVOICEPackageInterim/routes/vo
 const generateFTTHSecreatCode = require("./NewCon/PostGenerateFTTHSecreatCode/routes/ftthOrder.routes.js")
 const ossLoopReservationRoutes = require("./NewCon/POSTOSSLoopReservation/routes/ossLoopReservationRoutes");
 const checkExistCustomerRoutes = require("./NewCon/GETCheckExistCustomer/routes/checkExistCustomerRoutes");
+
+// YouTube 
+const packageActivationRoutes = require("./YouTube/PackageActivation(OMNIExpose)/routes/packageActivation.routes");
+
+// YouTube Offer
+const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRoutes");
 
 // Middleware
 app.use(cors());
@@ -163,6 +176,9 @@ app.use("/api/Account", createFTTHAdminRoutes);
 
 // Apply authMiddleware globally
 app.use(authMiddleware);
+
+// TMF640 style Service Activation endpoint
+app.use("/tmf-api/ServiceActivationAndConfiguration/v4", youtubeOfferRoutes);
 
 // Routes
 app.use('/tmf-api/productOfferingQualification/v4', validateBBPurchaseRequestRoutes);
@@ -208,7 +224,7 @@ app.use(
 // app.use("/tmf-api/promotionManagement/v4/promotion", promotionRoutes);
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
 app.use("/tmf-api/usageManagement/v4/PreviousMonth", PreviousMonthUsageRoutes);
-app.use("/tmf-api/usageManagement/v5", summeryRoutes);
+app.use("/tmf-api/usageManagement/v4/5", summeryRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
@@ -251,6 +267,10 @@ app.use('/tmf-api/customerBillManagement/v5', billRoutes);
 app.use('/tmf-api/billManegement/v4', eBillRegisetrationRoutes);
 app.use("/tmf-api/customerBillManagement/v5", ebillStatusRequest);
 
+// YouTube
+app.use("/omniexpose", packageActivationRoutes);
+
+
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
 const productOfferingRoutes = require("./NewCon/GetBBPackageInterim/routes/productOfferingRoutes.js");
@@ -261,6 +281,9 @@ const reserveFacilityRoutes = require("./NewCon/ReserveFacility/routes/reserveFa
 const reserveFacilityOfflineRoutes = require("./NewCon/ReserveFacilityOfflineV2/routes/reserveFacilityOfflineRoutes");
 const getPaymentLogsRoutes = require("./NewCon/GETGetPaymentLogs/routes/getPaymentLogsRoutes");
 const newConSalesLeadRoutes = require("./NewCon/POSTNewConSalesLeadCreation/routes/newConSalesLeadRoutes");
+
+const applicationGeneratorRoutes = require("./NewCon/POSTApplicationGenerator/routes/applicationGeneratorRoutes");
+
 const updatePaymentLogsRoutes = require("./NewCon/POSTUpdatePaymentLogs/routes/updatePaymentLogsRoutes");
 const getTokenStatusRoutes = require("./NewCon/POSTGetTokenToCheckStatus/routes/getTokenStatusRoutes");
 
@@ -270,6 +293,13 @@ const SaveDraftDataLTERoutes = require("./NewCon/SaveDraftDataLTE/routes/saveDra
 const UpdateDraftDataV2Routes = require("./NewCon/UpdateDraftDataV2/routes/updateDraftDataV2Routes.js");
 const UpdateDraftDataLTERoutes = require("./NewCon/UpdateDraftDataLTE/routes/updateDraftDataLTERoutes.js");
 const GetDraftDataV2Routes = require("./NewCon/GetDraftDataV2/routes/getDraftDataV2Routes.js");
+
+// NewCon - Agent & Order Status
+const SendFTTHSecCodeRoutes = require("./NewCon/POSTSendFTTHSecCode/routes/sendFTTHSecCodeRoutes.js");
+const GetAgentCodeRoutes = require("./NewCon/GETAgentCode/routes/getAgentCodeRoutes.js");
+const UpdateAgentCodeRoutes = require("./NewCon/POSTUpdateAgentCode/routes/updateAgentCodeRoutes.js");
+const GetOrderStatusRoutes = require("./NewCon/GETOrderStatus/routes/getOrderStatusRoutes.js");
+const CheckCRMLeadStatusRoutes = require("./NewCon/GETCheckCRMLeadStatus/routes/checkCRMLeadStatusRoutes.js");
 
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
@@ -287,11 +317,22 @@ app.use('/tmf-api/serviceReservation/v4', reserveFacilityRoutes);
 app.use('/tmf-api/serviceReservation/v4', reserveFacilityOfflineRoutes);
 app.use("/tmf-api/customerBillManagement/v5/GetPaymentLogs",getPaymentLogsRoutes);
 app.use("/tmf-api/productOrdering/v4/NewConSalesLeadCreation",newConSalesLeadRoutes);
+
+app.use("/tmf-api/productOrdering/v4/ApplicationGenerator", applicationGeneratorRoutes);
+
+// NewCon - Agent & Order Status
+app.use("/tmf-api/NewCon/v1/SendFTTHSecCode", SendFTTHSecCodeRoutes);
+app.use("/tmf-api/NewCon/v1/GetAgentCode", GetAgentCodeRoutes);
+app.use("/tmf-api/NewCon/v1/UpdateAgentCode", UpdateAgentCodeRoutes);
+app.use("/tmf-api/NewCon/v1/GetOrderStatus", GetOrderStatusRoutes);
+app.use("/tmf-api/NewCon/v1/CheckCRMLeadStatus", CheckCRMLeadStatusRoutes);
+
 app.use("/tmf-api/customerBillManagement/v5/UpdatePaymentLogs",updatePaymentLogsRoutes);
 app.use("/tmf-api/customerManagement/v5/GetTokenToCheckStatus",getTokenStatusRoutes);
 app.use("/tmf-api/productCatalogManagement/v4",voicePackageRoutes);
 app.use("/api/NewCon",ossLoopReservationRoutes);
 app.use("/tmf-api/productCatalogManagement/v4",checkExistCustomerRoutes);
+
 //Notifications
 app.use("/api/notifications", getPopupMessageBanner);
 app.use("/api/notifications", postPushNotifications); //uses TMF681
@@ -324,7 +365,13 @@ app.use('/api/dashboard', ftthLoginRoutes);
 app.use('/api/Dashboard/GetFTTHRequestStatusCount', ftthStatusRoutes);
 app.use('/api/dashboard', ftthPermissionRoutes);
 app.use('/api/dashboard', ftthChartRoutes);
+app.use('/api/Dashboard/GetFaultDashboard', getFaultDashboardRoutes);
+app.use('/api/Dashboard/GetSelectLOV', getSelectLOVRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
+app.use('/api/Dashboard', ftthDashboard);
+app.use("/api/Dashboard", ftthSpecificDataFilterRoutes);
+app.use("/api/Dashboard", ftthMapDataRoutes);
+app.use("/api/Dashboard", ebillDashboardRoutes); //uses TMF678
 
 // HealthCheck - TMF653 Service Test Management / TMF681 Communication Management
 app.use("/tmf-api/serviceTestManagement/v4", HealthCheck); //uses TMF653
@@ -347,6 +394,5 @@ app.use("/tmf-api/GenerateFTTHSecreatCode", generateFTTHSecreatCode)// tmf 622
 app.get('/', (req, res) => {
   res.send('Omini API Server is running ✅');
 });
-
 
 module.exports = app; // Export the Express app
