@@ -300,6 +300,10 @@ const GetAgentCodeRoutes = require("./NewCon/GETAgentCode/routes/getAgentCodeRou
 const UpdateAgentCodeRoutes = require("./NewCon/POSTUpdateAgentCode/routes/updateAgentCodeRoutes.js");
 const GetOrderStatusRoutes = require("./NewCon/GETOrderStatus/routes/getOrderStatusRoutes.js");
 const CheckCRMLeadStatusRoutes = require("./NewCon/GETCheckCRMLeadStatus/routes/checkCRMLeadStatusRoutes.js");
+//ISPSOA - BBVAS
+const freeDataRoutes     = require("./BBVAS/FreeData/routes/freeDataRoutes");
+const bonusDataRoutes    = require("./BBVAS/BonusData/routes/bonusDataRoutes");
+const myPackageRoutes    = require("./BBVAS/MyPackage/routes/myPackageRoutes");
 
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
@@ -377,6 +381,11 @@ app.use("/api/Dashboard", ebillDashboardRoutes); //uses TMF678
 app.use("/tmf-api/serviceTestManagement/v4", HealthCheck); //uses TMF653
 app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF681
 
+//ISPSOA - BBVAS
+app.use("/api/Dashboard/FreeData",               freeDataRoutes);
+app.use("/api/Dashboard/BonusData",              bonusDataRoutes);
+app.use("/api/Dashboard/GetDashboardVASBundles", getDashboardVASBundlesRoutes);
+app.use("/api/Dashboard/MyPackage",              myPackageRoutes);
 //NewCon
 // NewCon - Draft Data Management
 app.use("/tmf-api/customerBillManagement/v5/SaveDraftData", SaveDraftDataRoutes);
