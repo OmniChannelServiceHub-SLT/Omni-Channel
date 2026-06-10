@@ -157,6 +157,9 @@ const packageActivationRoutes = require("./YouTube/PackageActivation(OMNIExpose)
 // YouTube Offer
 const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRoutes");
 
+//ISP_SOA
+const previousMonthsDailyUsageRoutes = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes.js");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -376,6 +379,9 @@ app.use("/api/Dashboard", ebillDashboardRoutes); //uses TMF678
 // HealthCheck - TMF653 Service Test Management / TMF681 Communication Management
 app.use("/tmf-api/serviceTestManagement/v4", HealthCheck); //uses TMF653
 app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF681
+
+//ISP_SOA
+app.use("/api/ISP_SOA/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutes);
 
 //NewCon
 // NewCon - Draft Data Management
