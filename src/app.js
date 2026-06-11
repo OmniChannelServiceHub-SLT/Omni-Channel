@@ -160,10 +160,7 @@ const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRo
 
 //ISP_SOA
 const previousMonthsDailyUsageRoutes = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes.js");
-const ispsoaFreeDataRoutes = require('./ISP_SOA/GETFreeData/routes/getFreeDataRoutes');
-const ispsoaBonusDataRoutes = require('./ISP_SOA/GETBonusData/routes/getBonusDataRoutes');
-const ispsoaDashboardVASBundlesRoutes = require('./ISP_SOA/GETDashboardVASBundles/routes/getDashboardVASBundlesRoutes');
-const ispsoaMyPackageRoutes = require('./ISP_SOA/GETMyPackage/routes/getMyPackageRoutes');
+const currentMonthDailyUsageRoutes = require("./ISP_SOA/GETCurrentMonthDailyUsage/routes/currentMonthDailyUsageRoutes.js");
 
 // Middleware
 app.use(cors());
@@ -388,10 +385,7 @@ app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF68
 
 //ISP_SOA
 app.use("/api/ISP_SOA/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutes);
-app.use("/api/ISP_SOA/dashboard/free_data", ispsoaFreeDataRoutes);
-app.use("/api/ISP_SOA/dashboard/bonus_data", ispsoaBonusDataRoutes);
-app.use("/api/ISP_SOA/dashboard/vas_data", ispsoaDashboardVASBundlesRoutes);
-app.use("/api/ISP_SOA/dashboard/mypackage", ispsoaMyPackageRoutes);
+app.use("/api/ISP_SOA/CurrentMonthDailyUsage",currentMonthDailyUsageRoutes);
 
 //NewCon
 // NewCon - Draft Data Management
