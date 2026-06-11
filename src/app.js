@@ -132,7 +132,7 @@ const ftthPermissionRoutes = require('./Dashboard/SetFTTHPermission/routes/ftthP
 const ftthChartRoutes = require('./Dashboard/GetFTTHRequestCharts/routes/ftthChartRoutes');
 const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
 const ftthDashboard =require('./Dashboard/GetFTTHNCDashboard/routes/dashboardRoutes');
-const extraGBDashboard =require('./Dashboard/ExtraGBDashboard/routes/dashboardRoutes');
+const extraGBDashboard =require('./Dashboard/GetExtraGBDashboard/routes/dashboardRoutes');
 
 
 //HealthCheck

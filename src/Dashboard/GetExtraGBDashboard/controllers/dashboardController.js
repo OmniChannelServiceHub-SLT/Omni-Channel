@@ -5,7 +5,7 @@ exports.getExtraGBDashboard =
 async (req,res) => {
 
     try {
-
+        
         const data =
         await dashboardService
         .getExtraGBDashboard();
