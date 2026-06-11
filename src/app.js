@@ -134,6 +134,7 @@ const ftthDashboard =require('./Dashboard/GetFTTHNCDashboard/routes/dashboardRou
 const ftthSpecificDataFilterRoutes = require("./Dashboard/GETFTTHSpecificDataFilter/routes/ftthSpecificDataFilterRoutes");
 const ftthMapDataRoutes = require("./Dashboard/GETFTTHMapData/routes/ftthMapDataRoutes");
 const ebillDashboardRoutes = require("./Dashboard/GetEbillDashboard/routes/ebillDashboardRoutes");
+const addonsDashboardRoutes = require("./Dashboard/GetAddonsDashboard/routes/addonsDashboardRoutes");
 
 //HealthCheck
 const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
@@ -156,6 +157,13 @@ const packageActivationRoutes = require("./YouTube/PackageActivation(OMNIExpose)
 
 // YouTube Offer
 const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRoutes");
+
+//ISP_SOA
+const previousMonthsDailyUsageRoutes = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes.js");
+const ispsoaFreeDataRoutes = require('./ISP_SOA/GETFreeData/routes/getFreeDataRoutes');
+const ispsoaBonusDataRoutes = require('./ISP_SOA/GETBonusData/routes/getBonusDataRoutes');
+const ispsoaDashboardVASBundlesRoutes = require('./ISP_SOA/GETDashboardVASBundles/routes/getDashboardVASBundlesRoutes');
+const ispsoaMyPackageRoutes = require('./ISP_SOA/GETMyPackage/routes/getMyPackageRoutes');
 
 // Middleware
 app.use(cors());
@@ -300,10 +308,6 @@ const GetAgentCodeRoutes = require("./NewCon/GETAgentCode/routes/getAgentCodeRou
 const UpdateAgentCodeRoutes = require("./NewCon/POSTUpdateAgentCode/routes/updateAgentCodeRoutes.js");
 const GetOrderStatusRoutes = require("./NewCon/GETOrderStatus/routes/getOrderStatusRoutes.js");
 const CheckCRMLeadStatusRoutes = require("./NewCon/GETCheckCRMLeadStatus/routes/checkCRMLeadStatusRoutes.js");
-//ISPSOA - BBVAS
-const freeDataRoutes     = require("./BBVAS/FreeData/routes/freeDataRoutes");
-const bonusDataRoutes    = require("./BBVAS/BonusData/routes/bonusDataRoutes");
-const myPackageRoutes    = require("./BBVAS/MyPackage/routes/myPackageRoutes");
 
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);
@@ -376,16 +380,19 @@ app.use('/api/Dashboard', ftthDashboard);
 app.use("/api/Dashboard", ftthSpecificDataFilterRoutes);
 app.use("/api/Dashboard", ftthMapDataRoutes);
 app.use("/api/Dashboard", ebillDashboardRoutes); //uses TMF678
+app.use("/api/Dashboard", addonsDashboardRoutes); //uses TMF637
 
 // HealthCheck - TMF653 Service Test Management / TMF681 Communication Management
 app.use("/tmf-api/serviceTestManagement/v4", HealthCheck); //uses TMF653
 app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF681
 
-//ISPSOA - BBVAS
-app.use("/api/Dashboard/FreeData",               freeDataRoutes);
-app.use("/api/Dashboard/BonusData",              bonusDataRoutes);
-app.use("/api/Dashboard/GetDashboardVASBundles", getDashboardVASBundlesRoutes);
-app.use("/api/Dashboard/MyPackage",              myPackageRoutes);
+//ISP_SOA
+app.use("/api/ISP_SOA/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutes);
+app.use("/api/ISP_SOA/dashboard/free_data", ispsoaFreeDataRoutes);
+app.use("/api/ISP_SOA/dashboard/bonus_data", ispsoaBonusDataRoutes);
+app.use("/api/ISP_SOA/dashboard/vas_data", ispsoaDashboardVASBundlesRoutes);
+app.use("/api/ISP_SOA/dashboard/mypackage", ispsoaMyPackageRoutes);
+
 //NewCon
 // NewCon - Draft Data Management
 app.use("/tmf-api/customerBillManagement/v5/SaveDraftData", SaveDraftDataRoutes);
