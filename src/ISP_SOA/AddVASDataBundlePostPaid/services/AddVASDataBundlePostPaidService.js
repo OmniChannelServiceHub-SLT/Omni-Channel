@@ -1,31 +1,46 @@
 const ProductOrder =
 require("../../../models/TMF622_ProductOrder");
 
-const addVASDataBundlePostPaid =
-async (body) => {
+const addVASDataBundlePostPaid = async (body) => {
+
+    const orderId =
+    "PO" + Date.now();
 
     const order =
-    await ProductOrder.create({
+    new ProductOrder({
 
-        customerId:
-        body.customerId,
+        id: orderId,
 
-        bundleName:
-        body.bundleName,
+        description:
+        body.description,
 
-        dataVolume:
-        body.dataVolume,
+        state: "acknowledged",
 
-        validity:
-        body.validity,
+        productOrderItem: [
 
-        price:
-        body.price,
+            {
 
-        status:
-        "initiated"
+                id: "ITEM1",
+
+                action: "add",
+
+                quantity: 1,
+
+                productOffering: {
+
+                    id: body.packageId,
+
+                    name: body.packageName
+
+                }
+
+            }
+
+        ]
 
     });
+
+    await order.save();
 
     return order;
 };
