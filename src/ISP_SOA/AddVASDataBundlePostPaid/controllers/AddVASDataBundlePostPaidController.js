@@ -18,7 +18,9 @@ async (req,res)=>{
         res.status(500).json({
 
             "@type":"Error",
+
             code:"500",
+
             reason:error.message
 
         });
