@@ -1,24 +1,14 @@
-const ProductOffering = require("../../../models/TMF620_ProductOffering");
+const ProductOffering =
+require("../../../models/TMF620_ProductOffering");
 
 const getVASDataBundlePackages = async () => {
-  try {
 
-    const packages = await ProductOffering.find({
-      $or: [
-        { category: { $regex: /VAS/i } },
-        { offeringType: { $regex: /VAS/i } },
-        { name: { $regex: /VAS/i } }
-      ],
-      lifecycleStatus: "Active"
-    });
+    const packages =
+    await ProductOffering.find({});
 
     return packages;
-
-  } catch (error) {
-    throw error;
-  }
 };
 
 module.exports = {
-  getVASDataBundlePackages
+    getVASDataBundlePackages
 };
