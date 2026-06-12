@@ -164,6 +164,8 @@ const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRo
 const previousMonthsDailyUsageRoutes = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes.js");
 const currentMonthDailyUsageRoutes = require("./ISP_SOA/GETCurrentMonthDailyUsage/routes/currentMonthDailyUsageRoutes.js");
 
+const addVASDataBundlePostPaidRouter =require("./ISP_SOA/AddVASDataBundlePostPaid/routes/addVASDataBundlePostPaidRouter");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -390,6 +392,8 @@ app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF68
 //ISP_SOA
 app.use("/api/ISP_SOA/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutes);
 app.use("/api/ISP_SOA/CurrentMonthDailyUsage",currentMonthDailyUsageRoutes);
+
+app.use("/api/ISP_SOA",addVASDataBundlePostPaidRouter);
 
 //NewCon
 // NewCon - Draft Data Management
