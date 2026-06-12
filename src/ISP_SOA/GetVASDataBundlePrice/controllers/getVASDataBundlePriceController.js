@@ -8,13 +8,13 @@ async (req, res) => {
 
         const { id } = req.query;
 
-        if(!id){
+        if (!id) {
 
             return res.status(400).json({
 
-                "@type":"Error",
-                code:"400",
-                reason:"Package id is required"
+                "@type": "Error",
+                code: "400",
+                reason: "Package id is required"
 
             });
 
@@ -23,13 +23,13 @@ async (req, res) => {
         const packageData =
         await service.getVASDataBundlePrice(id);
 
-        if(!packageData){
+        if (!packageData) {
 
             return res.status(404).json({
 
-                "@type":"Error",
-                code:"404",
-                reason:"Package not found"
+                "@type": "Error",
+                code: "404",
+                reason: "Package not found"
 
             });
 
@@ -41,24 +41,24 @@ async (req, res) => {
 
             name: packageData.name,
 
-            description:
-            packageData.description,
+            description: packageData.description,
 
-            price:
-            packageData.productOfferingPrice,
+            price: packageData.price,
 
-            "@type":"ProductOffering"
+            "@type": "ProductOffering"
 
         });
 
     }
-    catch(error){
+    catch (error) {
+
+        console.error(error);
 
         res.status(500).json({
 
-            "@type":"Error",
-            code:"500",
-            reason:error.message
+            "@type": "Error",
+            code: "500",
+            reason: error.message
 
         });
 

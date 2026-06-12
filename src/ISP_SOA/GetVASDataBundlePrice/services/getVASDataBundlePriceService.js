@@ -1,22 +1,14 @@
 const ProductOffering =
 require("../../../models/TMF620_ProductOffering");
 
-const getVASDataBundlePrice = async (id) => {
+const getVASDataBundlePrice = async () => {
 
-    try {
+    const data =
+    await ProductOffering.find();
 
-        const packageData =
-        await ProductOffering.findOne({ id });
+    console.log(data);
 
-        return packageData;
-
-    }
-    catch(error){
-
-        throw error;
-
-    }
-
+    return data[0];
 };
 
 module.exports = {

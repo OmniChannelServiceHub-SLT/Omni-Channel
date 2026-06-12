@@ -5,7 +5,7 @@ const router =
 express.Router();
 
 const controller =
-require("../controller/getVASDataBundlePriceController");
+require("../controllers/getVASDataBundlePriceController");
 
 router.get(
     "/GetVASDataBundlePrice",
