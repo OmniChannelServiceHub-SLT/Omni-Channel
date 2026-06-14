@@ -160,6 +160,7 @@ const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRo
 
 //ISP_SOA
 const previousMonthsDailyUsageRoutes = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes.js");
+const validateDataTransferSubRoutes = require("./ISP_SOA/GETValidateDataTransferSub/routes/validateDataTransferSubRoutes.js");
 
 // Middleware
 app.use(cors());
@@ -384,6 +385,7 @@ app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF68
 
 //ISP_SOA
 app.use("/api/ISP_SOA/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutes);
+app.use("/api/ISP_SOA/ValidateDataTransferSub", validateDataTransferSubRoutes);
 
 //NewCon
 // NewCon - Draft Data Management
