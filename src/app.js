@@ -131,10 +131,12 @@ const getFaultDashboardRoutes = require('./Dashboard/GetFaultDashboard/routes/ge
 const getSelectLOVRoutes = require('./Dashboard/GetSelectLOV/routes/getSelectLOVRoutes');
 const confirmRoutes = require('./PrePaid/POST PurchasedAdvancedReports-Prepaid-Confirm/routes/confirmOrderRoutes');
 const ftthDashboard =require('./Dashboard/GetFTTHNCDashboard/routes/dashboardRoutes');
+const extraGBDashboard =require('./Dashboard/GetExtraGBDashboard/routes/dashboardRoutes');
 const ftthSpecificDataFilterRoutes = require("./Dashboard/GETFTTHSpecificDataFilter/routes/ftthSpecificDataFilterRoutes");
 const ftthMapDataRoutes = require("./Dashboard/GETFTTHMapData/routes/ftthMapDataRoutes");
 const ebillDashboardRoutes = require("./Dashboard/GetEbillDashboard/routes/ebillDashboardRoutes");
 const addonsDashboardRoutes = require("./Dashboard/GetAddonsDashboard/routes/addonsDashboardRoutes");
+
 
 //HealthCheck
 const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
@@ -160,11 +162,20 @@ const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRo
 
 //ISP_SOA
 const previousMonthsDailyUsageRoutes = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes.js");
+const dataTransferAmountsRoutes = require("./ISP_SOA/GETDataTransferAmounts/routes/dataTransferAmountsRoutes.js");
+const validateDataTransferSubRoutes = require("./ISP_SOA/GETValidateDataTransferSub/routes/validateDataTransferSubRoutes.js");
+const authenticateRoutes = require("./ISP_SOA/GETAuthenticate/routes/authenticateRoutes.js");
 const currentMonthDailyUsageRoutes = require("./ISP_SOA/GETCurrentMonthDailyUsage/routes/currentMonthDailyUsageRoutes.js");
 const ispsoaFreeDataRoutes = require('./ISP_SOA/GETFreeData/routes/getFreeDataRoutes');
 const ispsoaBonusDataRoutes = require('./ISP_SOA/GETBonusData/routes/getBonusDataRoutes');
 const ispsoaDashboardVASBundlesRoutes = require('./ISP_SOA/GETDashboardVASBundles/routes/getDashboardVASBundlesRoutes');
 const ispsoaMyPackageRoutes = require('./ISP_SOA/GETMyPackage/routes/getMyPackageRoutes');
+const getVASDataBundlePackagesRouter =require("./ISP_SOA/GetVASDataBundlePackages/routes/getVASDataBundlePackagesRouter");
+const addVASDataBundlePostPaidRouter =require("./ISP_SOA/AddVASDataBundlePostPaid/routes/addVASDataBundlePostPaidRouter");
+const redeemVoucherRoutes = require("./ISP_SOA/POSTRedeemVoucher/routes/redeemVoucherRoutes");
+const happyDayRoutes = require("./ISP_SOA/POSTHappyDay/routes/happyDayRoutes");
+const upgradeLoyaltyRoutes = require("./ISP_SOA/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes");
+const changeBBPasswordRoutes = require("./ISP_SOA/PUTChangeBBPassword/routes/changeBBPasswordRoutes");
 
 // Middleware
 app.use(cors());
@@ -378,10 +389,12 @@ app.use('/api/Dashboard/GetFaultDashboard', getFaultDashboardRoutes);
 app.use('/api/Dashboard/GetSelectLOV', getSelectLOVRoutes);
 app.use('/tmf-api/productOrdering/v4/productOrder/confirm', confirmRoutes);
 app.use('/api/Dashboard', ftthDashboard);
+app.use('/api/Dashboard',extraGBDashboard);
 app.use("/api/Dashboard", ftthSpecificDataFilterRoutes);
 app.use("/api/Dashboard", ftthMapDataRoutes);
 app.use("/api/Dashboard", ebillDashboardRoutes); //uses TMF678
 app.use("/api/Dashboard", addonsDashboardRoutes); //uses TMF637
+
 
 // HealthCheck - TMF653 Service Test Management / TMF681 Communication Management
 app.use("/tmf-api/serviceTestManagement/v4", HealthCheck); //uses TMF653
@@ -389,11 +402,25 @@ app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF68
 
 //ISP_SOA
 app.use("/api/ISP_SOA/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutes);
+app.use("/api/ISP_SOA/GetDataTransferAmounts", dataTransferAmountsRoutes);
+app.use("/api/ISP_SOA/ValidateDataTransferSub", validateDataTransferSubRoutes);
+app.use("/api/ISP_SOA/Authenticate", authenticateRoutes);
 app.use("/api/ISP_SOA/CurrentMonthDailyUsage",currentMonthDailyUsageRoutes);
 app.use("/api/ISP_SOA/dashboard/free_data", ispsoaFreeDataRoutes);
 app.use("/api/ISP_SOA/dashboard/bonus_data", ispsoaBonusDataRoutes);
 app.use("/api/ISP_SOA/dashboard/vas_data", ispsoaDashboardVASBundlesRoutes);
 app.use("/api/ISP_SOA/dashboard/mypackage", ispsoaMyPackageRoutes);
+app.use("/api/ISP_SOA",getVASDataBundlePackagesRouter);
+app.use("/api/isp-soa", redeemVoucherRoutes);
+app.use("/tmf-api/productOrderingManagement/v4", redeemVoucherRoutes);
+app.use("/api/isp-soa", happyDayRoutes);
+app.use("/tmf-api/productOrderingManagement/v4", happyDayRoutes);
+app.use("/api/isp-soa", upgradeLoyaltyRoutes);
+app.use("/tmf-api/customerManagement/v4", upgradeLoyaltyRoutes);
+app.use("/api/isp-soa", changeBBPasswordRoutes);
+app.use("/tmf-api/customerManagement/v4", changeBBPasswordRoutes);
+app.use("/api/ISP_SOA",addVASDataBundlePostPaidRouter);
+
 
 //NewCon
 // NewCon - Draft Data Management
