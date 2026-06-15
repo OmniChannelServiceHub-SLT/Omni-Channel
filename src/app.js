@@ -162,6 +162,7 @@ const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRo
 
 //ISP_SOA
 const previousMonthsDailyUsageRoutes = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes.js");
+const dataTransferAmountsRoutes = require("./ISP_SOA/GETDataTransferAmounts/routes/dataTransferAmountsRoutes.js");
 const validateDataTransferSubRoutes = require("./ISP_SOA/GETValidateDataTransferSub/routes/validateDataTransferSubRoutes.js");
 const authenticateRoutes = require("./ISP_SOA/GETAuthenticate/routes/authenticateRoutes.js");
 const currentMonthDailyUsageRoutes = require("./ISP_SOA/GETCurrentMonthDailyUsage/routes/currentMonthDailyUsageRoutes.js");
@@ -394,6 +395,7 @@ app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF68
 
 //ISP_SOA
 app.use("/api/ISP_SOA/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutes);
+app.use("/api/ISP_SOA/GetDataTransferAmounts", dataTransferAmountsRoutes);
 app.use("/api/ISP_SOA/ValidateDataTransferSub", validateDataTransferSubRoutes);
 app.use("/api/ISP_SOA/Authenticate", authenticateRoutes);
 app.use("/api/ISP_SOA/CurrentMonthDailyUsage",currentMonthDailyUsageRoutes);
@@ -405,6 +407,7 @@ app.use("/api/isp-soa", upgradeLoyaltyRoutes);
 app.use("/tmf-api/customerManagement/v4", upgradeLoyaltyRoutes);
 app.use("/api/isp-soa", changeBBPasswordRoutes);
 app.use("/tmf-api/customerManagement/v4", changeBBPasswordRoutes);
+
 //NewCon
 // NewCon - Draft Data Management
 app.use("/tmf-api/customerBillManagement/v5/SaveDraftData", SaveDraftDataRoutes);
