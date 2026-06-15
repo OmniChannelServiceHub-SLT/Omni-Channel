@@ -166,10 +166,12 @@ const dataTransferAmountsRoutes = require("./ISP_SOA/GETDataTransferAmounts/rout
 const validateDataTransferSubRoutes = require("./ISP_SOA/GETValidateDataTransferSub/routes/validateDataTransferSubRoutes.js");
 const authenticateRoutes = require("./ISP_SOA/GETAuthenticate/routes/authenticateRoutes.js");
 const currentMonthDailyUsageRoutes = require("./ISP_SOA/GETCurrentMonthDailyUsage/routes/currentMonthDailyUsageRoutes.js");
+const addVASDataBundlePostPaidRouter =require("./ISP_SOA/AddVASDataBundlePostPaid/routes/addVASDataBundlePostPaidRouter");
 const redeemVoucherRoutes = require("./ISP_SOA/POSTRedeemVoucher/routes/redeemVoucherRoutes");
 const happyDayRoutes = require("./ISP_SOA/POSTHappyDay/routes/happyDayRoutes");
 const upgradeLoyaltyRoutes = require("./ISP_SOA/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes");
 const changeBBPasswordRoutes = require("./ISP_SOA/PUTChangeBBPassword/routes/changeBBPasswordRoutes");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -407,6 +409,8 @@ app.use("/api/isp-soa", upgradeLoyaltyRoutes);
 app.use("/tmf-api/customerManagement/v4", upgradeLoyaltyRoutes);
 app.use("/api/isp-soa", changeBBPasswordRoutes);
 app.use("/tmf-api/customerManagement/v4", changeBBPasswordRoutes);
+
+app.use("/api/ISP_SOA",addVASDataBundlePostPaidRouter);
 
 //NewCon
 // NewCon - Draft Data Management
