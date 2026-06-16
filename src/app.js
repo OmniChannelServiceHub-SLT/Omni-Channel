@@ -176,6 +176,8 @@ const redeemVoucherRoutes = require("./ISP_SOA/POSTRedeemVoucher/routes/redeemVo
 const happyDayRoutes = require("./ISP_SOA/POSTHappyDay/routes/happyDayRoutes");
 const upgradeLoyaltyRoutes = require("./ISP_SOA/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes");
 const changeBBPasswordRoutes = require("./ISP_SOA/PUTChangeBBPassword/routes/changeBBPasswordRoutes");
+const vasBundleUnsubscriptionRouter =require("./ISP_SOA/VASBundleUnsubscription/routes/vasBundleUnsubscriptionRouter");
+
 
 // Middleware
 app.use(cors());
@@ -420,7 +422,7 @@ app.use("/tmf-api/customerManagement/v4", upgradeLoyaltyRoutes);
 app.use("/api/isp-soa", changeBBPasswordRoutes);
 app.use("/tmf-api/customerManagement/v4", changeBBPasswordRoutes);
 app.use("/api/ISP_SOA",addVASDataBundlePostPaidRouter);
-
+app.use("/api/ISP_SOA",vasBundleUnsubscriptionRouter);
 
 //NewCon
 // NewCon - Draft Data Management
