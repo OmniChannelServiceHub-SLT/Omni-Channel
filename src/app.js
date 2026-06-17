@@ -180,6 +180,8 @@ const protocolReportRoutes = require("./ISP_SOA/GETProtocolReport/routes/protoco
 const advertisementListRoutes = require("./ISP_SOA/AdvertisementGetList/routes/advertisementListRoutes");
 const subtokenDirectRoutes = require("./ISP_SOA/GETSubtokenDirect/routes/subtokenRoute");
 const purchaseHistoryRoutes = require("./ISP_SOA/GETPurchaseHistory/routes/purchaseHistoryRoutes");
+const extraGBRoutes = require("./ISP_SOA/GETExtraGB/routes/extraGBRoutes");
+const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoutes");
 
 // Middleware
 app.use(cors());
@@ -428,6 +430,9 @@ app.use("/api/ISP_SOA/ProtocolReport",protocolReportRoutes);
 app.use("/api/ISP_SOA/AdvertisementGetList",advertisementListRoutes);
 app.use("/api/ISP_SOA/SubtokenDirect", subtokenDirectRoutes);
 app.use("/api/ISP_SOA/GetPurchaseHistory",purchaseHistoryRoutes);
+app.use("/api/ISP_SOA/ExtraGB",extraGBRoutes);
+app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
+
 
 //NewCon
 // NewCon - Draft Data Management
