@@ -1,6 +1,7 @@
 const dashboardService = require('../services/dashboardService');
 
 exports.getExtraGBDashboard = async (req, res) => {
+  
   try {
     // Get all dashboard data (no username filter)
     const dashboardData = await dashboardService.getDashboardData({});
