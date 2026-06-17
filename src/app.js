@@ -162,6 +162,7 @@ const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRo
 
 //ISP_SOA
 const previousMonthsDailyUsageRoutes = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes.js");
+const updateContactRoutes = require("./ISP_SOA/PUTUpdateContact/routes/updateContactRoutes.js");
 const dataTransferAmountsRoutes = require("./ISP_SOA/GETDataTransferAmounts/routes/dataTransferAmountsRoutes.js");
 const validateDataTransferSubRoutes = require("./ISP_SOA/GETValidateDataTransferSub/routes/validateDataTransferSubRoutes.js");
 const authenticateRoutes = require("./ISP_SOA/GETAuthenticate/routes/authenticateRoutes.js");
@@ -184,6 +185,7 @@ const subtokenDirectRoutes = require("./ISP_SOA/GETSubtokenDirect/routes/subtoke
 const purchaseHistoryRoutes = require("./ISP_SOA/GETPurchaseHistory/routes/purchaseHistoryRoutes");
 const extraGBRoutes = require("./ISP_SOA/GETExtraGB/routes/extraGBRoutes");
 const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoutes");
+
 
 // Middleware
 app.use(cors());
@@ -410,6 +412,7 @@ app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF68
 
 //ISP_SOA
 app.use("/api/ISP_SOA/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutes);
+app.use("/api/ISP_SOA/UpdateContact", updateContactRoutes);
 app.use("/api/ISP_SOA/GetDataTransferAmounts", dataTransferAmountsRoutes);
 app.use("/api/ISP_SOA/ValidateDataTransferSub", validateDataTransferSubRoutes);
 app.use("/api/ISP_SOA/Authenticate", authenticateRoutes);
