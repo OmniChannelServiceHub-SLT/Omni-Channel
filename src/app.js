@@ -179,6 +179,9 @@ const changeBBPasswordRoutes = require("./ISP_SOA/PUTChangeBBPassword/routes/cha
 const vasBundleUnsubscriptionRouter =require("./ISP_SOA/VASBundleUnsubscription/routes/vasBundleUnsubscriptionRouter");
 const transferDataRouter =require("./ISP_SOA/TransferData/routes/transferDataRouter");
 
+//ISP_Direct
+const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedReportsPostPaid/routes/purchaseAdvancedReportsRouter");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -424,6 +427,10 @@ app.use("/tmf-api/customerManagement/v4", changeBBPasswordRoutes);
 app.use("/api/ISP_SOA",addVASDataBundlePostPaidRouter);
 app.use("/api/ISP_SOA",vasBundleUnsubscriptionRouter);
 app.use("/api/ISP_SOA",transferDataRouter);
+
+//ISP_Direct
+app.use("/api/ISP_Direct",purchaseAdvancedReportsRouter);
+
 
 //NewCon
 // NewCon - Draft Data Management
