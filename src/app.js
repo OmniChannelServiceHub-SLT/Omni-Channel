@@ -189,6 +189,7 @@ const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoute
 
 //ISP_Direct
 const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedReportsPostPaid/routes/purchaseAdvancedReportsRouter");
+const transferDataRouter =require("./ISP_Direct/TransferData/routes/transferDataRouter");
 
 // Middleware
 app.use(cors());
@@ -446,7 +447,7 @@ app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
 
 //ISP_Direct
 app.use("/api/ISP_Direct",purchaseAdvancedReportsRouter);
-
+app.use("/api/ISP_Direct",transferDataRouter);
 
 //NewCon
 // NewCon - Draft Data Management
