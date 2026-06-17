@@ -177,6 +177,7 @@ const happyDayRoutes = require("./ISP_SOA/POSTHappyDay/routes/happyDayRoutes");
 const upgradeLoyaltyRoutes = require("./ISP_SOA/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes");
 const changeBBPasswordRoutes = require("./ISP_SOA/PUTChangeBBPassword/routes/changeBBPasswordRoutes");
 const protocolReportRoutes = require("./ISP_SOA/GETProtocolReport/routes/protocolReportRoutes.js");
+const advertisementListRoutes = require("./ISP_SOA/AdvertisementGetList/routes/advertisementListRoutes");
 
 // Middleware
 app.use(cors());
@@ -422,6 +423,7 @@ app.use("/api/isp-soa", changeBBPasswordRoutes);
 app.use("/tmf-api/customerManagement/v4", changeBBPasswordRoutes);
 app.use("/api/ISP_SOA",addVASDataBundlePostPaidRouter);
 app.use("/api/ISP_SOA/ProtocolReport",protocolReportRoutes);
+app.use("/api/ISP_SOA/AdvertisementGetList",advertisementListRoutes);
 
 
 //NewCon
