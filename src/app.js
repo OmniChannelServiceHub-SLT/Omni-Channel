@@ -176,6 +176,7 @@ const redeemVoucherRoutes = require("./ISP_SOA/POSTRedeemVoucher/routes/redeemVo
 const happyDayRoutes = require("./ISP_SOA/POSTHappyDay/routes/happyDayRoutes");
 const upgradeLoyaltyRoutes = require("./ISP_SOA/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes");
 const changeBBPasswordRoutes = require("./ISP_SOA/PUTChangeBBPassword/routes/changeBBPasswordRoutes");
+const extraGBRoutes = require("./ISP_SOA/GETExtraGB/routes/extraGBRoutes");
 const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoutes");
 
 // Middleware
@@ -421,6 +422,7 @@ app.use("/tmf-api/customerManagement/v4", upgradeLoyaltyRoutes);
 app.use("/api/isp-soa", changeBBPasswordRoutes);
 app.use("/tmf-api/customerManagement/v4", changeBBPasswordRoutes);
 app.use("/api/ISP_SOA",addVASDataBundlePostPaidRouter);
+app.use("/api/ISP_SOA/ExtraGB",extraGBRoutes);
 app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
 
 
