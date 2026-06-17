@@ -178,6 +178,12 @@ const upgradeLoyaltyRoutes = require("./ISP_SOA/PUTUpgradeLoyalty/routes/upgrade
 const changeBBPasswordRoutes = require("./ISP_SOA/PUTChangeBBPassword/routes/changeBBPasswordRoutes");
 const vasBundleUnsubscriptionRouter =require("./ISP_SOA/VASBundleUnsubscription/routes/vasBundleUnsubscriptionRouter");
 const transferDataRouter =require("./ISP_SOA/TransferData/routes/transferDataRouter");
+const protocolReportRoutes = require("./ISP_SOA/GETProtocolReport/routes/protocolReportRoutes.js");
+const advertisementListRoutes = require("./ISP_SOA/AdvertisementGetList/routes/advertisementListRoutes");
+const subtokenDirectRoutes = require("./ISP_SOA/GETSubtokenDirect/routes/subtokenRoute");
+const purchaseHistoryRoutes = require("./ISP_SOA/GETPurchaseHistory/routes/purchaseHistoryRoutes");
+const extraGBRoutes = require("./ISP_SOA/GETExtraGB/routes/extraGBRoutes");
+const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoutes");
 
 // Middleware
 app.use(cors());
@@ -424,6 +430,13 @@ app.use("/tmf-api/customerManagement/v4", changeBBPasswordRoutes);
 app.use("/api/ISP_SOA",addVASDataBundlePostPaidRouter);
 app.use("/api/ISP_SOA",vasBundleUnsubscriptionRouter);
 app.use("/api/ISP_SOA",transferDataRouter);
+app.use("/api/ISP_SOA/ProtocolReport",protocolReportRoutes);
+app.use("/api/ISP_SOA/AdvertisementGetList",advertisementListRoutes);
+app.use("/api/ISP_SOA/SubtokenDirect", subtokenDirectRoutes);
+app.use("/api/ISP_SOA/GetPurchaseHistory",purchaseHistoryRoutes);
+app.use("/api/ISP_SOA/ExtraGB",extraGBRoutes);
+app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
+
 
 //NewCon
 // NewCon - Draft Data Management
