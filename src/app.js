@@ -186,7 +186,6 @@ const purchaseHistoryRoutes = require("./ISP_SOA/GETPurchaseHistory/routes/purch
 const extraGBRoutes = require("./ISP_SOA/GETExtraGB/routes/extraGBRoutes");
 const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoutes");
 
-
 //ISP_Direct
 const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedReportsPostPaid/routes/purchaseAdvancedReportsRouter");
 const isp_direct_transferDataRouter =require("./ISP_Direct/TransferData/routes/transferDataRouter");
@@ -444,7 +443,6 @@ app.use("/api/ISP_SOA/GetPurchaseHistory",purchaseHistoryRoutes);
 app.use("/api/ISP_SOA/ExtraGB",extraGBRoutes);
 app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
 
-
 //ISP_Direct
 app.use("/api/ISP_Direct",purchaseAdvancedReportsRouter);
 app.use("/api/ISP_Direct",isp_direct_transferDataRouter);
@@ -456,7 +454,6 @@ app.use("/tmf-api/customerBillManagement/v5/SaveDraftDataLTE", SaveDraftDataLTER
 app.use("/tmf-api/customerBillManagement/v5/UpdateDraftDataV2", UpdateDraftDataV2Routes);
 app.use("/tmf-api/customerBillManagement/v5/UpdateDraftDataLTE", UpdateDraftDataLTERoutes);
 app.use("/tmf-api/customerBillManagement/v5/GetDraftDataV2", GetDraftDataV2Routes);
-
 
 app.use("/tmf-api/UploadMultipartSingle", uploadMultipartSinglev2) // TMF663
 app.use("/tmf-api/UploadSingle", uploadSingle) // TMF663
