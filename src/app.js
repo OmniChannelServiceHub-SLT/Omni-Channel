@@ -191,6 +191,9 @@ const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedRepor
 const isp_direct_transferDataRouter =require("./ISP_Direct/TransferData/routes/transferDataRouter");
 const previousMonthsDailyUsageRoutesV2 = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes");
 
+//ISP_Direct
+const addVASDataBundleRoutes = require("./ISP_Direct/AddVASDataBundlePostPaid/routes/addVASDataBundleRoutes");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -448,6 +451,10 @@ app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
 app.use("/api/ISP_Direct",purchaseAdvancedReportsRouter);
 app.use("/api/ISP_Direct",isp_direct_transferDataRouter);
 app.use("/tmf-api/usageManagement/v4/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutesV2);
+
+//ISP_Direct
+app.use("/api/isp-direct", addVASDataBundleRoutes);
+app.use("/tmf-api/productOrderingManagement/v4", addVASDataBundleRoutes);
 
 //NewCon
 // NewCon - Draft Data Management
