@@ -193,6 +193,11 @@ const previousMonthsDailyUsageRoutesV2 = require("./ISP_SOA/GETPreviousMonthsDai
 const ispDirectUpgradeLoyaltyRoutes = require("./ISP_Direct/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
 const ispDirectChangeBBPasswordRoutes = require("./ISP_Direct/PUTChangeBBPassword/routes/changeBBPasswordRoutes.js");
 
+
+
+//ISP_Direct
+const vasBundleUnsubscriptionRoutes = require("./ISP_Direct/VASBundleUnsubscription/routes/vasBundleUnsubscriptionRoutes");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -454,6 +459,11 @@ app.use("/api/ISP_Direct/UpgradeLoyalty", ispDirectUpgradeLoyaltyRoutes);
 app.use("/api/ISP_Direct/ChangeBBPassword", ispDirectChangeBBPasswordRoutes);
 
 
+
+//ISP_Direct
+
+app.use("/api/isp-direct", vasBundleUnsubscriptionRoutes);
+app.use("/tmf-api/productOrderingManagement/v4", vasBundleUnsubscriptionRoutes);
 
 //NewCon
 // NewCon - Draft Data Management
