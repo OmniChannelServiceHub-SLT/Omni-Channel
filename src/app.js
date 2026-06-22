@@ -196,6 +196,9 @@ const ispDirectChangeBBPasswordRoutes = require("./ISP_Direct/PUTChangeBBPasswor
 const vasBundleUnsubscriptionRoutes = require("./ISP_Direct/VASBundleUnsubscription/routes/vasBundleUnsubscriptionRoutes");
 
 
+//ISP_Direct
+const addVASDataBundleRoutes = require("./ISP_Direct/AddVASDataBundlePostPaid/routes/addVASDataBundleRoutes");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -460,6 +463,10 @@ app.use("/api/ISP_Direct/ChangeBBPassword", ispDirectChangeBBPasswordRoutes);
 app.use("/api/isp-direct", vasBundleUnsubscriptionRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", vasBundleUnsubscriptionRoutes);
 
+
+//ISP_Direct
+app.use("/api/isp-direct", addVASDataBundleRoutes);
+app.use("/tmf-api/productOrderingManagement/v4", addVASDataBundleRoutes);
 
 //NewCon
 // NewCon - Draft Data Management
