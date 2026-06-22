@@ -191,7 +191,7 @@ const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedRepor
 const isp_direct_transferDataRouter =require("./ISP_Direct/TransferData/routes/transferDataRouter");
 const previousMonthsDailyUsageRoutesV2 = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes");
 const ispDirectUpgradeLoyaltyRoutes = require("./ISP_Direct/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
-
+const ispDirectChangeBBPasswordRoutes = require("./ISP_Direct/PUTChangeBBPassword/routes/changeBBPasswordRoutes.js");
 
 // Middleware
 app.use(cors());
@@ -451,6 +451,9 @@ app.use("/api/ISP_Direct",purchaseAdvancedReportsRouter);
 app.use("/api/ISP_Direct",isp_direct_transferDataRouter);
 app.use("/tmf-api/usageManagement/v4/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutesV2);
 app.use("/api/ISP_Direct/UpgradeLoyalty", ispDirectUpgradeLoyaltyRoutes);
+app.use("/api/ISP_Direct/ChangeBBPassword", ispDirectChangeBBPasswordRoutes);
+
+
 
 //NewCon
 // NewCon - Draft Data Management
