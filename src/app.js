@@ -196,6 +196,9 @@ const ispDirectUpgradeLoyaltyRoutes = require("./ISP_Direct/PUTUpgradeLoyalty/ro
 const ispDirectChangeBBPasswordRoutes = require("./ISP_Direct/PUTChangeBBPassword/routes/changeBBPasswordRoutes.js");
 const vasBundleUnsubscriptionRoutes = require("./ISP_Direct/VASBundleUnsubscription/routes/vasBundleUnsubscriptionRoutes");
 const addVASDataBundleRoutes = require("./ISP_Direct/AddVASDataBundlePostPaid/routes/addVASDataBundleRoutes");
+const ispDirectMyPackageRoutes = require("./ISP_Direct/MyPackage/routes/myPackageRoutes.js");
+const ispDirectEnhancedCurrentDailyUsageRoutes = require("./ISP_Direct/EnhancedCurrentDailyUsage/routes/enhancedCurrentDailyUsageRoutes.js");
+const ispDirectEnhancedPreviousDailyUsageRoutes = require("./ISP_Direct/EnhancedPreviousDailyUsage/routes/enhancedPreviousDailyUsageRoutes.js");
 
 
 // Middleware
@@ -460,6 +463,9 @@ app.use("/api/isp-direct", getVASBundlePackagesRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", getVASBundlePackagesRoutes);
 app.use("/api/ISP_Direct/UpgradeLoyalty", ispDirectUpgradeLoyaltyRoutes);
 app.use("/api/ISP_Direct/ChangeBBPassword", ispDirectChangeBBPasswordRoutes);
+app.use("/api/ISP_Direct/MyPackage", ispDirectMyPackageRoutes);
+app.use("/api/ISP_Direct/EnhancedCurrentDailyUsage", ispDirectEnhancedCurrentDailyUsageRoutes);
+app.use("/api/ISP_Direct/EnhancedPreviousDailyUsage", ispDirectEnhancedPreviousDailyUsageRoutes);
 app.use("/api/isp-direct", vasBundleUnsubscriptionRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", vasBundleUnsubscriptionRoutes);
 app.use("/api/isp-direct", addVASDataBundleRoutes);
