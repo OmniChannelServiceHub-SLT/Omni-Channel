@@ -162,6 +162,7 @@ const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRo
 
 //ISP_SOA
 const previousMonthsDailyUsageRoutes = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes.js");
+const updateContactRoutes = require("./ISP_SOA/PUTUpdateContact/routes/updateContactRoutes.js");
 const dataTransferAmountsRoutes = require("./ISP_SOA/GETDataTransferAmounts/routes/dataTransferAmountsRoutes.js");
 const validateDataTransferSubRoutes = require("./ISP_SOA/GETValidateDataTransferSub/routes/validateDataTransferSubRoutes.js");
 const authenticateRoutes = require("./ISP_SOA/GETAuthenticate/routes/authenticateRoutes.js");
@@ -176,6 +177,29 @@ const redeemVoucherRoutes = require("./ISP_SOA/POSTRedeemVoucher/routes/redeemVo
 const happyDayRoutes = require("./ISP_SOA/POSTHappyDay/routes/happyDayRoutes");
 const upgradeLoyaltyRoutes = require("./ISP_SOA/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes");
 const changeBBPasswordRoutes = require("./ISP_SOA/PUTChangeBBPassword/routes/changeBBPasswordRoutes");
+const vasBundleUnsubscriptionRouter =require("./ISP_SOA/VASBundleUnsubscription/routes/vasBundleUnsubscriptionRouter");
+const transferDataRouter =require("./ISP_SOA/TransferData/routes/transferDataRouter");
+const protocolReportRoutes = require("./ISP_SOA/GETProtocolReport/routes/protocolReportRoutes.js");
+const advertisementListRoutes = require("./ISP_SOA/AdvertisementGetList/routes/advertisementListRoutes");
+const subtokenDirectRoutes = require("./ISP_SOA/GETSubtokenDirect/routes/subtokenRoute");
+const purchaseHistoryRoutes = require("./ISP_SOA/GETPurchaseHistory/routes/purchaseHistoryRoutes");
+const extraGBRoutes = require("./ISP_SOA/GETExtraGB/routes/extraGBRoutes");
+const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoutes");
+
+//ISP_Direct
+const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedReportsPostPaid/routes/purchaseAdvancedReportsRouter");
+const isp_direct_transferDataRouter =require("./ISP_Direct/TransferData/routes/transferDataRouter");
+const previousMonthsDailyUsageRoutesV2 = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes");
+const ispDirectWeeksUsageRoutes = require("./ISP_Direct/GET WeeksUsage/Route/weeksUsageRoute.js");
+const getVASBundlePackagesRoutes = require("./ISP_Direct/GetVASDataBundlePackages/routes/getVASBundlePackagesRoutes");
+const ispDirectUpgradeLoyaltyRoutes = require("./ISP_Direct/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
+const ispDirectChangeBBPasswordRoutes = require("./ISP_Direct/PUTChangeBBPassword/routes/changeBBPasswordRoutes.js");
+const vasBundleUnsubscriptionRoutes = require("./ISP_Direct/VASBundleUnsubscription/routes/vasBundleUnsubscriptionRoutes");
+const addVASDataBundleRoutes = require("./ISP_Direct/AddVASDataBundlePostPaid/routes/addVASDataBundleRoutes");
+const ispDirectMyPackageRoutes = require("./ISP_Direct/MyPackage/routes/myPackageRoutes.js");
+const ispDirectEnhancedCurrentDailyUsageRoutes = require("./ISP_Direct/EnhancedCurrentDailyUsage/routes/enhancedCurrentDailyUsageRoutes.js");
+const ispDirectEnhancedPreviousDailyUsageRoutes = require("./ISP_Direct/EnhancedPreviousDailyUsage/routes/enhancedPreviousDailyUsageRoutes.js");
+
 
 // Middleware
 app.use(cors());
@@ -402,6 +426,7 @@ app.use("/tmf-api/communicationManagement/v4", NotificationDetail); //uses TMF68
 
 //ISP_SOA
 app.use("/api/ISP_SOA/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutes);
+app.use("/api/ISP_SOA/UpdateContact", updateContactRoutes);
 app.use("/api/ISP_SOA/GetDataTransferAmounts", dataTransferAmountsRoutes);
 app.use("/api/ISP_SOA/ValidateDataTransferSub", validateDataTransferSubRoutes);
 app.use("/api/ISP_SOA/Authenticate", authenticateRoutes);
@@ -420,6 +445,31 @@ app.use("/tmf-api/customerManagement/v4", upgradeLoyaltyRoutes);
 app.use("/api/isp-soa", changeBBPasswordRoutes);
 app.use("/tmf-api/customerManagement/v4", changeBBPasswordRoutes);
 app.use("/api/ISP_SOA",addVASDataBundlePostPaidRouter);
+app.use("/api/ISP_SOA",vasBundleUnsubscriptionRouter);
+app.use("/api/ISP_SOA",transferDataRouter);
+app.use("/api/ISP_SOA/ProtocolReport",protocolReportRoutes);
+app.use("/api/ISP_SOA/AdvertisementGetList",advertisementListRoutes);
+app.use("/api/ISP_SOA/SubtokenDirect", subtokenDirectRoutes);
+app.use("/api/ISP_SOA/GetPurchaseHistory",purchaseHistoryRoutes);
+app.use("/api/ISP_SOA/ExtraGB",extraGBRoutes);
+app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
+
+//ISP_Direct
+app.use("/api/ISP_Direct",purchaseAdvancedReportsRouter);
+app.use("/api/ISP_Direct",isp_direct_transferDataRouter);
+app.use("/tmf-api/usageManagement/v4/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutesV2);
+app.use("/tmf-api/usageManagement/v4/WeeksUsage",weeksUsageRoutes);
+app.use("/api/isp-direct", getVASBundlePackagesRoutes);
+app.use("/tmf-api/productCatalogManagement/v4", getVASBundlePackagesRoutes);
+app.use("/api/ISP_Direct/UpgradeLoyalty", ispDirectUpgradeLoyaltyRoutes);
+app.use("/api/ISP_Direct/ChangeBBPassword", ispDirectChangeBBPasswordRoutes);
+app.use("/api/ISP_Direct/MyPackage", ispDirectMyPackageRoutes);
+app.use("/api/ISP_Direct/EnhancedCurrentDailyUsage", ispDirectEnhancedCurrentDailyUsageRoutes);
+app.use("/api/ISP_Direct/EnhancedPreviousDailyUsage", ispDirectEnhancedPreviousDailyUsageRoutes);
+app.use("/api/isp-direct", vasBundleUnsubscriptionRoutes);
+app.use("/tmf-api/productOrderingManagement/v4", vasBundleUnsubscriptionRoutes);
+app.use("/api/isp-direct", addVASDataBundleRoutes);
+app.use("/tmf-api/productOrderingManagement/v4", addVASDataBundleRoutes);
 
 
 //NewCon
@@ -429,7 +479,6 @@ app.use("/tmf-api/customerBillManagement/v5/SaveDraftDataLTE", SaveDraftDataLTER
 app.use("/tmf-api/customerBillManagement/v5/UpdateDraftDataV2", UpdateDraftDataV2Routes);
 app.use("/tmf-api/customerBillManagement/v5/UpdateDraftDataLTE", UpdateDraftDataLTERoutes);
 app.use("/tmf-api/customerBillManagement/v5/GetDraftDataV2", GetDraftDataV2Routes);
-
 
 app.use("/tmf-api/UploadMultipartSingle", uploadMultipartSinglev2) // TMF663
 app.use("/tmf-api/UploadSingle", uploadSingle) // TMF663
