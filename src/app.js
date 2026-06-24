@@ -185,6 +185,7 @@ const subtokenDirectRoutes = require("./ISP_SOA/GETSubtokenDirect/routes/subtoke
 const purchaseHistoryRoutes = require("./ISP_SOA/GETPurchaseHistory/routes/purchaseHistoryRoutes");
 const extraGBRoutes = require("./ISP_SOA/GETExtraGB/routes/extraGBRoutes");
 const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoutes");
+const dashboardSummaryRoutes = require('./ISP_SOA/GETDashboardSummary/routes/getDashboardSummaryRoutes');
 
 //ISP_Direct
 const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedReportsPostPaid/routes/purchaseAdvancedReportsRouter");
@@ -453,6 +454,7 @@ app.use("/api/ISP_SOA/SubtokenDirect", subtokenDirectRoutes);
 app.use("/api/ISP_SOA/GetPurchaseHistory",purchaseHistoryRoutes);
 app.use("/api/ISP_SOA/ExtraGB",extraGBRoutes);
 app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
+app.use("/api/ISP_SOA/dashboard/summary", dashboardSummaryRoutes);
 
 //ISP_Direct
 app.use("/api/ISP_Direct",purchaseAdvancedReportsRouter);
