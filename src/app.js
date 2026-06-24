@@ -190,6 +190,14 @@ const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoute
 const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedReportsPostPaid/routes/purchaseAdvancedReportsRouter");
 const isp_direct_transferDataRouter =require("./ISP_Direct/TransferData/routes/transferDataRouter");
 const getDashboardVASBundlesRouter =require("./ISP_Direct/GetDashboardVASBundles/routes/getDashboardVASBundlesRouter");
+const previousMonthsDailyUsageRoutesV2 = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes");
+const ispDirectWeeksUsageRoutes = require("./ISP_Direct/GET WeeksUsage/Route/weeksUsageRoute.js");
+const getVASBundlePackagesRoutes = require("./ISP_Direct/GetVASDataBundlePackages/routes/getVASBundlePackagesRoutes");
+const ispDirectUpgradeLoyaltyRoutes = require("./ISP_Direct/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
+const ispDirectChangeBBPasswordRoutes = require("./ISP_Direct/PUTChangeBBPassword/routes/changeBBPasswordRoutes.js");
+const vasBundleUnsubscriptionRoutes = require("./ISP_Direct/VASBundleUnsubscription/routes/vasBundleUnsubscriptionRoutes");
+const addVASDataBundleRoutes = require("./ISP_Direct/AddVASDataBundlePostPaid/routes/addVASDataBundleRoutes");
+
 
 // Middleware
 app.use(cors());
@@ -448,6 +456,16 @@ app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
 app.use("/api/ISP_Direct",purchaseAdvancedReportsRouter);
 app.use("/api/ISP_Direct",isp_direct_transferDataRouter);
 app.use("/api/ISP_Direct",getDashboardVASBundlesRouter);
+app.use("/tmf-api/usageManagement/v4/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutesV2);
+app.use("/tmf-api/usageManagement/v4/WeeksUsage",weeksUsageRoutes);
+app.use("/api/isp-direct", getVASBundlePackagesRoutes);
+app.use("/tmf-api/productCatalogManagement/v4", getVASBundlePackagesRoutes);
+app.use("/api/ISP_Direct/UpgradeLoyalty", ispDirectUpgradeLoyaltyRoutes);
+app.use("/api/ISP_Direct/ChangeBBPassword", ispDirectChangeBBPasswordRoutes);
+app.use("/api/isp-direct", vasBundleUnsubscriptionRoutes);
+app.use("/tmf-api/productOrderingManagement/v4", vasBundleUnsubscriptionRoutes);
+app.use("/api/isp-direct", addVASDataBundleRoutes);
+app.use("/tmf-api/productOrderingManagement/v4", addVASDataBundleRoutes);
 
 //NewCon
 // NewCon - Draft Data Management
