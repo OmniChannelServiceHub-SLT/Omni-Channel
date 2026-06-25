@@ -100,6 +100,11 @@ const postPushNotifications = require("./Notifications/PostPushNotifications/rou
 //BB Package upgrade
 const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
 
+//TimelyPay
+const packageActivationSOARoutes = require(
+  "./TimelyPay/POSTPackageActivationSOA/routes/packageActivationSOARoutes"
+);
+
 //BBExternal
 // const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
 // const getBBPackageDetails = require('./BBExternal/GetBBPackageDetails/routes/getBBPackageDetails.routes');
@@ -217,6 +222,13 @@ app.use("/tmf-api", changePasswordRoutes);
 app.use("/api/Account", authOpenFTTHLoginRoutes);
 app.use("/api/Account", authFTTHAdminRoutes);
 app.use("/api/Account", createFTTHAdminRoutes);
+
+
+//TimelyPay
+app.use(
+  "/api/TimelyPay/PackageActivationSOA",
+  packageActivationSOARoutes
+);
 
 // Apply authMiddleware globally
 app.use(authMiddleware);
