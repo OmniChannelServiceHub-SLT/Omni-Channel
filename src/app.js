@@ -141,6 +141,9 @@ const ftthSpecificDataFilterRoutes = require("./Dashboard/GETFTTHSpecificDataFil
 const ftthMapDataRoutes = require("./Dashboard/GETFTTHMapData/routes/ftthMapDataRoutes");
 const ebillDashboardRoutes = require("./Dashboard/GetEbillDashboard/routes/ebillDashboardRoutes");
 const addonsDashboardRoutes = require("./Dashboard/GetAddonsDashboard/routes/addonsDashboardRoutes");
+const extraGBRoutes   = require("./Dashboard/ExtraGB/routes/extraGBRoutes");
+const freeDataRoutes  = require("./Dashboard/FreeData/routes/freeDataRoutes");
+const bonusDataRoutes = require("./Dashboard/BonusData/routes/bonusDataRoutes");
 
 
 //HealthCheck
@@ -188,7 +191,6 @@ const protocolReportRoutes = require("./ISP_SOA/GETProtocolReport/routes/protoco
 const advertisementListRoutes = require("./ISP_SOA/AdvertisementGetList/routes/advertisementListRoutes");
 const subtokenDirectRoutes = require("./ISP_SOA/GETSubtokenDirect/routes/subtokenRoute");
 const purchaseHistoryRoutes = require("./ISP_SOA/GETPurchaseHistory/routes/purchaseHistoryRoutes");
-const extraGBRoutes = require("./ISP_SOA/GETExtraGB/routes/extraGBRoutes");
 const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoutes");
 
 //ISP_Direct
@@ -430,6 +432,9 @@ app.use("/api/Dashboard", ftthSpecificDataFilterRoutes);
 app.use("/api/Dashboard", ftthMapDataRoutes);
 app.use("/api/Dashboard", ebillDashboardRoutes); //uses TMF678
 app.use("/api/Dashboard", addonsDashboardRoutes); //uses TMF637
+app.use("/api/dashboard", extraGBRoutes);
+app.use("/api/dashboard", freeDataRoutes);
+app.use("/api/dashboard", bonusDataRoutes);
 
 
 // HealthCheck - TMF653 Service Test Management / TMF681 Communication Management
