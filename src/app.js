@@ -199,6 +199,7 @@ const addVASDataBundleRoutes = require("./ISP_Direct/AddVASDataBundlePostPaid/ro
 const ispDirectMyPackageRoutes = require("./ISP_Direct/MyPackage/routes/myPackageRoutes.js");
 const ispDirectEnhancedCurrentDailyUsageRoutes = require("./ISP_Direct/EnhancedCurrentDailyUsage/routes/enhancedCurrentDailyUsageRoutes.js");
 const ispDirectEnhancedPreviousDailyUsageRoutes = require("./ISP_Direct/EnhancedPreviousDailyUsage/routes/enhancedPreviousDailyUsageRoutes.js");
+const bbUsageRequestRoutes = require("./VAS/POSTBBUsageRequest/routes/bbUsageRequestRoutes.js");
 
 
 // Middleware
@@ -470,6 +471,7 @@ app.use("/api/isp-direct", vasBundleUnsubscriptionRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", vasBundleUnsubscriptionRoutes);
 app.use("/api/isp-direct", addVASDataBundleRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", addVASDataBundleRoutes);
+app.use("/tmf-api/usageManagement/v4/BBUsageRequest",bbUsageRequestRoutes);
 
 
 //NewCon
