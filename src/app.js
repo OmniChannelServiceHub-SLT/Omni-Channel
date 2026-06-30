@@ -197,6 +197,8 @@ const ispDirectChangeBBPasswordRoutes = require("./ISP_Direct/PUTChangeBBPasswor
 const vasBundleUnsubscriptionRoutes = require("./ISP_Direct/VASBundleUnsubscription/routes/vasBundleUnsubscriptionRoutes");
 const addVASDataBundleRoutes = require("./ISP_Direct/AddVASDataBundlePostPaid/routes/addVASDataBundleRoutes");
 
+//VAS
+const getCustConfirmationRouter =require("./VAS/GetCustConfirmation/routes/getCustConfirmationRouter");
 
 // Middleware
 app.use(cors());
@@ -465,6 +467,8 @@ app.use("/tmf-api/productOrderingManagement/v4", vasBundleUnsubscriptionRoutes);
 app.use("/api/isp-direct", addVASDataBundleRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", addVASDataBundleRoutes);
 
+//VAS
+app.use("/api/VAS",getCustConfirmationRouter);
 
 //NewCon
 // NewCon - Draft Data Management
