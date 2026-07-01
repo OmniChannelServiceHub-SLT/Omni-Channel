@@ -193,6 +193,7 @@ const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoute
 const getExtraGbPackages = require("./ISP_SOA/GETExtraGBPackages/routes/getExtraGbPackages.routes.js");
 const POSTExGBPurchasePostpaid = require("./ISP_SOA/POSTExGBPurchasePostpaid/routes/purchaseExtraGb.routes.js");
 const getAdvancedReportingPackages = require("./ISP_SOA/GETAdvancedReportingPackages/routes/getAdvancedReportingPackages.routes.js");
+const purchaseAdvancedReporting = require("./ISP_SOA/POSTpurchaseAdvancedReporting/routes/purchaseAdvancedReporting.routes.js");
 
 
 //ISP_Direct
@@ -473,6 +474,7 @@ app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
 app.use("/api/ISP_SOA/getExtraGbPackages",getExtraGbPackages);
 app.use("/api/ISP_SOA/postExGBPurchasePostpaid",POSTExGBPurchasePostpaid);
 app.use("/api/ISP_SOA/getAdvancedReportingPackages",getAdvancedReportingPackages);
+app.use("/api/ISP_SOA/purchaseAdvancedReporting",purchaseAdvancedReporting);
 
 
 //ISP_Direct
