@@ -1,5 +1,5 @@
 const ProductOffering = require("../../../../src/models/TMF620_ProductOffering");
-const ProductOrder = require("../models/TMF622_ProductOrder");
+const ProductOrder = require("../../../models/TMF622_ProductOrder");
 const { randomUUID } = require("crypto");
 
 exports.purchaseExtraGb = async (req, res) => {
