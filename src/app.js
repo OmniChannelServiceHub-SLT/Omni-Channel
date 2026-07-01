@@ -190,7 +190,8 @@ const subtokenDirectRoutes = require("./ISP_SOA/GETSubtokenDirect/routes/subtoke
 const purchaseHistoryRoutes = require("./ISP_SOA/GETPurchaseHistory/routes/purchaseHistoryRoutes");
 const extraGBRoutes = require("./ISP_SOA/GETExtraGB/routes/extraGBRoutes");
 const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoutes");
-
+const getExtraGbPackages = require("./ISP_SOA/GETExtraGBPackages/routes/getExtraGbPackages.routes.js");
+ 
 //ISP_Direct
 const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedReportsPostPaid/routes/purchaseAdvancedReportsRouter");
 const isp_direct_transferDataRouter =require("./ISP_Direct/TransferData/routes/transferDataRouter");
@@ -204,6 +205,7 @@ const addVASDataBundleRoutes = require("./ISP_Direct/AddVASDataBundlePostPaid/ro
 const ispDirectMyPackageRoutes = require("./ISP_Direct/MyPackage/routes/myPackageRoutes.js");
 const ispDirectEnhancedCurrentDailyUsageRoutes = require("./ISP_Direct/EnhancedCurrentDailyUsage/routes/enhancedCurrentDailyUsageRoutes.js");
 const ispDirectEnhancedPreviousDailyUsageRoutes = require("./ISP_Direct/EnhancedPreviousDailyUsage/routes/enhancedPreviousDailyUsageRoutes.js");
+const bbUsageRequestRoutes = require("./VAS/POSTBBUsageRequest/routes/bbUsageRequestRoutes.js");
 
 
 // Middleware
@@ -465,6 +467,8 @@ app.use("/api/ISP_SOA/SubtokenDirect", subtokenDirectRoutes);
 app.use("/api/ISP_SOA/GetPurchaseHistory",purchaseHistoryRoutes);
 app.use("/api/ISP_SOA/ExtraGB",extraGBRoutes);
 app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
+app.use("/api/ISP_SOA/getExtraGbPackages",getExtraGbPackages);
+
 
 //ISP_Direct
 app.use("/api/ISP_Direct",purchaseAdvancedReportsRouter);
@@ -482,6 +486,7 @@ app.use("/api/isp-direct", vasBundleUnsubscriptionRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", vasBundleUnsubscriptionRoutes);
 app.use("/api/isp-direct", addVASDataBundleRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", addVASDataBundleRoutes);
+app.use("/tmf-api/usageManagement/v4/BBUsageRequest",bbUsageRequestRoutes);
 
 
 //NewCon
