@@ -100,6 +100,11 @@ const postPushNotifications = require("./Notifications/PostPushNotifications/rou
 //BB Package upgrade
 const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
 
+//TimelyPay
+const packageActivationSOARoutes = require(
+  "./TimelyPay/POSTPackageActivationSOA/routes/packageActivationSOARoutes"
+);
+
 //BBExternal
 // const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
 // const getBBPackageDetails = require('./BBExternal/GetBBPackageDetails/routes/getBBPackageDetails.routes');
@@ -136,6 +141,9 @@ const ftthSpecificDataFilterRoutes = require("./Dashboard/GETFTTHSpecificDataFil
 const ftthMapDataRoutes = require("./Dashboard/GETFTTHMapData/routes/ftthMapDataRoutes");
 const ebillDashboardRoutes = require("./Dashboard/GetEbillDashboard/routes/ebillDashboardRoutes");
 const addonsDashboardRoutes = require("./Dashboard/GetAddonsDashboard/routes/addonsDashboardRoutes");
+const extraGBRoutes   = require("./Dashboard/ExtraGB/routes/extraGBRoutes");
+const freeDataRoutes  = require("./Dashboard/FreeData/routes/freeDataRoutes");
+const bonusDataRoutes = require("./Dashboard/BonusData/routes/bonusDataRoutes");
 
 
 //HealthCheck
@@ -183,8 +191,12 @@ const protocolReportRoutes = require("./ISP_SOA/GETProtocolReport/routes/protoco
 const advertisementListRoutes = require("./ISP_SOA/AdvertisementGetList/routes/advertisementListRoutes");
 const subtokenDirectRoutes = require("./ISP_SOA/GETSubtokenDirect/routes/subtokenRoute");
 const purchaseHistoryRoutes = require("./ISP_SOA/GETPurchaseHistory/routes/purchaseHistoryRoutes");
-const extraGBRoutes = require("./ISP_SOA/GETExtraGB/routes/extraGBRoutes");
 const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoutes");
+const getExtraGbPackages = require("./ISP_SOA/GETExtraGBPackages/routes/getExtraGbPackages.routes.js");
+const POSTExGBPurchasePostpaid = require("./ISP_SOA/POSTExGBPurchasePostpaid/routes/purchaseExtraGb.routes.js");
+const getAdvancedReportingPackages = require("./ISP_SOA/GETAdvancedReportingPackages/routes/getAdvancedReportingPackages.routes.js");
+const purchaseAdvancedReporting = require("./ISP_SOA/POSTpurchaseAdvancedReporting/routes/purchaseAdvancedReporting.routes.js");
+
 
 //ISP_Direct
 const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedReportsPostPaid/routes/purchaseAdvancedReportsRouter");
@@ -197,7 +209,13 @@ const ispDirectChangeBBPasswordRoutes = require("./ISP_Direct/PUTChangeBBPasswor
 const vasBundleUnsubscriptionRoutes = require("./ISP_Direct/VASBundleUnsubscription/routes/vasBundleUnsubscriptionRoutes");
 const addVASDataBundleRoutes = require("./ISP_Direct/AddVASDataBundlePostPaid/routes/addVASDataBundleRoutes");
 const getPurchaseHistoryRouter = require("./ISP_Direct/GetPurchaseHistory/routes/getPurchaseHistoryRouter");
+const ispDirectMyPackageRoutes = require("./ISP_Direct/MyPackage/routes/myPackageRoutes.js");
+const ispDirectEnhancedCurrentDailyUsageRoutes = require("./ISP_Direct/EnhancedCurrentDailyUsage/routes/enhancedCurrentDailyUsageRoutes.js");
+const ispDirectEnhancedPreviousDailyUsageRoutes = require("./ISP_Direct/EnhancedPreviousDailyUsage/routes/enhancedPreviousDailyUsageRoutes.js");
+const bbUsageRequestRoutes = require("./VAS/POSTBBUsageRequest/routes/bbUsageRequestRoutes.js");
 
+//VAS
+const profileRequestRoutes = require("./VAS/GETProfileRequest/routes/profileRequestRoutes.js");
 
 // Middleware
 app.use(cors());
@@ -215,6 +233,13 @@ app.use("/tmf-api", changePasswordRoutes);
 app.use("/api/Account", authOpenFTTHLoginRoutes);
 app.use("/api/Account", authFTTHAdminRoutes);
 app.use("/api/Account", createFTTHAdminRoutes);
+
+
+//TimelyPay
+app.use(
+  "/api/TimelyPay/PackageActivationSOA",
+  packageActivationSOARoutes
+);
 
 // Apply authMiddleware globally
 app.use(authMiddleware);
@@ -416,6 +441,9 @@ app.use("/api/Dashboard", ftthSpecificDataFilterRoutes);
 app.use("/api/Dashboard", ftthMapDataRoutes);
 app.use("/api/Dashboard", ebillDashboardRoutes); //uses TMF678
 app.use("/api/Dashboard", addonsDashboardRoutes); //uses TMF637
+app.use("/api/dashboard", extraGBRoutes);
+app.use("/api/dashboard", freeDataRoutes);
+app.use("/api/dashboard", bonusDataRoutes);
 
 
 // HealthCheck - TMF653 Service Test Management / TMF681 Communication Management
@@ -451,6 +479,11 @@ app.use("/api/ISP_SOA/SubtokenDirect", subtokenDirectRoutes);
 app.use("/api/ISP_SOA/GetPurchaseHistory",purchaseHistoryRoutes);
 app.use("/api/ISP_SOA/ExtraGB",extraGBRoutes);
 app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
+app.use("/api/ISP_SOA/getExtraGbPackages",getExtraGbPackages);
+app.use("/api/ISP_SOA/postExGBPurchasePostpaid",POSTExGBPurchasePostpaid);
+app.use("/api/ISP_SOA/getAdvancedReportingPackages",getAdvancedReportingPackages);
+app.use("/api/ISP_SOA/purchaseAdvancedReporting",purchaseAdvancedReporting);
+
 
 //ISP_Direct
 app.use("/api/ISP_Direct",purchaseAdvancedReportsRouter);
@@ -461,11 +494,19 @@ app.use("/api/isp-direct", getVASBundlePackagesRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", getVASBundlePackagesRoutes);
 app.use("/api/ISP_Direct/UpgradeLoyalty", ispDirectUpgradeLoyaltyRoutes);
 app.use("/api/ISP_Direct/ChangeBBPassword", ispDirectChangeBBPasswordRoutes);
+app.use("/api/ISP_Direct/MyPackage", ispDirectMyPackageRoutes);
+app.use("/api/ISP_Direct/EnhancedCurrentDailyUsage", ispDirectEnhancedCurrentDailyUsageRoutes);
+app.use("/api/ISP_Direct/EnhancedPreviousDailyUsage", ispDirectEnhancedPreviousDailyUsageRoutes);
 app.use("/api/isp-direct", vasBundleUnsubscriptionRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", vasBundleUnsubscriptionRoutes);
 app.use("/api/isp-direct", addVASDataBundleRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", addVASDataBundleRoutes);
 app.use("/api/isp-direct", getPurchaseHistoryRouter);
+app.use("/tmf-api/usageManagement/v4/BBUsageRequest",bbUsageRequestRoutes);
+
+//VAS
+app.use("/api/VAS/ProfileRequest", profileRequestRoutes);
+
 
 //NewCon
 // NewCon - Draft Data Management
