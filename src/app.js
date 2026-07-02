@@ -213,6 +213,8 @@ const ispDirectEnhancedCurrentDailyUsageRoutes = require("./ISP_Direct/EnhancedC
 const ispDirectEnhancedPreviousDailyUsageRoutes = require("./ISP_Direct/EnhancedPreviousDailyUsage/routes/enhancedPreviousDailyUsageRoutes.js");
 const bbUsageRequestRoutes = require("./VAS/POSTBBUsageRequest/routes/bbUsageRequestRoutes.js");
 
+//VAS
+const profileRequestRoutes = require("./VAS/GETProfileRequest/routes/profileRequestRoutes.js");
 
 // Middleware
 app.use(cors());
@@ -499,6 +501,9 @@ app.use("/tmf-api/productOrderingManagement/v4", vasBundleUnsubscriptionRoutes);
 app.use("/api/isp-direct", addVASDataBundleRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", addVASDataBundleRoutes);
 app.use("/tmf-api/usageManagement/v4/BBUsageRequest",bbUsageRequestRoutes);
+
+//VAS
+app.use("/api/VAS/ProfileRequest", profileRequestRoutes);
 
 
 //NewCon
