@@ -201,6 +201,7 @@ const purchaseAdvancedReporting = require("./ISP_SOA/POSTpurchaseAdvancedReporti
 //ISP_Direct
 const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedReportsPostPaid/routes/purchaseAdvancedReportsRouter");
 const isp_direct_transferDataRouter =require("./ISP_Direct/TransferData/routes/transferDataRouter");
+const getDashboardVASBundlesRouter =require("./ISP_Direct/GetDashboardVASBundles/routes/getDashboardVASBundlesRouter");
 const previousMonthsDailyUsageRoutesV2 = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes");
 const ispDirectWeeksUsageRoutes = require("./ISP_Direct/GET WeeksUsage/Route/weeksUsageRoute.js");
 const getVASBundlePackagesRoutes = require("./ISP_Direct/GetVASDataBundlePackages/routes/getVASBundlePackagesRoutes");
@@ -488,6 +489,7 @@ app.use("/api/ISP_SOA/purchaseAdvancedReporting",purchaseAdvancedReporting);
 //ISP_Direct
 app.use("/api/ISP_Direct",purchaseAdvancedReportsRouter);
 app.use("/api/ISP_Direct",isp_direct_transferDataRouter);
+app.use("/api/ISP_Direct",getDashboardVASBundlesRouter);
 app.use("/tmf-api/usageManagement/v4/PreviousMonthsDailyUsage",previousMonthsDailyUsageRoutesV2);
 app.use("/tmf-api/usageManagement/v4/WeeksUsage",weeksUsageRoutes);
 app.use("/api/isp-direct", getVASBundlePackagesRoutes);
@@ -506,7 +508,6 @@ app.use("/tmf-api/usageManagement/v4/BBUsageRequest",bbUsageRequestRoutes);
 
 //VAS
 app.use("/api/VAS/ProfileRequest", profileRequestRoutes);
-
 
 //NewCon
 // NewCon - Draft Data Management
