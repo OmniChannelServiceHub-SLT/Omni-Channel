@@ -109,6 +109,10 @@ const postPushNotifications = require("./Notifications/PostPushNotifications/rou
 //BB Package upgrade
 const getBBpackageList = require('./BBPackageUpgrade/GetBBPackgesList/routes/productOfferingQualification.routes');
 
+//dataGiftPackagesMobile
+const dataGiftPackagesMobileRoutes = require(
+  "./ISP_Direct/GETDataGiftPackagesMobile/routes/dataGiftPackagesMobileRoutes"
+);
 //TimelyPay
 const packageActivationSOARoutes = require(
   "./TimelyPay/POSTPackageActivationSOA/routes/packageActivationSOARoutes"
@@ -391,6 +395,12 @@ const GetAgentCodeRoutes = require("./NewCon/GETAgentCode/routes/getAgentCodeRou
 const UpdateAgentCodeRoutes = require("./NewCon/POSTUpdateAgentCode/routes/updateAgentCodeRoutes.js");
 const GetOrderStatusRoutes = require("./NewCon/GETOrderStatus/routes/getOrderStatusRoutes.js");
 const CheckCRMLeadStatusRoutes = require("./NewCon/GETCheckCRMLeadStatus/routes/checkCRMLeadStatusRoutes.js");
+
+//DataGiftPackagesMobile  
+app.use(
+  "/isp-direct/data-gift-packages-mobile",
+  dataGiftPackagesMobileRoutes
+);
 
 //PEOVAS
 app.use("/tmf-api/productInventory/v4", productInventoryRoutes);

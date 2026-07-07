@@ -1,0 +1,33 @@
+const {
+
+    happyDay
+
+} = require("../services/happyDay.service");
+
+const happyDayRequest = async (req, res) => {
+
+    try {
+
+        const result = await happyDay(req.body);
+
+        return res.status(result.statusCode).json(result);
+
+    } catch (error) {
+
+        console.error(error);
+
+        return res.status(500).json({
+
+            success: false,
+            statusCode: 500,
+            message: "Internal Server Error"
+
+        });
+
+    }
+
+};
+
+module.exports = {
+    happyDayRequest
+};
