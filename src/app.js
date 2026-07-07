@@ -117,6 +117,10 @@ const dataGiftPackagesMobileRoutes = require(
 const packageActivationSOARoutes = require(
   "./TimelyPay/POSTPackageActivationSOA/routes/packageActivationSOARoutes"
 );
+//validateDataGiftSub
+const validateDataGiftSubRoutes = require(
+  "./ISP_Direct/GETValidateDataGiftSub/routes/validateDataGiftSubRoutes"
+);
 
 //BBExternal
 // const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
@@ -220,6 +224,7 @@ const ispDirectEnhancedPreviousDailyUsageRoutes = require("./ISP_Direct/Enhanced
 const ispDataGiftPackagesRoutes = require("./ISP_Direct/GETDataGiftPackages/routes/dataGiftPackagesRoutes");
 
 
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -248,6 +253,12 @@ app.use(
 app.use(
   "/isp-direct/data-gift-packages",
   ispDataGiftPackagesRoutes
+);
+
+//validateDataGiftSub
+app.use(
+  "/isp-direct/validate-data-gift-sub",
+  validateDataGiftSubRoutes
 );
 
 //TimelyPay
