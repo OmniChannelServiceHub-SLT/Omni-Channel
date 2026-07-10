@@ -17,6 +17,10 @@ const changePasswordRoutes = require("./Account/ChangePassword/routes/changePass
 const authOpenFTTHLoginRoutes = require("./Account/AuthenticationOpenFTTHLogin/routes/authOpenFTTHLoginRoutes");
 const authFTTHAdminRoutes     = require("./Account/AuthenticationFTTHAdmin/routes/authFTTHAdminRoutes");
 const createFTTHAdminRoutes   = require("./Account/CreateFTTHAdmin/routes/createFTTHAdminRoutes");
+const getAlexaAccessTokenRoutes = require('./Account/GetAlexaAccessToken/routes/getAlexaAccessTokenRoutes');
+const updateUserInfoRoutes = require('./Account/UpdateUserInfo/routes/updateUserInfoRoutes');
+const getUserInfoRoutes = require('./Account/GetUserInfo/routes/getUserInfoRoutes');
+const checkCallForwardingRoutes = require('./Account/GETCheckCallForwardingStatus/routes/checkCallForwardingRoutes');
 
 //BBVAS
 const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
@@ -225,6 +229,10 @@ app.use("/tmf-api", changePasswordRoutes);
 app.use("/api/Account", authOpenFTTHLoginRoutes);
 app.use("/api/Account", authFTTHAdminRoutes);
 app.use("/api/Account", createFTTHAdminRoutes);
+app.use('/api/Account/GetAlexaAccessToken', getAlexaAccessTokenRoutes);
+app.use('/api/Account/UpdateUserInfo', updateUserInfoRoutes);
+app.use('/api/Account/GetUserInfo', getUserInfoRoutes);
+app.use('/api/Account/GETCheckCallForwardingStatus', checkCallForwardingRoutes);
 
 
 //TimelyPay
