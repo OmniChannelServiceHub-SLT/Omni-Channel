@@ -218,6 +218,7 @@ const protocolReportRouter = require("./ISP_Direct/GETProtocolReport/routes/prot
 
 //VAS
 const profileRequestRoutes = require("./VAS/GETProfileRequest/routes/profileRequestRoutes.js");
+const vasProfileRoutes = require("./VAS/Getprofile/routes/profileRoutes");
 
 // Middleware
 app.use(cors());
@@ -510,7 +511,8 @@ app.use("/api/isp-direct",protocolReportRouter);
 
 //VAS
 app.use("/api/VAS/ProfileRequest", profileRequestRoutes);
-
+app.use("/api/vas", vasProfileRoutes);
+app.use("/tmf-api/customerManagement/v4", vasProfileRoutes);
 //NewCon
 // NewCon - Draft Data Management
 app.use("/tmf-api/customerBillManagement/v5/SaveDraftData", SaveDraftDataRoutes);
