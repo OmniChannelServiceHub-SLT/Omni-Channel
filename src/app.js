@@ -17,6 +17,10 @@ const changePasswordRoutes = require("./Account/ChangePassword/routes/changePass
 const authOpenFTTHLoginRoutes = require("./Account/AuthenticationOpenFTTHLogin/routes/authOpenFTTHLoginRoutes");
 const authFTTHAdminRoutes     = require("./Account/AuthenticationFTTHAdmin/routes/authFTTHAdminRoutes");
 const createFTTHAdminRoutes   = require("./Account/CreateFTTHAdmin/routes/createFTTHAdminRoutes");
+const getAlexaAccessTokenRoutes = require('./Account/GetAlexaAccessToken/routes/getAlexaAccessTokenRoutes');
+const updateUserInfoRoutes = require('./Account/UpdateUserInfo/routes/updateUserInfoRoutes');
+const getUserInfoRoutes = require('./Account/GetUserInfo/routes/getUserInfoRoutes');
+const checkCallForwardingRoutes = require('./Account/GETCheckCallForwardingStatus/routes/checkCallForwardingRoutes');
 
 //BBVAS
 const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
@@ -92,6 +96,8 @@ const productInventoryRoutes = require("./PEOVAS/CustomerValidation_malsha/produ
 const purchasedProductRoutes = require("./PEOVAS/PostPurchasedProduct/route/purchasedProductroutes.js");
 const getPurchasedProductsRoutes = require("./PEOVAS/GetPurchasedProducts/routes/getPurchasedProductsroutes.js");
 const serviceInventoryRoutes = require("./PEOVAS/CheckOmniTP/serviceInventoryRoutes.js");
+
+const verifyOTPRoutes = require("./PEOVAS/POST VerifyOTPRequest/routes/verifyOTPRoutes.js");
 
 //Notifications
 const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/routes/popupMessage.routes.js");
@@ -192,6 +198,7 @@ const advertisementListRoutes = require("./ISP_SOA/AdvertisementGetList/routes/a
 const subtokenDirectRoutes = require("./ISP_SOA/GETSubtokenDirect/routes/subtokenRoute");
 const purchaseHistoryRoutes = require("./ISP_SOA/GETPurchaseHistory/routes/purchaseHistoryRoutes");
 const weeksUsageRoutes = require("./ISP_SOA/GETWeeksUsage/routes/weeksUsageRoutes");
+const dashboardSummaryRoutes = require('./ISP_SOA/GETDashboardSummary/routes/getDashboardSummaryRoutes');
 const getExtraGbPackages = require("./ISP_SOA/GETExtraGBPackages/routes/getExtraGbPackages.routes.js");
 const POSTExGBPurchasePostpaid = require("./ISP_SOA/POSTExGBPurchasePostpaid/routes/purchaseExtraGb.routes.js");
 const getAdvancedReportingPackages = require("./ISP_SOA/GETAdvancedReportingPackages/routes/getAdvancedReportingPackages.routes.js");
@@ -236,6 +243,10 @@ app.use("/tmf-api", changePasswordRoutes);
 app.use("/api/Account", authOpenFTTHLoginRoutes);
 app.use("/api/Account", authFTTHAdminRoutes);
 app.use("/api/Account", createFTTHAdminRoutes);
+app.use('/api/Account/GetAlexaAccessToken', getAlexaAccessTokenRoutes);
+app.use('/api/Account/UpdateUserInfo', updateUserInfoRoutes);
+app.use('/api/Account/GetUserInfo', getUserInfoRoutes);
+app.use('/api/Account/GETCheckCallForwardingStatus', checkCallForwardingRoutes);
 
 
 //TimelyPay
@@ -377,6 +388,8 @@ app.use("/tmf-api/purchasedProduct/v1", purchasedProductRoutes);
 app.use("/tmf-api", getPurchasedProductsRoutes);
 app.use("/tmf-api/serviceInventory/v4/", serviceInventoryRoutes);
 
+app.use("/tmf-api/digitalIdentity/v4", verifyOTPRoutes);
+
 // New Connection (Catalog)
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingPriceRoutes);
 app.use("/tmf-api/productCatalogManagement/v4", productOfferingRoutes);
@@ -482,10 +495,14 @@ app.use("/api/ISP_SOA/SubtokenDirect", subtokenDirectRoutes);
 app.use("/api/ISP_SOA/GetPurchaseHistory",purchaseHistoryRoutes);
 app.use("/api/ISP_SOA/ExtraGB",extraGBRoutes);
 app.use("/api/ISP_SOA/WeeksUsage",weeksUsageRoutes);
+
+app.use("/api/ISP_SOA/dashboard/summary", dashboardSummaryRoutes);
+
 app.use("/api/ISP_SOA/getExtraGbPackages",getExtraGbPackages);
 app.use("/api/ISP_SOA/postExGBPurchasePostpaid",POSTExGBPurchasePostpaid);
 app.use("/api/ISP_SOA/getAdvancedReportingPackages",getAdvancedReportingPackages);
 app.use("/api/ISP_SOA/purchaseAdvancedReporting",purchaseAdvancedReporting);
+
 
 
 //ISP_Direct
