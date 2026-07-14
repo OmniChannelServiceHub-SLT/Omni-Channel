@@ -224,6 +224,9 @@ const bbUsageRequestRoutes = require("./VAS/POSTBBUsageRequest/routes/bbUsageReq
 const protocolReportRouter = require("./ISP_Direct/GETProtocolReport/routes/protocolReportRouter");
 const advertisementGetListRouter = require("./ISP_Direct/AdvertisementGetList/routes/advertisementGetListRouter");
 
+//verify
+const getVoiceUsageRouter =require("./verify/GETVoiceUsage/routes/getVoiceUsageRouter");
+
 //VAS
 const profileRequestRoutes = require("./VAS/GETProfileRequest/routes/profileRequestRoutes.js");
 const vasProfileRoutes = require("./VAS/Getprofile/routes/profileRoutes");
@@ -528,6 +531,9 @@ app.use("/api/isp-direct", getPurchaseHistoryRouter);
 app.use("/tmf-api/usageManagement/v4/BBUsageRequest",bbUsageRequestRoutes);
 app.use("/api/isp-direct",protocolReportRouter);
 app.use("/api/isp-direct",advertisementGetListRouter);
+
+//verify
+app.use("/api/verify",getVoiceUsageRouter);
 
 //VAS
 app.use("/api/VAS/ProfileRequest", profileRequestRoutes);
