@@ -17,6 +17,7 @@ const changePasswordRoutes = require("./Account/ChangePassword/routes/changePass
 const authOpenFTTHLoginRoutes = require("./Account/AuthenticationOpenFTTHLogin/routes/authOpenFTTHLoginRoutes");
 const authFTTHAdminRoutes     = require("./Account/AuthenticationFTTHAdmin/routes/authFTTHAdminRoutes");
 const createFTTHAdminRoutes   = require("./Account/CreateFTTHAdmin/routes/createFTTHAdminRoutes");
+const updateUserInfoRoutes = require("./Account/POSTUpdateUserInfo/routes/updateUserInfoRoutes.js");
 
 //BBVAS
 const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
@@ -228,6 +229,7 @@ app.use("/tmf-api", changePasswordRoutes);
 app.use("/api/Account", authOpenFTTHLoginRoutes);
 app.use("/api/Account", authFTTHAdminRoutes);
 app.use("/api/Account", createFTTHAdminRoutes);
+app.use("/api/Account/UpdateUserInfo", updateUserInfoRoutes);
 
 
 //TimelyPay
