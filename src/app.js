@@ -215,6 +215,7 @@ const ispDirectEnhancedCurrentDailyUsageRoutes = require("./ISP_Direct/EnhancedC
 const ispDirectEnhancedPreviousDailyUsageRoutes = require("./ISP_Direct/EnhancedPreviousDailyUsage/routes/enhancedPreviousDailyUsageRoutes.js");
 const bbUsageRequestRoutes = require("./VAS/POSTBBUsageRequest/routes/bbUsageRequestRoutes.js");
 const protocolReportRouter = require("./ISP_Direct/GETProtocolReport/routes/protocolReportRouter");
+const advertisementGetListRouter = require("./ISP_Direct/AdvertisementGetList/routes/advertisementGetListRouter");
 
 //VAS
 const profileRequestRoutes = require("./VAS/GETProfileRequest/routes/profileRequestRoutes.js");
@@ -507,6 +508,7 @@ app.use("/tmf-api/productOrderingManagement/v4", addVASDataBundleRoutes);
 app.use("/api/isp-direct", getPurchaseHistoryRouter);
 app.use("/tmf-api/usageManagement/v4/BBUsageRequest",bbUsageRequestRoutes);
 app.use("/api/isp-direct",protocolReportRouter);
+app.use("/api/isp-direct",advertisementGetListRouter);
 
 //VAS
 app.use("/api/VAS/ProfileRequest", profileRequestRoutes);
