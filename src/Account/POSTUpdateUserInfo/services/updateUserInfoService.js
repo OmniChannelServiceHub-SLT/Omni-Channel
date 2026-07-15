@@ -1,4 +1,4 @@
-const User = require("../../../models/TMF632_Individual");
+const User = require("../../RegisterV2/models/user");
 
 const updateUserInfo = async (body) => {
 
