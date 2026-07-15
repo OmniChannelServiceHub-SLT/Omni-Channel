@@ -22,10 +22,6 @@ const createFTTHAdminRoutes = require("./Account/CreateFTTHAdmin/routes/createFT
 const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
 const getVASDataBundlePackagesRoutes = require("./BBVAS/GetVASDataBundlePackages/routes/getVASDataBundlePackages.routes");
 
-//ExtraGBPackagesMobile
-const extraGBPackagesMobileRoutes = require("./ISP_Direct/GETExtraGBPackagesMobile/routes/extraGBPackagesMobileRoutes");
-
-
 
 const PurchaseAdvancedReportsPrepaidInitRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidInit/routes/purchaseAdvancedReportsPrepaidInit.routes");
 const PurchaseAdvancedReportsPrepaidConfirmRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidConfirm/routes/purchaseAdvancedReportsPrepaidConfirm.routes");
@@ -75,9 +71,6 @@ const salesLeadRoutes = require("./Sales/SalesLeadCreationRequest/routes/salesLe
 
 //POSTRedeemVoucher
 const offersLoyaltyRedeemVoucherRoutes = require("./Offers_Loyalty/POSTRedeemVoucher/routes/redeemVoucher.routes");
-
-//POSTHappyDay
-const offersLoyaltyHappyDayRoutes = require("./Offers_Loyalty/POSTHappyDay/routes/happyDay.routes");
 //Banner
 const bannerRoutes = require("./Banner/BannerDetailRequest/routes/bannerRoutes.js");
 
@@ -188,7 +181,7 @@ const ispsoaMyPackageRoutes = require('./ISP_SOA/GETMyPackage/routes/getMyPackag
 const getVASDataBundlePackagesRouter = require("./ISP_SOA/GetVASDataBundlePackages/routes/getVASDataBundlePackagesRouter");
 const addVASDataBundlePostPaidRouter = require("./ISP_SOA/AddVASDataBundlePostPaid/routes/addVASDataBundlePostPaidRouter");
 const redeemVoucherRoutes = require("./ISP_SOA/POSTRedeemVoucher/routes/redeemVoucherRoutes");
-const ispsoaHappyDayRoutes = require("./ISP_SOA/POSTHappyDay/routes/happyDayRoutes");
+const happyDayRoutes = require("./ISP_SOA/POSTHappyDay/routes/happyDayRoutes");
 const upgradeLoyaltyRoutes = require("./ISP_SOA/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes");
 const changeBBPasswordRoutes = require("./ISP_SOA/PUTChangeBBPassword/routes/changeBBPasswordRoutes");
 const vasBundleUnsubscriptionRouter = require("./ISP_SOA/VASBundleUnsubscription/routes/vasBundleUnsubscriptionRouter");
@@ -213,7 +206,6 @@ const addVASDataBundleRoutes = require("./ISP_Direct/AddVASDataBundlePostPaid/ro
 const ispDirectMyPackageRoutes = require("./ISP_Direct/MyPackage/routes/myPackageRoutes.js");
 const ispDirectEnhancedCurrentDailyUsageRoutes = require("./ISP_Direct/EnhancedCurrentDailyUsage/routes/enhancedCurrentDailyUsageRoutes.js");
 const ispDirectEnhancedPreviousDailyUsageRoutes = require("./ISP_Direct/EnhancedPreviousDailyUsage/routes/enhancedPreviousDailyUsageRoutes.js");
-const ispDataGiftPackagesRoutes = require("./ISP_Direct/GETDataGiftPackages/routes/dataGiftPackagesRoutes");
 
 
 // Middleware
@@ -234,36 +226,12 @@ app.use("/api/Account", authFTTHAdminRoutes);
 app.use("/api/Account", createFTTHAdminRoutes);
 
 
-//ExtraGBPackagesMobile
-app.use(
-  "/isp-direct/extra-gb-packages-mobile",
-  extraGBPackagesMobileRoutes
-)
-
-//dataGiftPackages
-app.use(
-  "/isp-direct/data-gift-packages",
-  ispDataGiftPackagesRoutes
-);
-
 //TimelyPay
 app.use(
   "/api/TimelyPay/PackageActivationSOA",
   packageActivationSOARoutes
 );
 
-//DataGiftPackages
-app.use(
-  "/isp-direct/data-gift-packages",
-  dataGiftPackagesRoutes
-);
-
-//POST HappyDay
-
-app.use(
-  "/offers-loyalty/happyDay",
-  offersLoyaltyHappyDayRoutes
-);
 
 
 // Apply authMiddleware globally
@@ -322,7 +290,7 @@ app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
 app.use("/tmf-api/reportManagement/v5", advancedReportingPackageRoutes);
 app.use("/tmf-api/sales/v4/", salesLeadRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", DataBundlePostpaidRoutes);
-app.use("/tmf-api/productOfferingQualification/v5", poqRoutes); app.use('/offers-loyalty/redeemVoucher', offersLoyaltyRedeemVoucherRoutes); app.use("/tmf-api/usageManagement/v4/Vouchers", RedeemVoucherRoutes);
+app.use("/tmf-api/productOfferingQualification/v5", poqRoutes);app.use('/offers-loyalty/redeemVoucher', offersLoyaltyRedeemVoucherRoutes);app.use("/tmf-api/usageManagement/v4/Vouchers", RedeemVoucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataTransferAmounts", DataTransferAmountRoutes);
 // app.use("/tmf-api/usageManagement/v4/Vouchers", voucherRoutes);
 app.use("/tmf-api/usageManagement/v4/DataGiftPackages", GiftPackageRoutes);
@@ -490,8 +458,8 @@ app.use("/api/ISP_SOA/dashboard/mypackage", ispsoaMyPackageRoutes);
 app.use("/api/ISP_SOA", getVASDataBundlePackagesRouter);
 app.use("/api/isp-soa", redeemVoucherRoutes);
 app.use("/tmf-api/productOrderingManagement/v4", redeemVoucherRoutes);
-app.use("/api/isp-soa", ispsoaHappyDayRoutes);
-app.use("/tmf-api/productOrderingManagement/v4", ispsoaHappyDayRoutes);
+app.use("/api/isp-soa", happyDayRoutes);
+app.use("/tmf-api/productOrderingManagement/v4", happyDayRoutes);
 app.use("/api/isp-soa", upgradeLoyaltyRoutes);
 app.use("/tmf-api/customerManagement/v4", upgradeLoyaltyRoutes);
 app.use("/api/isp-soa", changeBBPasswordRoutes);
