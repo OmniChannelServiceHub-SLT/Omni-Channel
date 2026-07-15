@@ -17,8 +17,6 @@ const changePasswordRoutes = require("./Account/ChangePassword/routes/changePass
 const authOpenFTTHLoginRoutes = require("./Account/AuthenticationOpenFTTHLogin/routes/authOpenFTTHLoginRoutes");
 const authFTTHAdminRoutes = require("./Account/AuthenticationFTTHAdmin/routes/authFTTHAdminRoutes");
 const createFTTHAdminRoutes = require("./Account/CreateFTTHAdmin/routes/createFTTHAdminRoutes");
-//POSTVerifyOTPOpenFTTHV2
-const verifyOTPOpenFTTHV2Routes = require("./Account/POSTVerifyOTPOpenFTTHV2/routes/verifyOTPOpenFTTHV2Routes");
 
 //BBVAS
 const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
@@ -243,8 +241,6 @@ app.use("/tmf-api", changePasswordRoutes);
 app.use("/api/Account", authOpenFTTHLoginRoutes);
 app.use("/api/Account", authFTTHAdminRoutes);
 app.use("/api/Account", createFTTHAdminRoutes);
-//POSTVerifyOTPOpenFTTHV2
-app.use("/account/verify-otp-open-ftth-v2", verifyOTPOpenFTTHV2Routes);
 
 
 //ExtraGBPackagesMobile
