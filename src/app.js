@@ -231,6 +231,7 @@ const getVoiceUsageRouter =require("./verify/GETVoiceUsage/routes/getVoiceUsageR
 //VAS
 const profileRequestRoutes = require("./VAS/GETProfileRequest/routes/profileRequestRoutes.js");
 const vasProfileRoutes = require("./VAS/Getprofile/routes/profileRoutes");
+const getCustConfirmationRouter =require("./VAS/GetCustConfirmation/routes/getCustConfirmationRouter");
 
 // Middleware
 app.use(cors());
@@ -541,6 +542,8 @@ app.use("/api/verify",getVoiceUsageRouter);
 app.use("/api/VAS/ProfileRequest", profileRequestRoutes);
 app.use("/api/vas", vasProfileRoutes);
 app.use("/tmf-api/customerManagement/v4", vasProfileRoutes);
+app.use("/api/VAS",getCustConfirmationRouter);
+
 //NewCon
 // NewCon - Draft Data Management
 app.use("/tmf-api/customerBillManagement/v5/SaveDraftData", SaveDraftDataRoutes);
