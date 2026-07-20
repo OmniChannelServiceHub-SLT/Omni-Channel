@@ -17,6 +17,8 @@ const changePasswordRoutes = require("./Account/ChangePassword/routes/changePass
 const authOpenFTTHLoginRoutes = require("./Account/AuthenticationOpenFTTHLogin/routes/authOpenFTTHLoginRoutes");
 const authFTTHAdminRoutes     = require("./Account/AuthenticationFTTHAdmin/routes/authFTTHAdminRoutes");
 const createFTTHAdminRoutes   = require("./Account/CreateFTTHAdmin/routes/createFTTHAdminRoutes");
+const postPushNotificationRoutes = require("./Account/PostPushNotification/routes/pushNotificationRoutes");
+
 //const updateUserInfoRoutes = require("./Account/POSTUpdateUserInfo/routes/updateUserInfoRoutes.js");
 const getPeoTVGOAccessTokenRoutes = require("./Account/GetPeoTVGOAccessToken/routes/getPeoTVGOAccessTokenRoutes");
 const getAlexaAccessTokenRoutes = require('./Account/GetAlexaAccessToken/routes/getAlexaAccessTokenRoutes');
@@ -227,10 +229,12 @@ const advertisementGetListRouter = require("./ISP_Direct/AdvertisementGetList/ro
 
 //verify
 const getVoiceUsageRouter =require("./verify/GETVoiceUsage/routes/getVoiceUsageRouter");
+const protectedResourceRoutes = require("./Verify/POSTProtectedResource/routes/protectedResourceRoutes.js");
 
 //VAS
 const profileRequestRoutes = require("./VAS/GETProfileRequest/routes/profileRequestRoutes.js");
 const vasProfileRoutes = require("./VAS/Getprofile/routes/profileRoutes");
+const getCustConfirmationRouter =require("./VAS/GetCustConfirmation/routes/getCustConfirmationRouter");
 
 
 //Voice
@@ -252,6 +256,7 @@ app.use("/tmf-api", changePasswordRoutes);
 app.use("/api/Account", authOpenFTTHLoginRoutes);
 app.use("/api/Account", authFTTHAdminRoutes);
 app.use("/api/Account", createFTTHAdminRoutes);
+app.use("/api/Account", postPushNotificationRoutes);
 app.use("/api/Account/UpdateUserInfo", updateUserInfoRoutes);
 app.use("/api/Account", getPeoTVGOAccessTokenRoutes);
 app.use("/tmf-api/customerManagement/v4",getPeoTVGOAccessTokenRoutes);
@@ -540,6 +545,7 @@ app.use("/api/isp-direct",advertisementGetListRouter);
 
 //verify
 app.use("/api/verify",getVoiceUsageRouter);
+app.use("/api/Verify/ProtectedResource", protectedResourceRoutes);
 
 //VAS
 app.use("/api/VAS/ProfileRequest", profileRequestRoutes);
@@ -548,6 +554,8 @@ app.use("/tmf-api/customerManagement/v4", vasProfileRoutes);
 
 //voice
 app.use("/tmf-api/voice/v4/CallForwardingRequest",callForwardingRequestRoutes);
+app.use("/api/VAS",getCustConfirmationRouter);
+
 //NewCon
 // NewCon - Draft Data Management
 app.use("/tmf-api/customerBillManagement/v5/SaveDraftData", SaveDraftDataRoutes);
