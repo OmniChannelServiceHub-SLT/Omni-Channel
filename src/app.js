@@ -17,6 +17,8 @@ const changePasswordRoutes = require("./Account/ChangePassword/routes/changePass
 const authOpenFTTHLoginRoutes = require("./Account/AuthenticationOpenFTTHLogin/routes/authOpenFTTHLoginRoutes");
 const authFTTHAdminRoutes     = require("./Account/AuthenticationFTTHAdmin/routes/authFTTHAdminRoutes");
 const createFTTHAdminRoutes   = require("./Account/CreateFTTHAdmin/routes/createFTTHAdminRoutes");
+const postPushNotificationRoutes = require("./Account/PostPushNotification/routes/pushNotificationRoutes");
+
 //const updateUserInfoRoutes = require("./Account/POSTUpdateUserInfo/routes/updateUserInfoRoutes.js");
 const getPeoTVGOAccessTokenRoutes = require("./Account/GetPeoTVGOAccessToken/routes/getPeoTVGOAccessTokenRoutes");
 const getAlexaAccessTokenRoutes = require('./Account/GetAlexaAccessToken/routes/getAlexaAccessTokenRoutes');
@@ -250,6 +252,7 @@ app.use("/tmf-api", changePasswordRoutes);
 app.use("/api/Account", authOpenFTTHLoginRoutes);
 app.use("/api/Account", authFTTHAdminRoutes);
 app.use("/api/Account", createFTTHAdminRoutes);
+app.use("/api/Account", postPushNotificationRoutes);
 app.use("/api/Account/UpdateUserInfo", updateUserInfoRoutes);
 app.use("/api/Account", getPeoTVGOAccessTokenRoutes);
 app.use("/tmf-api/customerManagement/v4",getPeoTVGOAccessTokenRoutes);
