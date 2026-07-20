@@ -236,6 +236,10 @@ const profileRequestRoutes = require("./VAS/GETProfileRequest/routes/profileRequ
 const vasProfileRoutes = require("./VAS/Getprofile/routes/profileRoutes");
 const getCustConfirmationRouter =require("./VAS/GetCustConfirmation/routes/getCustConfirmationRouter");
 
+
+//Voice
+const callForwardingRequestRoutes = require("./Voice/GETCallForwardingRequest/routes/callForwardingRequestRoutes");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -547,6 +551,9 @@ app.use("/api/Verify/ProtectedResource", protectedResourceRoutes);
 app.use("/api/VAS/ProfileRequest", profileRequestRoutes);
 app.use("/api/vas", vasProfileRoutes);
 app.use("/tmf-api/customerManagement/v4", vasProfileRoutes);
+
+//voice
+app.use("/tmf-api/voice/v4/CallForwardingRequest",callForwardingRequestRoutes);
 app.use("/api/VAS",getCustConfirmationRouter);
 
 //NewCon
