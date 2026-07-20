@@ -227,6 +227,7 @@ const advertisementGetListRouter = require("./ISP_Direct/AdvertisementGetList/ro
 
 //verify
 const getVoiceUsageRouter =require("./verify/GETVoiceUsage/routes/getVoiceUsageRouter");
+const protectedResourceRoutes = require("./Verify/POSTProtectedResource/routes/protectedResourceRoutes.js");
 
 //VAS
 const profileRequestRoutes = require("./VAS/GETProfileRequest/routes/profileRequestRoutes.js");
@@ -537,6 +538,7 @@ app.use("/api/isp-direct",advertisementGetListRouter);
 
 //verify
 app.use("/api/verify",getVoiceUsageRouter);
+app.use("/api/Verify/ProtectedResource", protectedResourceRoutes);
 
 //VAS
 app.use("/api/VAS/ProfileRequest", profileRequestRoutes);
