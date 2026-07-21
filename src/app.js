@@ -171,7 +171,7 @@ const checkExistCustomerRoutes = require("./NewCon/GETCheckExistCustomer/routes/
 
 // YouTube 
 const packageActivationRoutes = require("./YouTube/PackageActivation(OMNIExpose)/routes/packageActivation.routes");
-
+const checkOfferAvailabilityRoutes = require("./YouTube/CheckOfferAvailability/routes/checkOfferAvailabilityRoutes");
 // YouTube Offer
 const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRoutes");
 
@@ -357,7 +357,7 @@ app.use("/tmf-api/customerBillManagement/v5", ebillStatusRequest);
 
 // YouTube
 app.use("/omniexpose", packageActivationRoutes);
-
+app.use("/api/TimelyPay/checkofferavailability",checkOfferAvailabilityRoutes);
 
 // New Connection (Catalog)
 const productOfferingPriceRoutes = require("./NewCon/GetIniationNewConCharges/routes/productOfferingPriceRoutes.js");
