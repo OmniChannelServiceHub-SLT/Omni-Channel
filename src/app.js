@@ -63,8 +63,6 @@ const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferi
 const dashboardRoutes = require("./BBVAS/GetExtraGBDashboard/routes/dashboardRoutes.js");
 const DataTransferAmountRoute = require("./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js");
 const TransferDataRoutes = require("./BBVAS/PostTransferData/routes/transferDataRoutes.js");
-
-
 const ValidateDataTransferRoutes = require("./BBVAS/GETValidateDataTransferSub/routes/validateDataTransferRoutes.js");
 const UpgradeLoyaltyRoutes = require("./BBVAS/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
 const getDashboardVASBundlesRoutes = require("./BBVAS/GetDashboardVASBundles/routes/dashboardVASBundlesRoutes");
@@ -152,7 +150,6 @@ const extraGBRoutes   = require("./Dashboard/ExtraGB/routes/extraGBRoutes");
 const freeDataRoutes  = require("./Dashboard/FreeData/routes/freeDataRoutes");
 const bonusDataRoutes = require("./Dashboard/BonusData/routes/bonusDataRoutes");
 
-
 //HealthCheck
 const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
 const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/notificationDetailRoutes")
@@ -205,7 +202,6 @@ const POSTExGBPurchasePostpaid = require("./ISP_SOA/POSTExGBPurchasePostpaid/rou
 const getAdvancedReportingPackages = require("./ISP_SOA/GETAdvancedReportingPackages/routes/getAdvancedReportingPackages.routes.js");
 const purchaseAdvancedReporting = require("./ISP_SOA/POSTpurchaseAdvancedReporting/routes/purchaseAdvancedReporting.routes.js");
 
-
 //ISP_Direct
 const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedReportsPostPaid/routes/purchaseAdvancedReportsRouter");
 const isp_direct_transferDataRouter =require("./ISP_Direct/TransferData/routes/transferDataRouter");
@@ -233,7 +229,6 @@ const protectedResourceRoutes = require("./Verify/POSTProtectedResource/routes/p
 const profileRequestRoutes = require("./VAS/GETProfileRequest/routes/profileRequestRoutes.js");
 const vasProfileRoutes = require("./VAS/Getprofile/routes/profileRoutes");
 const getCustConfirmationRouter =require("./VAS/GetCustConfirmation/routes/getCustConfirmationRouter");
-
 
 //Voice
 const callForwardingRequestRoutes = require("./Voice/GETCallForwardingRequest/routes/callForwardingRequestRoutes");
