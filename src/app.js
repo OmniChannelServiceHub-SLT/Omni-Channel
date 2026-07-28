@@ -2,7 +2,6 @@
 const cors = require("cors");
 const authMiddleware = require("./middleware/authMiddleware"); // Import the middleware
 
-
 const app = express(); 
 
 // Import Routes           
@@ -28,7 +27,6 @@ const checkCallForwardingRoutes = require('./Account/GETCheckCallForwardingStatu
 //BBVAS
 const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
 const getVASDataBundlePackagesRoutes = require("./BBVAS/GetVASDataBundlePackages/routes/getVASDataBundlePackages.routes");
-
 
 const PurchaseAdvancedReportsPrepaidInitRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidInit/routes/purchaseAdvancedReportsPrepaidInit.routes");
 const PurchaseAdvancedReportsPrepaidConfirmRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidConfirm/routes/purchaseAdvancedReportsPrepaidConfirm.routes");
@@ -438,7 +436,6 @@ app.use("/api/notifications", postPushNotifications); //uses TMF681
 
 //BB package Upgrade
 app.use('/tmf-api/productOfferingQualification/v4', getBBpackageList); //uses TMF620
-
 
 //BBExternal
 // app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
