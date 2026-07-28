@@ -289,10 +289,7 @@ app.use("/tmf-api/productOrdering/v4/productOrder", productOrderRoutes);
 app.use("/tmf-api/dataGift/v1", validateDataGiftRoutes);
 app.use("/", vasRoutes);
 app.use("/tmf-api/ServiceActivationAndConfiguration/v4", serviceRoutes);
-app.use(
-  "/tmf-api/productOrdering/v4",
-  require("./BBVAS/DataGiftEnroll/routes/dataGiftEnroll.routes")
-);
+app.use("/tmf-api/productOrdering/v4",require("./BBVAS/DataGiftEnroll/routes/dataGiftEnroll.routes"));
 app.use("/tmf-api/usageManagement/v4", usageRoutes);
 app.use("/tmf-api", contactRoutes);
 app.use("/tmf-api/reportManagement/v5", reportTimePeriodRoutes);
