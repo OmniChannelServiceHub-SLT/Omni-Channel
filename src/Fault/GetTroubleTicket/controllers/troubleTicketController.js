@@ -1,4 +1,4 @@
-const FaultRequestV2 = require("../../CreateFaultRequestV2/models/FaultRequestV2");
+const TroubleTicket = require('../../../models/TMF621_TroubleTicket');
 const mongoose = require("mongoose");
 
 // exports.getTicketByTelephone = async (req, res) => {
@@ -49,7 +49,7 @@ const mongoose = require("mongoose");
 exports.getTicketById = async (req, res) => {
   const ticketId = req.params.id;
   try {
-    const ticket = await FaultRequestV2.findOne({ id: ticketId }).lean();
+    const ticket = await TroubleTicket.findOne({ id: ticketId }).lean();
     if (!ticket) return res.status(404).json({ message: 'Trouble ticket not found' });
     return res.json(ticket);
   } catch (err) {
