@@ -153,20 +153,22 @@ const NotificationDetail = require("./HealthCheck/NotificationDeatail/routes/not
 //Ebill
 const ebillStatusRequest = require("./eBill/eBillStatusRequest/routes/eBillStatusRoute.js");
 
+
 //NewCon
 const uploadMultipartSinglev2 = require("./NewCon/PostUploadMultipartSingleV2/routes/uploadMultipart.routes.js")
 const uploadSingle = require("./NewCon/PostUploadSingle/routes/uploadSingle.routes.js")
 const voicePackageRoutes = require("./NewCon/GETGetVOICEPackageInterim/routes/voicePackageRoutes");
-
 const generateFTTHSecreatCode = require("./NewCon/PostGenerateFTTHSecreatCode/routes/ftthOrder.routes.js")
 const ossLoopReservationRoutes = require("./NewCon/POSTOSSLoopReservation/routes/ossLoopReservationRoutes");
 const checkExistCustomerRoutes = require("./NewCon/GETCheckExistCustomer/routes/checkExistCustomerRoutes");
+
 
 // YouTube 
 const packageActivationRoutes = require("./YouTube/PackageActivation(OMNIExpose)/routes/packageActivation.routes");
 const checkOfferAvailabilityRoutes = require("./YouTube/CheckOfferAvailability/routes/checkOfferAvailabilityRoutes");
 // YouTube Offer
 const youtubeOfferRoutes = require("./Youtube/YouTubeOffer/routes/youtubeOfferRoutes");
+
 
 //ISP_SOA
 const previousMonthsDailyUsageRoutes = require("./ISP_SOA/GETPreviousMonthsDailyUsage/routes/previousMonthsDailyUsageRoutes.js");
@@ -198,6 +200,7 @@ const POSTExGBPurchasePostpaid = require("./ISP_SOA/POSTExGBPurchasePostpaid/rou
 const getAdvancedReportingPackages = require("./ISP_SOA/GETAdvancedReportingPackages/routes/getAdvancedReportingPackages.routes.js");
 const purchaseAdvancedReporting = require("./ISP_SOA/POSTpurchaseAdvancedReporting/routes/purchaseAdvancedReporting.routes.js");
 
+
 //ISP_Direct
 const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedReportsPostPaid/routes/purchaseAdvancedReportsRouter");
 const isp_direct_transferDataRouter =require("./ISP_Direct/TransferData/routes/transferDataRouter");
@@ -217,14 +220,17 @@ const bbUsageRequestRoutes = require("./VAS/POSTBBUsageRequest/routes/bbUsageReq
 const protocolReportRouter = require("./ISP_Direct/GETProtocolReport/routes/protocolReportRouter");
 const advertisementGetListRouter = require("./ISP_Direct/AdvertisementGetList/routes/advertisementGetListRouter");
 
+
 //verify
 const getVoiceUsageRouter =require("./verify/GETVoiceUsage/routes/getVoiceUsageRouter");
 const protectedResourceRoutes = require("./Verify/POSTProtectedResource/routes/protectedResourceRoutes.js");
+
 
 //VAS
 const profileRequestRoutes = require("./VAS/GETProfileRequest/routes/profileRequestRoutes.js");
 const vasProfileRoutes = require("./VAS/Getprofile/routes/profileRoutes");
 const getCustConfirmationRouter =require("./VAS/GetCustConfirmation/routes/getCustConfirmationRouter");
+
 
 //Voice
 const callForwardingRequestRoutes = require("./Voice/GETCallForwardingRequest/routes/callForwardingRequestRoutes");
