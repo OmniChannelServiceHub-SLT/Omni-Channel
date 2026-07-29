@@ -2,7 +2,6 @@
 const cors = require("cors");
 const authMiddleware = require("./middleware/authMiddleware"); // Import the middleware
 
-
 const app = express(); 
 
 // Import Routes           
@@ -25,11 +24,10 @@ const getAlexaAccessTokenRoutes = require('./Account/GetAlexaAccessToken/routes/
 const updateUserInfoRoutes = require('./Account/UpdateUserInfo/routes/updateUserInfoRoutes');
 const getUserInfoRoutes = require('./Account/GetUserInfo/routes/getUserInfoRoutes');
 const checkCallForwardingRoutes = require('./Account/GETCheckCallForwardingStatus/routes/checkCallForwardingRoutes');
+
 //BBVAS
 const validateBBPurchaseRequestRoutes = require("./BBVAS/ValidateBBPurchaseRequest/routes/validateBBPurchaseRequest.routes");
 const getVASDataBundlePackagesRoutes = require("./BBVAS/GetVASDataBundlePackages/routes/getVASDataBundlePackages.routes");
-
-
 const PurchaseAdvancedReportsPrepaidInitRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidInit/routes/purchaseAdvancedReportsPrepaidInit.routes");
 const PurchaseAdvancedReportsPrepaidConfirmRoutes = require("./BBVAS/PurchaseAdvancedReportsPrepaidConfirm/routes/purchaseAdvancedReportsPrepaidConfirm.routes");
 const enhancedCurrentDailyUsageRoutes = require("./BBVAS/EnhancedCurrentDailyUsage/routes/EnhancedCurrentDailyUsageRoutes");
@@ -65,8 +63,6 @@ const poqRoutes = require("./BBVAS/GetExtraGBPackagesMobile/routes/productOfferi
 const dashboardRoutes = require("./BBVAS/GetExtraGBDashboard/routes/dashboardRoutes.js");
 const DataTransferAmountRoute = require("./BBVAS/DataTransferAmount/routes/dataTransferRoutes.js");
 const TransferDataRoutes = require("./BBVAS/PostTransferData/routes/transferDataRoutes.js");
-
-
 const ValidateDataTransferRoutes = require("./BBVAS/GETValidateDataTransferSub/routes/validateDataTransferRoutes.js");
 const UpgradeLoyaltyRoutes = require("./BBVAS/PUTUpgradeLoyalty/routes/upgradeLoyaltyRoutes.js");
 const getDashboardVASBundlesRoutes = require("./BBVAS/GetDashboardVASBundles/routes/dashboardVASBundlesRoutes");
@@ -99,8 +95,9 @@ const productInventoryRoutes = require("./PEOVAS/CustomerValidation_malsha/produ
 const purchasedProductRoutes = require("./PEOVAS/PostPurchasedProduct/route/purchasedProductroutes.js");
 const getPurchasedProductsRoutes = require("./PEOVAS/GetPurchasedProducts/routes/getPurchasedProductsroutes.js");
 const serviceInventoryRoutes = require("./PEOVAS/CheckOmniTP/serviceInventoryRoutes.js");
-
 const verifyOTPRoutes = require("./PEOVAS/POST VerifyOTPRequest/routes/verifyOTPRoutes.js");
+
+
 
 //Notifications
 const getPopupMessageBanner = require("./Notifications/GetPopupMessageBanner/routes/popupMessage.routes.js");
@@ -114,6 +111,7 @@ const packageActivationSOARoutes = require(
   "./TimelyPay/POSTPackageActivationSOA/routes/packageActivationSOARoutes"
 );
 
+
 //BBExternal
 // const bbExternalGetPackagesV2 = require('./BBExternal/GetBBPackagesV2/routes/productOffering.routes');
 // const getBBPackageDetails = require('./BBExternal/GetBBPackageDetails/routes/getBBPackageDetails.routes');
@@ -123,14 +121,8 @@ const getCurrentBBPackageV2 = require('./BBExternal/GetCurrentBBPackageV2/routes
 //Prepaid 
 const dataGiftEnrollInit = require('./Prepaid/DataGiftEnrollInit/routes/dataGiftEnrollInit.routes.js')
 const dataGiftEnrolInitConfirm = require('./Prepaid/DataGiftEnrollPrepaid-confirm/routes/purchaseRoutes.js')
-const vasBundleConfirmRoutes = require(
-  "./Prepaid/POSTAdd VAS Data Bundle - Prepaid Confirm/routes/vasBundleConfirm.routes"
-);
-
-const unsubscribeAdvancedReportsRoutes = require(
-  "./Prepaid/POSTUnsubscribeAdvancedReports/routes/unsubscribeAdvancedReports.routes"
-);
-
+const vasBundleConfirmRoutes = require("./Prepaid/POSTAdd VAS Data Bundle - Prepaid Confirm/routes/vasBundleConfirm.routes");
+const unsubscribeAdvancedReportsRoutes = require("./Prepaid/POSTUnsubscribeAdvancedReports/routes/unsubscribeAdvancedReports.routes");
 const ExtraGBPurchasePrepaidRoutes = require("./Prepaid/ExGBPurchasePrepaidInit/extraGBRoutes.js");
 const prepaidOrderRoutes = require("./PrePaid/POST PurchasedAdvancedReports-Prepaid-Init/routes/productOrderRoutes.js");
 
@@ -153,7 +145,6 @@ const addonsDashboardRoutes = require("./Dashboard/GetAddonsDashboard/routes/add
 const extraGBRoutes   = require("./Dashboard/ExtraGB/routes/extraGBRoutes");
 const freeDataRoutes  = require("./Dashboard/FreeData/routes/freeDataRoutes");
 const bonusDataRoutes = require("./Dashboard/BonusData/routes/bonusDataRoutes");
-
 
 //HealthCheck
 const HealthCheck = require("./HealthCheck/HealthCheckRequest/routes/healthCheckRoutes");
@@ -207,7 +198,6 @@ const POSTExGBPurchasePostpaid = require("./ISP_SOA/POSTExGBPurchasePostpaid/rou
 const getAdvancedReportingPackages = require("./ISP_SOA/GETAdvancedReportingPackages/routes/getAdvancedReportingPackages.routes.js");
 const purchaseAdvancedReporting = require("./ISP_SOA/POSTpurchaseAdvancedReporting/routes/purchaseAdvancedReporting.routes.js");
 
-
 //ISP_Direct
 const purchaseAdvancedReportsRouter =require("./ISP_Direct/PurchaseAdvancedReportsPostPaid/routes/purchaseAdvancedReportsRouter");
 const isp_direct_transferDataRouter =require("./ISP_Direct/TransferData/routes/transferDataRouter");
@@ -235,7 +225,6 @@ const protectedResourceRoutes = require("./Verify/POSTProtectedResource/routes/p
 const profileRequestRoutes = require("./VAS/GETProfileRequest/routes/profileRequestRoutes.js");
 const vasProfileRoutes = require("./VAS/Getprofile/routes/profileRoutes");
 const getCustConfirmationRouter =require("./VAS/GetCustConfirmation/routes/getCustConfirmationRouter");
-
 
 //Voice
 const callForwardingRequestRoutes = require("./Voice/GETCallForwardingRequest/routes/callForwardingRequestRoutes");
@@ -438,7 +427,6 @@ app.use("/api/notifications", postPushNotifications); //uses TMF681
 
 //BB package Upgrade
 app.use('/tmf-api/productOfferingQualification/v4', getBBpackageList); //uses TMF620
-
 
 //BBExternal
 // app.use('/tmf-api/BBExternal/GetBBPackagesV2',bbExternalGetPackagesV2);
